@@ -9,7 +9,7 @@ export class Route {
 
   color: string = '';
 
-  opacity: number = 0;
+  opacity: number = 1;
 
   mode: string = '';
 
@@ -38,7 +38,6 @@ const routes: Route[] = [{
     [40.753889, -73.981389],
     'Brooklyn Bridge,New York,NY',
   ],
-
 }];
 
 @Injectable()

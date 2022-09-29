@@ -1,6 +1,4 @@
-import { NgModule, Component, enableProdMode } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { DxMapModule, DxSelectBoxModule } from 'devextreme-angular';
+import { Component, enableProdMode } from '@angular/core';
 
 import { Marker, Route, Service } from './app.service';
 
