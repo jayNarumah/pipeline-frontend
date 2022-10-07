@@ -17,7 +17,9 @@ export class BarcodeComponent implements AfterViewInit {
   }
 
   onValueChanges(result: any) {
+    console.log("Value:")
     this.barcodeValue = result.codeResult.code;
+
   }
 
   onStarted(started: any) {
