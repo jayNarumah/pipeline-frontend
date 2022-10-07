@@ -6,17 +6,21 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
+import { BarcodeComponent } from './barcode/barcode.component';
+import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    BarcodeComponent
   ],
   imports: [
     BrowserModule,
+    BarcodeScannerLivestreamModule,
     DxMapModule,
     DxSelectBoxModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
