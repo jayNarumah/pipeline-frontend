@@ -2,6 +2,11 @@
 <div class="options">
     <div class="caption">Options</div>
     <div class="option">
+      <span>Pipeline</span>
+      <dx-select-box [dataSource]="pipelines" valueExpr="pipeline_routes"  displayExpr="name" value="blue" (onValueChanged)="selectPipeline($event)" >
+      </dx-select-box>
+      </div>
+      <div class="option">
       <span>Set mode</span>
         <dx-select-box [dataSource]="['driving', 'walking']" value="driving" (onValueChanged)="setMode($event)"></dx-select-box>
     </div>

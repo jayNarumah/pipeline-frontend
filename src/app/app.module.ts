@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DxMapModule, DxSelectBoxModule } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +19,8 @@ import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    NgSelectModule,
     BarcodeScannerLivestreamModule,
     DxMapModule,
     DxSelectBoxModule,
