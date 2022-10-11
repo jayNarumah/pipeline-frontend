@@ -1,5 +1,7 @@
 import { Component, enableProdMode, OnInit } from '@angular/core';
 import { PipelineEndpoint } from 'api/endpoint/pipeline.endpoint';
+import { PipelineRoute } from 'api/resource/pipeline-route.model';
+import { RouteLoc } from 'api/resource/pipeline-loc.model';
 import { Pipeline } from 'api/resource/pipeline.model';
 import { Marker, Route, MapService } from './map.service';
 
@@ -17,6 +19,7 @@ if (!/localhost/.test(document.location.host)) {
 export class MapComponent implements OnInit {
   routes: Route[];
   pipelines: Pipeline[] = []
+  pipelineData: RouteLoc[] = [];
 
   markers: Marker[];
 
@@ -51,6 +54,15 @@ export class MapComponent implements OnInit {
     });
   }
   selectPipeline(e: any) {
-console.log('Event:', e.value)
+    // console.log('Event:', e.value);
+    e.value.forEach((currentValue: any, index: number) => {
+      this.pipelineData.push({lat: currentValue.lat, lng: currentValue.long})
+
+    });
+    this.routes = this.routes.map((item) => {
+      item.locations = this.pipelineData
+      console.log('Data',this.pipelineData)
+      return item;
+    });
   }
 }

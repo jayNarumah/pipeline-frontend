@@ -34,6 +34,7 @@ const routes: Route[] = [{
   mode: '',
   locations: [
     [40.782500, -73.966111],
+    {lat: 40.782501, lng: -73.966112},
     [40.755833, -73.986389],
     [40.753889, -73.981389],
     'Brooklyn Bridge,New York,NY',
