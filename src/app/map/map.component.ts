@@ -54,8 +54,10 @@ export class MapComponent implements OnInit {
     });
   }
   selectPipeline(e: any) {
+    // this.pipelineData = [];
+    this.pipelineData.splice(0, this.pipelineData.length);
     // console.log('Event:', e.value);
-    e.value.forEach((currentValue: any, index: number) => {
+    e.value.forEach((currentValue: any  ) => {
       this.pipelineData.push({lat: currentValue.lat, lng: currentValue.long})
 
     });
@@ -64,5 +66,23 @@ export class MapComponent implements OnInit {
       console.log('Data',this.pipelineData)
       return item;
     });
+  }
+
+  allRoutes() {
+    this.pipelineData.splice(0, this.pipelineData.length);
+    this.pipelines.forEach((currentValue: any  ) => {
+      currentValue.pipeline_routes.forEach((pipelineRoute: any  ) => {
+        // console.log(pipelineRoute)
+        this.pipelineData.push({lat: pipelineRoute.lat, lng: pipelineRoute.long})
+
+    });
+    });
+
+    this.routes = this.routes.map((item) => {
+      item.locations = this.pipelineData
+      console.log('Data',this.pipelineData)
+      return item;
+    });
+    // console.log(this.pipelineData)
   }
 }
