@@ -85,4 +85,34 @@ export class MapComponent implements OnInit {
     });
     // console.log(this.pipelineData)
   }
+
+  allPipelines() {
+
+    this.pipelineData.splice(0, this.pipelineData.length);
+    this.routes.splice(0, this.routes.length);
+    this.pipelines.forEach((currentValue: any  ) => {
+      currentValue.pipeline_routes.forEach((pipelineRoute: any  ) => {
+        // console.log(pipelineRoute)
+        this.pipelineData.push({lat: pipelineRoute.lat, lng: pipelineRoute.long})
+
+    });
+    });
+
+    this.routes.push(
+      {
+        weight: 6,
+        color: 'blue',
+        opacity: 0.5,
+        mode: '',
+        locations: this.pipelineData,
+      }
+    );
+
+    this.routes = this.routes.map((item) => {
+      item.locations = this.pipelineData
+      console.log('Data',this.pipelineData)
+      return item;
+    });
+    // console.log(this.pipelineData)
+  }
 }
