@@ -3,12 +3,10 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import Swal from 'sweetalert2';
 
-import { PipelineRouteEndpoint } from 'app/api/endpoints/pipeline-route.endpoint';
 import { PipelineTypeEndpoint } from 'app/api/endpoints/pipeline-type.endpoint';
 import { PipelineEndpoint } from 'app/api/endpoints/pipeline.endpoint';
 import { Company } from 'app/api/models/company.model';
 import { Pipeline } from 'app/api/models/pipeline.model';
-import { PipelineType } from 'app/api/models/pipeline-type.model';
 import { PipelineRoute } from 'app/api/models/pipeline-route.model';
 import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
 import { MapService, Marker, Route } from 'app/api/services/map.service';
@@ -26,24 +24,27 @@ export class PipelineComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
 
   pipelineForm: FormGroup;
-  displaySectionForm = false;
-  displayMap = false;
-  formRequestData: Pipeline;
+  operation = 'Add';
   id?: number;
   num: number;
+
   routes: Route[];
   markers: Marker[];
   pipelineData: RouteLoc[] = [];
-
-  canShowPipelineForm = true;
-  canShowConfirmationForm = false;
-  canSubmitPipelineForm = false;
   pipelines: Pipeline[] = [];
   companies: Company[] = [];
   pipelineType = [];
   pipelineRoute: PipelineRoute[] = [];
+  formRequestData: Pipeline;
   data: Pipeline[] = [];
-  operation = 'Add';
+  routesData: RouteLoc[] = [];
+
+  canShowConfirmationForm = false;
+  canSubmitPipelineForm = false;
+  canShowPipelineForm = true;
+  displaySectionForm = false;
+  displayMap = false;
+  
 
   latRange(control: FormControl): { [s: string]: boolean } {
     if (control.value < -90 || control.value > 90) {
@@ -64,6 +65,30 @@ export class PipelineComponent implements OnInit {
     //   return { 'DuplicateRoute': true};
     // }
     return null;
+  }
+
+  isUnique(route: RouteLoc){
+    this.data.forEach((currentValue: any  ) => {
+      currentValue.pipeline_routes.forEach((crrntValue: any) => {
+        if (route.lat === crrntValue.lat && route.lng === crrntValue.long) {
+          return true;
+        }
+        else {
+          return false;
+        }
+        return null;
+    });
+
+    });
+  }
+
+  allRoutes() {
+    this.data.forEach((currentValue: any  ) => {
+      currentValue.pipeline_routes.forEach((crrntValue: any) => {
+        this.routesData.push({ lat: crrntValue.lat, lng: crrntValue.long });
+    });
+
+    });
   }
 
   constructor(
@@ -126,6 +151,7 @@ export class PipelineComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.data = response.data;
+          this.allRoutes();
           this.blockUI.stop();
         },
         error: (error) => this.blockUI.stop(),
@@ -137,7 +163,7 @@ export class PipelineComponent implements OnInit {
           this.pipelineType = response.data;
           this.blockUI.stop();
         },
-        error: (error) => console.log(error),
+        error: (error) => this.blockUI.stop(),
       });
     
      this.companyEndPoint.list()
@@ -146,7 +172,7 @@ export class PipelineComponent implements OnInit {
           this.companies = response.data;
           this.blockUI.stop();
         },
-        error: (error) => console.log(error),
+        error: (error) => this.blockUI.stop(),
       });
   }
 
@@ -192,8 +218,6 @@ export class PipelineComponent implements OnInit {
       long: this.pipelineFormControls['long'].value,
     };
     this.formRequestData = formData;
-
-    console.warn(formData);
 
     setTimeout(() => this.showConfirmationForm(), 250);
   }
@@ -305,16 +329,13 @@ export class PipelineComponent implements OnInit {
 
     this.id = event.row.data.id;
 
-    // console.log('Event Data: ', pData.pipeline_routes)
     this.pipelineData.splice(0, this.pipelineData.length);
-    // console.log('Event:', e.value);
     pData.pipeline_routes.forEach((currentValue: any  ) => {
       this.pipelineData.push({lat: currentValue.lat, lng: currentValue.long})
 
     });
     this.routes = this.routes.map((item) => {
-      item.locations = this.pipelineData
-      console.log('Data',this.pipelineData)
+      item.locations = this.pipelineData;
       return item;
     });
   }

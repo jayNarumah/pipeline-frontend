@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
-import { Company } from 'app/api/models/company.model';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import Swal from 'sweetalert2';
+
+import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
+import { Company } from 'app/api/models/company.model';
 
 @Component({
   selector: 'app-company',
@@ -38,8 +39,9 @@ export class CompanyComponent implements OnInit {
       name: this.fb.control(null, [Validators.required]),
       address: this.fb.control(null, Validators.required),
       phone_number: this.fb.control(null, Validators.required),
-      email: this.fb.control(null, Validators.required),
+      email: this.fb.control(null, [Validators.required, Validators.email]),
     });
+    
     this.loadItem = this.loadItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
   }
@@ -75,7 +77,6 @@ export class CompanyComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.data = response.data;
-          console.log(this.data)
           this.blockUI.stop();
         },
         error: (error) => this.blockUI.stop(),

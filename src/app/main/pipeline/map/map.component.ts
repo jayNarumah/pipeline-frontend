@@ -33,8 +33,6 @@ export class MapComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.pipelines = response.data;
-          console.log('Error: ', this.pipelines)
-
         },
         error: (error) => console.log('Error: ', error),
       });
@@ -54,16 +52,13 @@ export class MapComponent implements OnInit {
     });
   }
   selectPipeline(e: any) {
-    // this.pipelineData = [];
     this.pipelineData.splice(0, this.pipelineData.length);
-    // console.log('Event:', e.value);
     e.value.forEach((currentValue: any  ) => {
       this.pipelineData.push({lat: currentValue.lat, lng: currentValue.long})
 
     });
     this.routes = this.routes.map((item) => {
       item.locations = this.pipelineData
-      console.log('Data',this.pipelineData)
       return item;
     });
   }
