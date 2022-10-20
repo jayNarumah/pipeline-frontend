@@ -30,6 +30,7 @@ export class PipelineComponent implements OnInit {
   displayMap = false;
   formRequestData: Pipeline;
   id?: number;
+  num: number;
   routes: Route[];
   markers: Marker[];
   pipelineData: RouteLoc[] = [];
@@ -55,6 +56,13 @@ export class PipelineComponent implements OnInit {
     if (control.value < -180 || control.value > 180) {
       return { 'invLong': true};
     }
+    return null;
+  }
+
+  uniqueRoute(control: FormControl): { [s: string]: boolean } {
+    // if (control.value < -180 || control.value > 180) {
+    //   return { 'DuplicateRoute': true};
+    // }
     return null;
   }
 
@@ -144,10 +152,18 @@ export class PipelineComponent implements OnInit {
         error: (error) => console.log(error),
       });
   }
+
+  deleteRoute() {
+    console.log('Gud');
+    (<FormArray>this.pipelineFormControls['lat']).removeAt(this.num);
+    (<FormArray>this.pipelineFormControls['long']).removeAt(this.num);
+    --this.num;
+  }
   
   addCoordinate() {
+    ++ this.num;
     const latControl = new FormControl(null, [Validators.required, this.latRange.bind(this)]);
-    const longControl = new FormControl(null, [Validators.required, this.longRange.bind(this)]);
+    const longControl = new FormControl(null, [Validators.required, this.longRange.bind(this), this.uniqueRoute.bind(this)]);
 
     (<FormArray>this.pipelineFormControls['lat']).push(latControl);
     (<FormArray>this.pipelineFormControls['long']).push(longControl);
@@ -321,6 +337,7 @@ export class PipelineComponent implements OnInit {
       if (result.value) {
         this.pipelineEndpoint.delete(event.row.data.id).subscribe(
           success => {
+            console.log("E:", success)
             this.data = this.data.filter(
               e => e.id !== event.row.data.id
             );
