@@ -208,7 +208,7 @@
                                                             <div class="col-6" formArrayName="lat">
                                                                 <div style="margin-bottom: 10px;" *ngFor="let route of pipelineFormControls['lat'].controls; let i = index">
                                                                     <input type="text" class="form-control" [formControlName]="i" placeholder="Latitude" />
-                                                                    {{i}}<div *ngIf="pipelineFormControls['lat'].invalid &&
+                                                                    <div *ngIf="pipelineFormControls['lat'].invalid &&
                                                                                                                                                                                         pipelineFormControls['lat'].touched"
                                                                         class="text-danger">
                                                                         <small *ngIf="pipelineFormControls['lat'].errors?.['required']">
@@ -220,7 +220,7 @@
                                                             <div class="col-6" formArrayName="long" >
                                                                 <div style="margin-bottom: 10px;" *ngFor="let route of pipelineFormControls['long'].controls; let i = index">
                                                                     <input type="text" class="form-control" [formControlName]="i" placeholder="Longitude" name="name" id="name" />
-                                                                    {{i}}<div *ngIf="pipelineFormControls['long'].invalid &&
+                                                                    <div *ngIf="pipelineFormControls['long'].invalid &&
                                                                                                                                         pipelineFormControls['long'].touched"
                                                                         class="text-danger">
                                                                         <small *ngIf="pipelineFormControls['long'].errors?.['required']">
@@ -338,42 +338,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-actions right">
-                                                    <h4 class="text-uppercase font-weight-bold">Section: Add Pipeline Routes</h4>
-                                                    
-                                                    <div class="row" style="margin: 10px;">
-                                                        <div class="col-6">
-                                                            <input type="text" class="form-control" formControlName="lat" placeholder="Latitude" />
-                                                            <div *ngIf="pipelineTypeFormControls['lat'].invalid &&
-                                                                pipelineTypeFormControls['lat'].touched"
-                                                                class="text-danger">
-                                                                <small *ngIf="pipelineTypeFormControls['lat'].errors?.['required']">
-                                                                    Latitude is required
-                                                                </small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <input type="text" class="form-control" formControlName="long" placeholder="Longitude" name="name"
-                                                                id="name" />
-                                                            <div *ngIf="pipelineTypeFormControls['long'].invalid &&
-                                                                                                                                                                                pipelineTypeFormControls['long'].touched"
-                                                                class="text-danger">
-                                                                <small *ngIf="pipelineTypeFormControls['long'].errors?.['required']">
-                                                                    Longitude is required
-                                                                </small>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <button type="button" (click)="editForm()" class="btn btn-outline-warning btn-sm mr-1" rippleEffect>
-                                                    <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
-                                                    <span class="align-middle d-sm-inline-block d-none">Cancel</span>
-                                                </button>
-                                                <button type="button" class="btn btn-primary btn-sm" rippleEffect (click)="processFormRequest()">
-                                                    <span class="align-middle d-sm-inline-block d-none">Add Pipeline-Route</span>
-                                                    <i data-feather="save" class="align-middle ml-sm-25 ml-0"></i>
-                                                </button>
                                                 <div class="form-actions right">
                                                     <button type="button" (click)="editForm()" class="btn btn-outline-warning btn-sm mr-1" rippleEffect>
                                                         <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
