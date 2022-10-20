@@ -207,24 +207,32 @@
                                                         <div class="row">
                                                             <div class="col-6" formArrayName="lat">
                                                                 <div style="margin-bottom: 10px;" *ngFor="let route of pipelineFormControls['lat'].controls; let i = index">
-                                                                    <input type="text" class="form-control" [formControlName]="i" placeholder="Latitude" />
+                                                                    <label for="end">Latitude({{ i }})</label>
+                                                                    <input type="number" class="form-control" [formControlName]="i" placeholder="Latitude" />
                                                                     <div *ngIf="pipelineFormControls['lat'].invalid &&
                                                                                                                                                                                         pipelineFormControls['lat'].touched"
                                                                         class="text-danger">
                                                                         <small *ngIf="pipelineFormControls['lat'].errors?.['required']">
                                                                             Latitude is required
                                                                         </small>
+                                                                        <small *ngIf="pipelineFormControls['long'].errors?.['invLong']">
+                                                                            Longitude value must be between -90 to 90
+                                                                        </small>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-6" formArrayName="long" >
                                                                 <div style="margin-bottom: 10px;" *ngFor="let route of pipelineFormControls['long'].controls; let i = index">
-                                                                    <input type="text" class="form-control" [formControlName]="i" placeholder="Longitude" name="name" id="name" />
+                                                                    <label for="end">Longitude({{ i }})</label>
+                                                                    <input type="number" class="form-control" [formControlName]="i" placeholder="Longitude" name="name" id="name" />
                                                                     <div *ngIf="pipelineFormControls['long'].invalid &&
                                                                                                                                         pipelineFormControls['long'].touched"
                                                                         class="text-danger">
                                                                         <small *ngIf="pipelineFormControls['long'].errors?.['required']">
                                                                             Longitude is required
+                                                                        </small>
+                                                                        <small *ngIf="pipelineFormControls['long'].errors?.['invLong']">
+                                                                            Longitude value must be between -180 to 180
                                                                         </small>
                                                                     </div>
                                                                 </div>

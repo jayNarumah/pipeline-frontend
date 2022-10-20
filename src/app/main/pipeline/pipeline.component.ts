@@ -146,8 +146,8 @@ export class PipelineComponent implements OnInit {
   }
   
   addCoordinate() {
-    const latControl = new FormControl(null, [Validators.required]);
-    const longControl = new FormControl(null, [Validators.required]);
+    const latControl = new FormControl(null, [Validators.required, this.latRange.bind(this)]);
+    const longControl = new FormControl(null, [Validators.required, this.longRange.bind(this)]);
 
     (<FormArray>this.pipelineFormControls['lat']).push(latControl);
     (<FormArray>this.pipelineFormControls['long']).push(longControl);
