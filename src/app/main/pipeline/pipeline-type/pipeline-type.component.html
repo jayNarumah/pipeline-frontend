@@ -1,0 +1,124 @@
+<div class="content-wrapper container-xxl p-0">
+    <!-- content header start -->
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <!-- content header end -->
+
+    <section id="card-demo-example">
+        <!-- / Probate Draft section start -->
+        <!-- Probate Draft section end -->
+
+        <!-- / Confirm draft Form section start -->
+        <div class="card" *ngIf="displaySectionForm">
+            <div class="card-body">
+                <section id="multiple-column-form">
+                    <div class="row match-height">
+                        <div class="col-12">
+                            <h4 class="text-uppercase font-weight-bold">
+                                Section: Pipeline Types
+                            </h4>
+                            <hr />
+                            <div class="card-body" *ngIf="!canShowConfirmationForm">
+                                <form class="form" role="form" [formGroup]="pipelineTypeForm">
+                                    <ul class="timeline">
+                                        <li class="timeline-item">
+                                            <span class="timeline-point timeline-point-indicator"></span>
+                                            <div class="timeline-event">
+                                                <div
+                                                    class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                                    <h4 class="text-primary">New Pipeline-Type Form</h4>
+                                                    <!-- <span class="timeline-event-time">Step - 2.</span> -->
+                                                    <p class="text-secondary">Pipeline-type Form</p>
+                                                    <!-- <span class="badge badge-pill badge-light-primary">Step - 2.</span> -->
+                                                </div>
+                                                <div class="border rounded shadow-sm pb-2 pt-2 px-2">
+                                                    <div class="form-body">
+                                                        
+                                                            <div class="col-6">
+                                                                <label for="name">Pipeline-Type Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="name" placeholder="Pipeline-Type Name"
+                                                                    name="name" id="name" />
+                                                                <div *ngIf=
+                                                                    "pipelineTypeFormControls['name'].invalid &&
+                                                                    pipelineTypeFormControls['name'].touched"
+                                                                    class="text-danger">
+                                                                    <small
+                                                                        *ngIf="pipelineTypeFormControls['name'].errors?.['required']">
+                                                                        Pipeline-Type name is required
+                                                                    </small>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-actions right mb-0 pb-0">
+                                                        <button type="button"
+                                                            class="btn btn-warning mr-1 btn-sm shadow-sm"
+                                                            (click)="cancel()">
+                                                            Cancel
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary btn-sm shadow-sm"
+                                                            [disabled]="pipelineTypeForm.invalid" rippleEffect
+                                                            (click)="processForm()">
+                                                            <span class="align-middle d-sm-inline-block d-none">{{
+                                                                operation == "Update" ? "Update" : "Save"
+                                                                }}</span>
+                                                            <i data-feather="save"
+                                                                class="align-middle ml-sm-25 ml-0"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- Confirm draft Form section end -->
+    </section>
+</div>
+
+<div class="content-wrapper container-xxl p-0" *ngIf="!displaySectionForm">
+    <div class="content-body">
+        <!-- Subject Form section end -->
+        <div class="card">
+            <div class="card-header">
+                <h4 class="float-left mb-0 font-weight-bolder">
+                    <strong>List of Records</strong>
+                </h4>
+                <div class="float-right border-radius-lg">
+                    <button class="btn btn-gradient-primary btn-sm" rippleEffect (click)="addItem()">
+                        <span class="fa fa-plus mr-1"></span>
+                        <span class="d-none d-sm-inline-block">Add Pipeline Type</span>
+                    </button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <dx-data-grid class="dx-card wide-card" [dataSource]="data" [showBorders]="true"
+                            [visible]="true" placeholder="Search..." [showColumnLines]="true" [showRowLines]="true"
+                            [rowAlternationEnabled]="true" keyExpr="id" [focusedRowEnabled]="true" [focusedRowIndex]="0"
+                            [columnAutoWidth]="true" [allowColumnReordering]="true" [allowColumnResizing]="true"
+                            [columnAutoWidth]="true" [columnHidingEnabled]="false">
+                            <dxo-paging [pageSize]="10"></dxo-paging>
+                            <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+                            <dxo-filter-row [visible]="true"></dxo-filter-row>
+                            <dxi-column dataField="name" caption="Pipeline-Type Name"></dxi-column>
+
+                            <dxi-column type="buttons" fixed="true">
+                                <dxi-button icon="edit" text="Edit" [onClick]="loadItem"></dxi-button>
+                                <dxi-button icon="trash" text="Delete" [onClick]="deleteItem">
+                                </dxi-button>
+                            </dxi-column>
+                        </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+            <!-- end box-body -->
+        </div>
+    </div>
+</div>
