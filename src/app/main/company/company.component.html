@@ -1,0 +1,242 @@
+<div class="content-wrapper container-xxl p-0">
+    <!-- content header start -->
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <!-- content header end -->
+
+    <section id="card-demo-example">
+        <!-- / Probate Draft section start -->
+        <!-- Probate Draft section end -->
+
+        <!-- / Confirm draft Form section start -->
+        <div class="card" *ngIf="displaySectionForm">
+            <div class="card-body">
+                <section id="multiple-column-form">
+                    <div class="row match-height">
+                        <div class="col-12">
+                            <h4 class="text-uppercase font-weight-bold">
+                                Section: Company
+                            </h4>
+                            <hr />
+                            <div class="card-body" *ngIf="!canShowConfirmationForm">
+                                <form class="form" role="form" [formGroup]="companyForm">
+                                    <ul class="timeline">
+                                        <li class="timeline-item">
+                                            <span class="timeline-point timeline-point-indicator"></span>
+                                            <div class="timeline-event">
+                                                <div
+                                                    class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                                    <h4 class="text-primary">New Company</h4>
+                                                    <!-- <span class="timeline-event-time">Step - 2.</span> -->
+                                                    <p class="text-secondary">Company Form</p>
+                                                    <!-- <span class="badge badge-pill badge-light-primary">Step - 2.</span> -->
+                                                </div>
+                                                <div class="border rounded shadow-sm pb-2 pt-2 px-2">
+                                                    <div class="form-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="name">Name</label><i
+                                                                        class="text-danger">*</i>
+                                                                    <input type="text" class="form-control" formControlName="name" placeholder="Name" />
+                                                                    <div *ngIf="
+                                      companyFormControls['name']
+                                        .invalid &&
+                                      companyFormControls['name']
+                                        .touched
+                                    " class="text-danger">
+                                                                        <small
+                                                                            *ngIf="companyFormControls['name'].errors?.['required']">Name is required!</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-6">
+                                                                <label for="name">Email</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="email"
+                                                                    placeholder="Email" />
+                                                                <div *ngIf="
+                                    companyFormControls['email']
+                                      .invalid &&
+                                    companyFormControls['email']
+                                      .touched
+                                  " class="text-danger">
+                                                                    <small
+                                                                        *ngIf="companyFormControls['email'].errors?.['required']">
+                                                                        Email is required
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="phone_number">Phone Number</label><i
+                                                                        class="text-danger">*</i>
+                                                                    <input type="text" class="form-control" formControlName="phone_number" placeholder="Phone Number" />
+                                                                    <div *ngIf="
+                                                                        companyFormControls['phone_number']
+                                                                        .invalid &&
+                                                                        companyFormControls['phone_number']
+                                                                        .touched
+                                                                        " class="text-danger">
+                                                                        <small
+                                                                            *ngIf="companyFormControls['phone_number'].errors?.['required']">Phone Number is required!</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="address">Address</label>
+                                                                <textarea class="form-control" formControlName="address" cols="30" rows="2"></textarea>
+                                                                <div *ngIf="
+                                    companyFormControls['address'].invalid &&
+                                    companyFormControls['address'].touched
+                                  " class="text-danger">
+                                                                    <small
+                                                                        *ngIf="companyFormControls['address'].errors?.['required']">
+                                                                        Address is required
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-actions right">
+                                                        <button (click)="hidForm()" type="button"
+                                                            class="btn btn-danger btn-sm mr-1" rippleEffect>
+                                                            <i data-feather="x" class="align-middle mr-sm-25 mr-0"></i>
+                                                            <span
+                                                                class="align-middle d-sm-inline-block d-none">Cancel</span>
+                                                        </button>
+                                                        <button type="button" (click)="processForm()"
+                                                            class="btn btn-outline-primary btn-sm"
+                                                            [disabled]="companyForm.invalid" rippleEffect>
+                                                            <span
+                                                                class="align-middle d-sm-inline-block d-none">Preview</span>
+                                                            <i data-feather="eye"
+                                                                class="align-middle ml-sm-25 ml-0"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                            <div class="card-body" *ngIf="canShowConfirmationForm">
+                                <ul class="timeline">
+                                    <li class="timeline-item">
+                                        <span class="timeline-point timeline-point-indicator"></span>
+                                        <div class="timeline-event">
+                                            <div
+                                                class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                                <h4 class="text-primary">Add Company Form.</h4>
+                                                <!-- <span class="timeline-event-time">Step - 2.</span> -->
+                                                <p class="text-secondary">Company – Confirmation</p>
+                                                <!-- <span class="badge badge-pill badge-light-primary">Step - 2.</span> -->
+                                            </div>
+                                            <div class="border rounded shadow-sm pb-2 pt-2 px-2">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon"
+                                                                class="form-label font-weight-bold text-primary">Company Name </label>
+                                                            <p>{{ formRequestData?.name }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon"
+                                                                class="form-label font-weight-bold text-primary">Email</label>
+                                                            <p>{{ formRequestData?.email }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon"
+                                                                class="form-label font-weight-bold text-primary">Phone Number</label>
+                                                            <p>{{ formRequestData?.phone_number }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon"
+                                                                class="form-label font-weight-bold text-primary">Address</label>
+                                                            <p>{{ formRequestData?.address }}</p>
+                                                        </div>
+                                                    </div>
+                            
+                                                </div>
+                                                <div class="form-actions right">
+                                                    <button type="button" (click)="editForm()"
+                                                        class="btn btn-outline-warning btn-sm mr-1" rippleEffect>
+                                                        <i data-feather="arrow-left"
+                                                            class="align-middle mr-sm-25 mr-0"></i>
+                                                        <span
+                                                            class="align-middle d-sm-inline-block d-none">Review</span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary btn-sm" rippleEffect
+                                                        (click)="processFormRequest()">
+                                                        <span class="align-middle d-sm-inline-block d-none">Submit
+                                                            Application</span>
+                                                        <i data-feather="save" class="align-middle ml-sm-25 ml-0"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- Confirm draft Form section end -->
+    </section>
+</div>
+
+<div class="content-wrapper container-xxl p-0" *ngIf="!displaySectionForm">
+    <!-- Data Grid start -->
+    <div class="card">
+        <!-- /.box-header -->
+        <div class="card-header">
+            <h4 class="text-uppercase font-weight-bold">Section: Company</h4>
+            <hr />
+            <div class="float-right rounded border-radius-lg">
+                <button class="btn btn-gradient-primary btn-sm ml-1" rippleEffect (click)="newRecord()">
+                    <span class="fa fa-plus mr-1"></span>
+                    <span class="d-none d-sm-inline-block">New Company</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-content collapse show">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <dx-data-grid class="dx-card wide-card" [dataSource]="data" [showBorders]="true" [visible]="true"
+                        placeholder="Search..." [showColumnLines]="true" [showRowLines]="true"
+                        [rowAlternationEnabled]="true" keyExpr="id" [focusedRowEnabled]="true" [focusedRowIndex]="0"
+                        [columnAutoWidth]="true" [allowColumnReordering]="true" [allowColumnResizing]="true"
+                        [columnAutoWidth]="true" [columnHidingEnabled]="false">
+                        <dxo-load-panel [enabled]="true"> </dxo-load-panel>
+                        <dxo-paging [pageSize]="10"></dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxi-column dataField="name" caption="Name">
+                        </dxi-column>
+                        <dxi-column dataField="phone_number" caption="Phone Number"></dxi-column>
+                        <dxi-column dataField="email" caption="Email"></dxi-column>
+                        <dxi-column type="buttons" fixed="true" caption="Actions">
+                            <dxi-button icon="edit" text="Edit" [onClick]="loadItem">
+                            </dxi-button>
+                            <dxi-button icon="trash" text="Delete" [onClick]="deleteItem">
+                            </dxi-button>
+                        </dxi-column>
+                    </dx-data-grid>
+                </div>
+            </div>
+        </div>
+        <!-- end box-body -->
+    </div>
+    <!-- Data Grid end-->
+</div>

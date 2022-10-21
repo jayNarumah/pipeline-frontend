@@ -1,0 +1,438 @@
+<div class="content-wrapper container-xxl p-0">
+    <!-- content header start -->
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <!-- content header end -->
+
+    <section id="card-demo-example">
+        <!-- / Probate Draft section start -->
+        <!-- Probate Draft section end -->
+
+        <!-- / Confirm draft Form section start -->
+        <div class="card" *ngIf="displaySectionForm">
+            <div class="card-body">
+                <section id="multiple-column-form">
+                    <div class="row match-height">
+                        <div class="col-12">
+                            <h4 class="text-uppercase font-weight-bold">
+                                Section: Pipeline
+                            </h4>
+                            <hr />
+                            <div class="card-body" *ngIf="!canShowConfirmationForm">
+                                <form class="form" role="form" [formGroup]="pipelineForm">
+                                    <ul class="timeline">
+                                        <li class="timeline-item">
+                                            <span class="timeline-point timeline-point-indicator"></span>
+                                            <div class="timeline-event">
+                                                <div
+                                                    class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                                    <h4 class="text-primary">New Pipeline</h4>
+                                                    <!-- <span class="timeline-event-time">Step - 2.</span> -->
+                                                    <p class="text-secondary">Pipeline Form</p>
+                                                    <!-- <span class="badge badge-pill badge-light-primary">Step - 2.</span> -->
+                                                </div>
+                                                <div class="border rounded shadow-sm pb-2 pt-2 px-2">
+                                                    <div class="form-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="membership_id">Company</label><i
+                                                                        class="text-danger">*</i>
+                                                                        <!-- <ng-select [(ngModel)]="selectedCar">
+                                                                            <ng-option *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>
+                                                                            </ng-select> -->
+                                                                    <ng-select [items]="companies" [ngClass]="{
+                                                                        'border-danger rounded':
+                                                                            pipelineFormControls['company_id']
+                                                                            .invalid &&
+                                                                            pipelineFormControls['company_id']
+                                                                            .touched
+                                                                        }" [addTag]="true" bindValue="id" bindLabel="name"
+                                                                        placeholder="Select Company"
+                                                                        formControlName="company_id"
+                                                                        >
+                                                                        <ng-template ng-label-tmp let-item="item"
+                                                                            let-clear="clear">
+                                                                            <span class="ng-value-label">
+                                                                                {{ item.name }}</span>
+                                                                            <span class="ng-value-icon right"
+                                                                                (click)="clear(item)"
+                                                                                aria-hidden="true">×</span>
+                                                                        </ng-template>
+                                                                    </ng-select>
+                                                                    <div *ngIf="
+                                                                        pipelineFormControls['company_id']
+                                                                        .invalid &&
+                                                                        pipelineFormControls['company_id']
+                                                                        .touched
+                                                                        " class="text-danger">
+                                                                        <small
+                                                                            *ngIf="pipelineFormControls['company_id'].errors?.['required']">This
+                                                                            field is required!</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="pipeline_type_id">Pipeline-Type</label><i class="text-danger">*</i>
+                                                                    <ng-select [items]="pipelineType" [ngClass]="{
+                                                                        'border-danger rounded':
+                                                                        pipelineFormControls['pipeline_type_id']
+                                                                        .invalid &&
+                                                                        pipelineFormControls['pipeline_type_id']
+                                                                            .touched
+                                                                        }" [addTag]="true" bindValue="id" bindLabel="name" placeholder="Select Pipeline-Type"
+                                                                        formControlName="pipeline_type_id">
+                                                                        <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                                                            <span class="ng-value-label">
+                                                                                {{ item.name }}</span>
+                                                                            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                                                        </ng-template>
+                                                                    </ng-select>
+                                                                    <div *ngIf="
+                                                                                                  pipelineFormControls['pipeline_type_id']
+                                                                                                    .invalid &&
+                                                                                                  pipelineFormControls['pipeline_type_id']
+                                                                                                    .touched
+                                                                                                " class="text-danger">
+                                                                        <small *ngIf="pipelineFormControls['pipeline_type_id'].errors?.['required']">Pipeline Type is required!</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="name">Pipeline Name</label><i
+                                                                        class="text-danger">*</i>
+                                                                    <input type="text" class="form-control" formControlName="name" placeholder="Pipeline Name" />
+                                                                    <div *ngIf="
+                                                                        pipelineFormControls['name']
+                                                                        .invalid &&
+                                                                        pipelineFormControls['name']
+                                                                        .touched
+                                                                        " class="text-danger">
+                                                                        <small
+                                                                            *ngIf="pipelineFormControls['name'].errors?.['required']">pipeline name is required!</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="size">Pipeline Size</label>
+                                                                <input type="number" class="form-control"
+                                                                    formControlName="size" placeholder="Pipeline Size"
+                                                                    name="size" id="size" />
+
+                                                                <div *ngIf="
+                                    pipelineFormControls['size'].invalid &&
+                                    pipelineFormControls['size'].touched
+                                  " class="text-danger">
+                                                                    <small
+                                                                        *ngIf="pipelineFormControls['size'].errors?.['required']">
+                                                                        Pipeline Size is required
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="start_lat">Start Latitude</label>
+                                                                <input type="number" class="form-control"
+                                                                    formControlName="start_lat" placeholder="Start Latitude"
+                                                                    name="start_lat" id="start_lat" />
+
+                                                                <div *ngIf="
+                                                                    pipelineFormControls['start_lat'].invalid &&
+                                                                    pipelineFormControls['start_lat'].touched
+                                                                    " class="text-danger">
+                                                                    <small
+                                                                        *ngIf="pipelineFormControls['start_lat'].errors?.['required']">
+                                                                        start latitude is required
+                                                                    </small>
+                                                                    <small *ngIf="pipelineFormControls['start_lat'].errors?.['invLat']">Latitude value must be between -90 to 90</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="end_lat">End Latitude</label>
+                                                                <input type="number" class="form-control"
+                                                                    formControlName="end_lat" placeholder="End Latitude"
+                                                                     />
+
+                                                                <div *ngIf="
+                                                                    pipelineFormControls['end_lat'].invalid &&
+                                                                    pipelineFormControls['end_lat'].touched
+                                                                    " class="text-danger">
+                                                                    <small
+                                                                        *ngIf="pipelineFormControls['end_lat'].errors?.['required']">
+                                                                        End Latitude is required
+                                                                    </small>
+                                                                    <small *ngIf="pipelineFormControls['end_lat'].errors?.['invLat']">Latitude value must be between -90 to 90</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="start_long">Start Long</label>
+                                                                <input type="number" class="form-control"
+                                                                    formControlName="start_long" placeholder="Start Longitude"
+                                                                    name="start_long" id="start_long" />
+
+                                                                <div *ngIf="
+                                                                    pipelineFormControls['start_long'].invalid &&
+                                                                    pipelineFormControls['start_long'].touched
+                                                                    " class="text-danger">
+                                                                    <small
+                                                                        *ngIf="pipelineFormControls['start_long'].errors?.['required']">
+                                                                        Start Longitude is required
+                                                                    </small>
+                                                                    <small *ngIf="pipelineFormControls['start_long'].errors?.['invLong']">Longitude value must be between -180 to 180</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="end">End Longitude</label>
+                                                                <input type="number" class="form-control" formControlName="end_long" placeholder="End Longitude" name="end_long"
+                                                                    id="end_long" />
+                                                            
+                                                                <div *ngIf="
+                                                                    pipelineFormControls['end_long'].invalid &&
+                                                                    pipelineFormControls['end_long'].touched
+                                                                    " class="text-danger">
+                                                                    <small *ngIf="pipelineFormControls['end_long'].errors?.['required']">
+                                                                        End Logitude is required
+                                                                    </small>
+                                                                    <small *ngIf="pipelineFormControls['end_long'].errors?.['invLong']">Longitude value must be between -180 to 180</small>
+                                                                    <small *ngIf="pipelineFormControls['end_long'].errors?.['DuplicateRoute']">Sorry, this route is already occupied</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-actions right" *ngIf="operation != 'Update'">
+                                                        <h4 class="text-uppercase font-weight-bold">Section: Add Pipeline Routes</h4>
+                                                    
+                                                        <div class="row">
+                                                            <div class="col-6" formArrayName="lat">
+                                                                <div style="margin-bottom: 7px;" *ngFor="let route of pipelineFormControls['lat'].controls; let i = index">
+                                                                    <input type="text" class="form-control" [formControlName]="i" placeholder="Latitude" />
+                                                                    <div *ngIf="
+                                                                                                                                        pipelineFormControls['lat'].invalid &&
+                                                                                                                                        pipelineFormControls['lat'].touched
+                                                                                                                                        " class="text-danger">
+                                                                        <small *ngIf="pipelineFormControls['lat'].errors?.['required']">
+                                                                            End Logitude is required
+                                                                        </small>
+                                                                        <small *ngIf="pipelineFormControls['lat'].errors?.['invLat']">Longitude value must be between -90 to
+                                                                            90</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6" formArrayName="long" >
+                                                                <div style="margin-bottom: 7px;" *ngFor="let route of pipelineFormControls['long'].controls; let i = index">
+                                                                    <input type="text" class="form-control" [formControlName]="i" placeholder="Longitude" name="name" id="name" />
+                                                                    <div *ngIf="
+                                                                                                                                        pipelineFormControls['long'].invalid &&
+                                                                                                                                        pipelineFormControls['long'].touched
+                                                                                                                                        " class="text-danger">
+                                                                        <small *ngIf="pipelineFormControls['long'].errors?.['required']">
+                                                                            End Logitude is required
+                                                                        </small>
+                                                                        <small *ngIf="pipelineFormControls['long'].errors?.['invLong']">Longitude value must be between -180 to
+                                                                            180</small>
+                                                                        <small *ngIf="pipelineFormControls['long'].errors?.['DuplicateRoute']">Sorry, this route is already
+                                                                            occupied</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <small class="text-danger" *ngIf="errorMsg">
+                                                                Sorry, Provided co-ordinate was already taken
+                                                            </small>
+                                                        </div>
+                                                            <button type="button" (click)="deleteRoute()" [disabled]="num < 1" class="btn btn-outline-warning btn-sm mr-1"
+                                                                rippleEffect *ngIf="index > 0">
+                                                                <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                                                                <span class="align-middle d-sm-inline-block d-none">Remove Pipeline-Route</span>
+                                                            </button>
+                                                        <button type="button" class="btn btn-primary btn-sm" rippleEffect (click)="addCoordinate()" [disabled]="pipelineFormControls['lat'].invalid && pipelineFormControls['long'].invalid">
+                                                            <span class="align-middle d-sm-inline-block d-none">Add Pipeline-Route</span>
+                                                            <i data-feather="save" class="align-middle ml-sm-25 ml-0"></i>
+                                                        </button>
+                                                    
+                                                    </div>
+                                                    
+                                                    
+                                                    <div class="form-actions right">
+                                                        <button (click)="hideForm()" type="button"
+                                                            class="btn btn-danger btn-sm mr-1" rippleEffect>
+                                                            <i data-feather="x" class="align-middle mr-sm-25 mr-0"></i>
+                                                            <span
+                                                                class="align-middle d-sm-inline-block d-none">Cancel</span>
+                                                        </button>
+                                                        <button type="button" (click)="processForm()"
+                                                            class="btn btn-outline-primary btn-sm"
+                                                            [disabled]="pipelineForm.invalid" rippleEffect>
+                                                            <span
+                                                                class="align-middle d-sm-inline-block d-none">Preview</span>
+                                                            <i data-feather="eye"
+                                                                class="align-middle ml-sm-25 ml-0"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                            <div class="card-body" *ngIf="canShowConfirmationForm">
+                                <ul class="timeline">
+                                    <li class="timeline-item">
+                                        <span class="timeline-point timeline-point-indicator"></span>
+                                        <div class="timeline-event">
+                                            <div
+                                                class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                                <h4 class="text-primary">Add Pipeline Form.</h4>
+                                                <!-- <span class="timeline-event-time">Step - 2.</span> -->
+                                                <p class="text-secondary">Pipeline – Confirmation</p>
+                                                <!-- <span class="badge badge-pill badge-light-primary">Step - 2.</span> -->
+                                            </div>
+                                            <div class="border rounded shadow-sm pb-2 pt-2 px-2">
+                                                <div class="row">
+                                                    <!-- <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon"
+                                                                class="form-label font-weight-bold text-primary">Company </label>
+                                                            <p>{{ formRequestData?.name }}</p>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon"
+                                                                class="form-label font-weight-bold text-primary">Pipeline Type</label>
+                                                            <p>{{ showPipelineTypeName() }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon" class="form-label font-weight-bold text-primary">Company Name</label>
+                                                            <p>{{ showCompanyName() }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon"
+                                                                class="form-label font-weight-bold text-primary">Pipeline Name
+                                                            </label>
+                                                            <p>{{ formRequestData?.name }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon"
+                                                                class="form-label font-weight-bold text-primary">Size</label>
+                                                            <p>{{ formRequestData?.size }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon"
+                                                                class="form-label font-weight-bold text-primary">Start Latitude</label>
+                                                            <p>{{ formRequestData?.start_lat }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon" class="form-label font-weight-bold text-primary">End Latitude</label>
+                                                            <p>{{ formRequestData?.end_lat }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon" class="form-label font-weight-bold text-primary">Start Longitude</label>
+                                                            <p>{{ formRequestData?.start_long }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon" class="form-label font-weight-bold text-primary">End Longitude</label>
+                                                            <p>{{ formRequestData?.end_long }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-actions right">
+                                                    <button type="button" (click)="editForm()" class="btn btn-outline-warning btn-sm mr-1" rippleEffect>
+                                                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                                                        <span class="align-middle d-sm-inline-block d-none">Review</span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary btn-sm" rippleEffect (click)="processFormRequest()">
+                                                        <span class="align-middle d-sm-inline-block d-none">Submit
+                                                            Application</span>
+                                                        <i data-feather="save" class="align-middle ml-sm-25 ml-0"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- Confirm draft Form section end -->
+    </section>
+</div>
+
+<div class="content-wrapper container-xxl p-0" *ngIf="!displaySectionForm">
+    <!-- Data Grid start -->
+    <div class="card">
+        <!-- /.box-header -->
+        <div class="card-header">
+            <h4 class="text-uppercase font-weight-bold">Section: Pipeline</h4>
+            <hr />
+            <div class="float-right rounded border-radius-lg">
+                <button class="btn btn-gradient-primary btn-sm ml-1" rippleEffect (click)="newRecord()">
+                    <span class="fa fa-plus mr-1"></span>
+                    <span class="d-none d-sm-inline-block">New Pipeline</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-content collapse show">
+            <div class="card-body">
+                <div class="table-responsive" *ngIf="!displayMap">
+                    <dx-data-grid class="dx-card wide-card" [dataSource]="data" [showBorders]="true" [visible]="true"
+                        placeholder="Search..." [showColumnLines]="true" [showRowLines]="true"
+                        [rowAlternationEnabled]="true" keyExpr="id" [focusedRowEnabled]="true" [focusedRowIndex]="0"
+                        [columnAutoWidth]="true" [allowColumnReordering]="true" [allowColumnResizing]="true"
+                        [columnAutoWidth]="true" [columnHidingEnabled]="false">
+                        <dxo-load-panel [enabled]="true"> </dxo-load-panel>
+                        <dxo-paging [pageSize]="10"></dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxi-column dataField="name" caption="Pipeline Name">
+                        </dxi-column>
+                        <dxi-column dataField="company.name" caption=" Company"></dxi-column>
+                        <dxi-column dataField="size" caption="Pipeline Size"></dxi-column>
+                        <dxi-column dataField="start_lat" caption="Start Latitude"></dxi-column>
+                        <dxi-column dataField="end_lat" caption="End Latitude"></dxi-column>
+                        <dxi-column dataField="start_long" caption="Start Longitude"></dxi-column>
+                        <dxi-column dataField="end_long" caption="End Longitude"></dxi-column>
+                        <dxi-column type="buttons" fixed="true" caption="Actions">
+                            <dxi-button icon="edit" text="Edit" [onClick]="loadItem">
+                            </dxi-button>
+                            <dxi-button icon="trash" text="Delete" [onClick]="deleteItem">
+                            </dxi-button>
+                            <dxi-button icon="map" text="Show Map" [onClick]="loadMap">
+                            </dxi-button>
+                        </dxi-column>
+                    </dx-data-grid>
+                </div>
+                <div class="table-responsive" *ngIf="displayMap">
+                    <app-map></app-map>
+                    <div class="form-actions right">
+                        <button type="button" (click)="closeMap()" class="btn btn-outline-warning btn-sm mr-1" rippleEffect>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Close Map</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end box-body -->
+    </div>
+    <!-- Data Grid end-->
+</div>

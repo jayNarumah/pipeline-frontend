@@ -1,0 +1,23 @@
+<dx-map provider="bing" type="roadmap" [autoAdjust]='true' [zoom]="12" [height]="440" width="100%" [controls]="true"
+    [routes]="routes"></dx-map>
+<div class="options">
+    <div class="caption">options
+        <button class="btn btn-primary" (click)="allPipelines  ()" type="button">All Pipelines</button>
+    </div>
+    <div class="option">
+        <span>Pipeline</span>
+        <dx-select-box [dataSource]="pipelines" valueExpr="pipeline_routes" displayExpr="name" value="blue"
+            (onValueChanged)="selectPipeline($event)">
+        </dx-select-box>
+    </div>
+    <div class="option">
+        <span>Set mode</span>
+        <dx-select-box [dataSource]="['driving', 'walking']" value="driving" (onValueChanged)="setMode($event)">
+        </dx-select-box>
+    </div>
+    <div class="option">
+        <span>Route color</span>
+        <dx-select-box [dataSource]="['blue', 'green', 'red', 'yellow']" value="blue"
+            (onValueChanged)="selectColor($event)"></dx-select-box>
+    </div>
+</div>
