@@ -11,10 +11,11 @@ import { PipelineRoute } from 'app/api/models/pipeline-route.model';
 import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
 import { MapService, Marker, Route } from 'app/api/services/map.service';
 import { RouteLoc } from 'app/api/models/pipeline-loc.model';
+import { PipelineService } from 'app/api/services/pipeline.service';
 
 @Component({
   selector: 'app-pipeline',
-  providers: [MapService],
+  providers: [MapService, PipelineService],
   templateUrl: './pipeline.component.html',
   styleUrls: ['./pipeline.component.scss']
 })
@@ -26,7 +27,7 @@ export class PipelineComponent implements OnInit {
   pipelineForm: FormGroup;
   operation = 'Add';
   id?: number;
-  num: number;
+  index: number = 0;
 
   routes: Route[];
   markers: Marker[];
@@ -44,6 +45,7 @@ export class PipelineComponent implements OnInit {
   canShowPipelineForm = true;
   displaySectionForm = false;
   displayMap = false;
+  errorMsg = false;
   
 
   latRange(control: FormControl): { [s: string]: boolean } {
@@ -67,35 +69,12 @@ export class PipelineComponent implements OnInit {
     return null;
   }
 
-  isUnique(route: RouteLoc){
-    this.data.forEach((currentValue: any  ) => {
-      currentValue.pipeline_routes.forEach((crrntValue: any) => {
-        if (route.lat === crrntValue.lat && route.lng === crrntValue.long) {
-          return true;
-        }
-        else {
-          return false;
-        }
-        return null;
-    });
-
-    });
-  }
-
-  allRoutes() {
-    this.data.forEach((currentValue: any  ) => {
-      currentValue.pipeline_routes.forEach((crrntValue: any) => {
-        this.routesData.push({ lat: crrntValue.lat, lng: crrntValue.long });
-    });
-
-    });
-  }
-
   constructor(
     private pipelineEndpoint: PipelineEndpoint,
     private fb: FormBuilder,
     private readonly companyEndPoint: CompanyEndpoint,
     service: MapService,
+    private pipelineService: PipelineService,
     private readonly pipelineTypeEndpoint: PipelineTypeEndpoint,
 
   ) {
@@ -108,8 +87,8 @@ export class PipelineComponent implements OnInit {
       end_lat: this.fb.control(null, [Validators.required, this.latRange.bind(this)]),
       start_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
       end_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
-      lat: this.fb.array([]),
-      long: this.fb.array([]),
+      lat: this.fb.array([], this.latRange.bind(this)),
+      long: this.fb.array([], this.longRange.bind(this)),
     });
 
     this.markers = service.getMarkers();
@@ -151,7 +130,7 @@ export class PipelineComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.data = response.data;
-          this.allRoutes();
+          this.pipelineService.allRoutes(this.data);
           this.blockUI.stop();
         },
         error: (error) => this.blockUI.stop(),
@@ -177,18 +156,48 @@ export class PipelineComponent implements OnInit {
   }
 
   deleteRoute() {
-    (<FormArray>this.pipelineFormControls['lat']).removeAt(this.num);
-    (<FormArray>this.pipelineFormControls['long']).removeAt(this.num);
-    --this.num;
+    let length:number = <number>(<FormArray>this.pipelineFormControls['lat']).length;
+    (<FormArray>this.pipelineFormControls['lat']).removeAt(this.index);
+    (<FormArray>this.pipelineFormControls['long']).removeAt(this.index);
+    console.log(length)
+    this.index -= 1;
+  }
+
+  addRouteForm() {
+    const latControl = new FormControl(null, [Validators.required, this.latRange.bind(this)]);
+      const longControl = new FormControl(null, [Validators.required, this.longRange.bind(this), this.uniqueRoute.bind(this)]);
+
+      (<FormArray>this.pipelineFormControls['lat']).push(latControl);
+      (<FormArray>this.pipelineFormControls['long']).push(longControl);
+      this.index += 1;
   }
   
   addCoordinate() {
-    ++ this.num;
-    const latControl = new FormControl(null, [Validators.required, this.latRange.bind(this)]);
-    const longControl = new FormControl(null, [Validators.required, this.longRange.bind(this), this.uniqueRoute.bind(this)]);
+    this.errorMsg = false;
+    if (this.index === 0) {
+      this.addRouteForm();
+      return;
+    }
+    // let length: number = (<FormArray>this.pipelineFormControls['lat']).length;
 
-    (<FormArray>this.pipelineFormControls['lat']).push(latControl);
-    (<FormArray>this.pipelineFormControls['long']).push(longControl);
+    let lat = (<FormArray>this.pipelineFormControls['lat']).value[this.index-1];
+    let lng = (<FormArray>this.pipelineFormControls['long']).value[this.index-1];
+
+    //check whether inputed co-ordinate was not occupied using isUnique(data)
+    //isUnique(data)
+    console.log('Event Data: ', (<FormArray>this.pipelineFormControls['lat']).value[this.index-1]);
+    if (this.pipelineService.isUnique({ lat: lat, lng: lng })) {
+      console.log("Good");
+      this.pipelineService.addRoute({ lat: lat, lng: lng });
+      
+      this.addRouteForm();
+      // this.errorMsg = true;
+    }
+    else {
+      this.errorMsg = true;
+      console.log("Bad");
+    }
+    
   }
 
   showPipelineTypeName() {

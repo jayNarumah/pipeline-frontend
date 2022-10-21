@@ -1,4 +1,4 @@
 export interface RouteLoc{
-  lat: number,
-  lng: number
+  lat: string,
+  lng: string
 }
