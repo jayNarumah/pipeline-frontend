@@ -242,10 +242,11 @@
                                                                 Sorry, Provided co-ordinate was already taken
                                                             </small>
                                                         </div>
-                                                        <button type="button" (click)="deleteRoute()" [disabled]="num < 1" class="btn btn-outline-warning btn-sm mr-1" rippleEffect>
-                                                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
-                                                            <span class="align-middle d-sm-inline-block d-none">Remove Pipeline-Route</span>
-                                                        </button>
+                                                            <button type="button" (click)="deleteRoute()" [disabled]="num < 1" class="btn btn-outline-warning btn-sm mr-1"
+                                                                rippleEffect *ngIf="index > 0">
+                                                                <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                                                                <span class="align-middle d-sm-inline-block d-none">Remove Pipeline-Route</span>
+                                                            </button>
                                                         <button type="button" class="btn btn-primary btn-sm" rippleEffect (click)="addCoordinate()" [disabled]="pipelineFormControls['lat'].invalid && pipelineFormControls['long'].invalid">
                                                             <span class="align-middle d-sm-inline-block d-none">Add Pipeline-Route</span>
                                                             <i data-feather="save" class="align-middle ml-sm-25 ml-0"></i>
@@ -307,7 +308,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="first-name-icon" class="form-label font-weight-bold text-primary">Company Name</label>
-                                                            <!-- <p>{{ showCompanyName() }}</p> -->
+                                                            <p>{{ showCompanyName() }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">

@@ -156,11 +156,11 @@ export class PipelineComponent implements OnInit {
   }
 
   deleteRoute() {
+    this.index -= 1;
     let length:number = <number>(<FormArray>this.pipelineFormControls['lat']).length;
     (<FormArray>this.pipelineFormControls['lat']).removeAt(this.index);
     (<FormArray>this.pipelineFormControls['long']).removeAt(this.index);
     console.log(length)
-    this.index -= 1;
   }
 
   addRouteForm() {
@@ -203,13 +203,13 @@ export class PipelineComponent implements OnInit {
   showPipelineTypeName() {
     let i = this.pipelineFormControls['pipeline_type_id'].value;
 
-    return this.data[i - 1].name;
+    return this.data[i - 1].pipeline_type.name;
   }
 
   showCompanyName() {
     let i = this.pipelineFormControls['company_id'].value;
 
-    return this.data[i - 1].name;
+    return this.data[i - 1].company.name;
   }
 
   processForm() {
