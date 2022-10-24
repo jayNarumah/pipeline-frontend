@@ -65,8 +65,8 @@ export class PipelineComponent implements OnInit {
       end_lat: this.fb.control(null, [Validators.required, this.latRange.bind(this)]),
       start_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
       end_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
-      lat: this.fb.array([], this.latRange.bind(this)),
-      long: this.fb.array([], this.longRange.bind(this)),
+      lat: this.fb.array([], [this.latRange.bind(this)]),
+      long: this.fb.array([], [this.longRange.bind(this)]),
     });
     this.markers = service.getMarkers();
     this.routes = service.getRoutes();
@@ -138,6 +138,7 @@ export class PipelineComponent implements OnInit {
     }
     return null;
   }
+  
   //custome validator accept only longitude values(-180 to 180)
   longRange(control: FormControl): { [s: string]: boolean } {
     if (control.value < -180 || control.value > 180) {
