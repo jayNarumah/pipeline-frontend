@@ -4,10 +4,10 @@ import { MapInfoWindow, MapMarker } from '@angular/google-maps';
 import * as snippet from 'app/main/pipeline/map/google-map/google-maps.snippetcode';
 
 @Component({
-  selector: 'app-google-maps',
-  templateUrl: './google-maps.component.html'
+  selector: 'app-google-map',
+  templateUrl: './google-map.component.html'
 })
-export class GoogleMapsComponent implements OnInit {
+export class GoogleMapComponent implements OnInit {
   // public
   public contentHeader: object;
 
@@ -16,25 +16,45 @@ export class GoogleMapsComponent implements OnInit {
   public _snippetCodeAdvance = snippet.snippetCodeAdvance;
   public _snippetCodeUserLocation = snippet.snippetCodeUserLocation;
   public _snippetCodeCustomIcon = snippet.snippetCodeCustomIcon;
+  public _pipelineRoutes = snippet.pipelineRouteAdvance;
   public _snippetCodeMarkerWithTooltip = snippet.snippetCodeMarkerWithTooltip;
 
   /**
    * Marker Circle Polygon Component
    */
+  public mapCenter = { lat: 24.0, lng: 12.21 };
+  public mapOptions = {
+    strokeColor: 'red',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
+    draggable: true,
+    center: { lat: 24, lng: 12 }
+  };
+  private mapCoords = [
+    { lat: 13, lng: 13 },
+    { lat: -13, lng: 0 },
+    { lat: 13, lng: -13 }
+   ];
+  public mapPaths = [this.mapCoords];
+
   public markerCirclePolygonCenter = { lat: 37.421995, lng: -122.084092 };
   public markerCirclePolygonZoom = 15;
   public mapCircleCenter: google.maps.LatLngLiteral = { lat: 37.421995, lng: -122.084092 };
 
   public mapCircleOptions = {
-    strokeColor: '#FF0000',
+    strokeColor: 'red',
     strokeOpacity: 0.8,
     strokeWeight: 2,
     radius: 200,
-    fillColor: '#FF0000',
+    fillColor: '#3164bf',
     fillOpacity: 0.35,
     draggable: true,
     center: { lat: 37.421995, lng: -122.084092 }
   };
+   
+
 
   // Define the LatLng coordinates for the polygon's  outer path.
   private polygonCoords = [
@@ -46,7 +66,7 @@ export class GoogleMapsComponent implements OnInit {
   public mapPolygonPaths = [this.polygonCoords];
 
   public mapPolygonOptions = {
-    strokeColor: '#3164bf',
+    strokeColor: 'red',
     strokeOpacity: 0.8,
     strokeWeight: 2,
     radius: 200,
@@ -150,7 +170,8 @@ export class GoogleMapsComponent implements OnInit {
     this.infoWindow.open(marker);
   }
 
-  constructor() {}
+  constructor() {
+  }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
@@ -160,16 +181,17 @@ export class GoogleMapsComponent implements OnInit {
    */
   ngOnInit(): void {
     // Fetch Geolocation
-    navigator.geolocation.getCurrentPosition(position => {
-      this.userLocationCenter = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-    });
+    // navigator.geolocation.getCurrentPosition(position => {
+    //   this.userLocationCenter = {
+    //     lat: position.coords.latitude,
+    //     lng: position.coords.longitude
+    //   };
+    //   console.log('Position: ', position)
+    // });
 
     // content header
     this.contentHeader = {
-      headerTitle: 'Google Maps',
+      headerTitle: 'Google Map',
       actionButton: true,
       breadcrumb: {
         type: '',
@@ -180,7 +202,7 @@ export class GoogleMapsComponent implements OnInit {
             link: '/'
           },
           {
-            name: 'Charts & Maps',
+            name: 'Dashboard',
             isLink: true,
             link: '/'
           },

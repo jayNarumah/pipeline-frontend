@@ -1,0 +1,27 @@
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5rZ9bV3ocG0iVhQu19dYhK9WiYF0COvQ&libraries=places&language=en&v=weekly">
+</script>
+<script src="https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyC5rZ9bV3ocG0iVhQu19dYhK9WiYF0COvQ"></script> -->
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- content-header component -->
+        <app-content-header [contentHeader]="contentHeader"></app-content-header>
+
+        <section id="google-maps-basic">
+            <div class="row">
+                <div class="col-12">
+                    <core-card-snippet [snippetCode]="_pipelineRoutes">
+                        <h4 class="card-title">Pipeline-Routes</h4>
+                        <div class="card-body">
+                            <!-- Google Maps Basic Component -->
+                            <google-map height="400px" width="'100%'" [center]="mapCenter" [zoom]="3">
+                                <!-- <map-circle [options]="mapCircleOptions" [center]="mapCircleCenter"></map-circle> -->
+                                <map-polyline [path]="mapPaths" ></map-polyline>
+                            </google-map>
+                            <!--/ Google Maps Basic Component -->
+                        </div>
+                    </core-card-snippet>
+                </div>
+            </div>
+        </section>
+
+        

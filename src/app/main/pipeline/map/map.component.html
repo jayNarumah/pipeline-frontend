@@ -1,5 +1,12 @@
-<dx-map provider="bing" type="roadmap" [autoAdjust]='true' [zoom]="12" [height]="440" width="100%" [controls]="true"
-    [routes]="routes"></dx-map>
+<section id="google-maps-basic">
+    <div class="row">
+        <div class="col-12">
+            <dx-map provider="bing" type="roadmap" [autoAdjust]='true' [zoom]="12" [height]="440" width="100%" [controls]="true"
+            [routes]="routes"></dx-map>
+        </div>
+    </div>
+</section>
+
 <div class="options">
     <div class="caption">options
         <button class="btn btn-primary" (click)="allPipelines  ()" type="button">All Pipelines</button>
