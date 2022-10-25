@@ -9,17 +9,20 @@
         <section id="google-maps-basic">
             <div class="row">
                 <div class="col-12">
-                    <core-card-snippet [snippetCode]="_pipelineRoutes">
-                        <h4 class="card-title">Pipeline-Routes</h4>
+                    <!-- <core-card-snippet [snippetCode]="_pipelineRoutes"> -->
+                        <h4 class="card-title">Select Pipeline <dx-select-box [dataSource]="pipelines" valueExpr="pipeline_routes" displayExpr="name" value="blue"
+                            (onValueChanged)="selectPipeline($event)">
+                        </dx-select-box></h4>
+                        
                         <div class="card-body">
                             <!-- Google Maps Basic Component -->
-                            <google-map height="400px" width="'100%'" [center]="mapCenter" [zoom]="3">
+                            <google-map height="500px" width="'100%'" [center]="mapCenter" [zoom]="4">
                                 <!-- <map-circle [options]="mapCircleOptions" [center]="mapCircleCenter"></map-circle> -->
-                                <map-polyline [path]="mapPaths" ></map-polyline>
+                                <map-polyline [options]="polylineOptions" ></map-polyline>
                             </google-map>
                             <!--/ Google Maps Basic Component -->
                         </div>
-                    </core-card-snippet>
+                    <!-- </core-card-snippet> -->
                 </div>
             </div>
         </section>

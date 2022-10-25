@@ -1,7 +1,5 @@
 import { CoreMenu } from '@core/types';
 
-//? DOC: http://localhost:7777/demo/vuexy-angular-admin-dashboard-template/documentation/guide/development/navigation-menus.html#interface
-
 export const menu: CoreMenu[] = [
   // Dashboard
   {
@@ -68,7 +66,7 @@ export const menu: CoreMenu[] = [
         id: 'pipeline-type',
         title: 'Pipeline Type',
         // translate: 'MENU.CM.MAPS',
-        icon: 'archive',
+        icon: 'framer',
         type: 'item',
         url: 'dashboards/pipeline-type'
 
@@ -77,7 +75,7 @@ export const menu: CoreMenu[] = [
         id: 'pipeline',
         title: 'Pipeline',
         // translate: 'MENU.CM.MAPS',
-        icon: 'droplet',
+        icon: 'activity',
         type: 'item',
         url: 'dashboards/pipeline'
       },
@@ -85,7 +83,7 @@ export const menu: CoreMenu[] = [
         id: 'pipeline-route',
         title: 'Pipeline Route',
         // translate: 'MENU.CM.MAPS',
-        icon: 'circle',
+        icon: 'dribbble',
         type: 'item',
         url: 'dashboards/pipeline-route'
       }
@@ -107,53 +105,12 @@ export const menu: CoreMenu[] = [
         icon: 'map',
         type: 'item',
         url: 'dashboards/map'
-      }
-    ]
-  },
- 
-  // Charts & Maps
-  {
-    id: 'charts-maps',
-    type: 'section',
-    title: 'Charts & Maps',
-    // translate: 'MENU.CM.SECTION',
-    icon: 'bar-chart-2',
-    children: [
-      {
-        id: 'charts',
-        title: 'Charts',
-        // translate: 'MENU.CM.CHARTS.COLLAPSIBLE',
-        type: 'collapsible',
-        icon: 'pie-chart',
-        badge: {
-          title: '2',
-          // translate: 'MENU.CM.CHARTS.BADGE',
-          classes: 'badge-light-danger badge-pill'
-        },
-        // children: [
-        //   {
-        //     id: 'apex',
-        //     title: 'Apex',
-        //     translate: 'MENU.CM.CHARTS.APEX',
-        //     type: 'item',
-        //     icon: 'circle',
-        //     url: 'charts-and-maps/apex'
-        //   },
-        //   {
-        //     id: 'chartJs',
-        //     title: 'ChartJS',
-        //     translate: 'MENU.CM.CHARTS.CHARTJS',
-        //     type: 'item',
-        //     icon: 'circle',
-        //     url: 'charts-and-maps/chartjs'
-        //   }
-        // ]
       },
       {
         id: 'google-maps',
         title: 'Google Maps',
         // translate: 'MENU.CM.MAPS',
-        icon: 'map',
+        icon: 'globe',
         type: 'item',
         url: 'dashboards/google-map'
       }

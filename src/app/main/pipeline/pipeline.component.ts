@@ -107,6 +107,7 @@ export class PipelineComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.data = response.data;
+          console.log(this.data)
           this.pipelineService.allRoutes(this.data);
           this.blockUI.stop();
         },
@@ -133,7 +134,7 @@ export class PipelineComponent implements OnInit {
   }
   //custome validator accept only latitude values(-90 to 90)
   latRange(control: FormControl): { [s: string]: boolean } {
-    if (control.value < -90 || control.value > 90) {
+    if (control.value < -90 || control.value > 90 ) {
       return { 'invLat': true};
     }
     return null;
@@ -165,8 +166,6 @@ export class PipelineComponent implements OnInit {
 
     let lat = (<FormArray>this.pipelineFormControls['lat']).value[this.index];
     let long = (<FormArray>this.pipelineFormControls['long']).value[this.index];
-    // let lat1 = (<FormArray>this.pipelineFormControls['lat']).value[this.index-1];
-    // let long1 = (<FormArray>this.pipelineFormControls['long']).value[this.index - 1];
 
     let length = (<FormArray>this.pipelineFormControls['long']).length;
     //check if the element is the last element of the form Array
@@ -193,13 +192,10 @@ export class PipelineComponent implements OnInit {
       return;
       
     }
+  
     if ((!lat || !long) && length > 0) {
       console.log('last empty lenth', length)
       this.pipelineService.removeRoute();
-      return;
-    } 
-    if (!lat || !long) {
-      // this.pipelineService.removeRoute();
       return;
     } 
   }
@@ -251,7 +247,6 @@ export class PipelineComponent implements OnInit {
   processForm() {
     let latLenght = (<FormArray>this.pipelineFormControls['lat']).length;
     let longLenght = (<FormArray>this.pipelineFormControls['long']).length;
-
     let lat = (<FormArray>this.pipelineFormControls['lat']).value[latLenght - 1];
     let long = (<FormArray>this.pipelineFormControls['long']).value[longLenght - 1];
 
@@ -278,7 +273,6 @@ export class PipelineComponent implements OnInit {
     Swal.close();
     Swal.showLoading();
     // Make Request to API
-    // this.logger.log("Payload to be Sent");
     let httpCall =
       this.operation === 'Update'
         ? this.pipelineEndpoint.update(this.id, this.formRequestData)
@@ -327,7 +321,7 @@ export class PipelineComponent implements OnInit {
     this.canShowConfirmationForm = false;
     this.displaySectionForm = true;
     this.displayMap = false;
-    this.pipelineService.removeRoute();
+    // this.pipelineService.removeRoute();
   }
 
   closeMap() {

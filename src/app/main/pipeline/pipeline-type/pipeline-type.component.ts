@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CoreConfigService } from '@core/services/config.service';
 import { PipelineTypeEndpoint } from 'app/api/endpoints/pipeline-type.endpoint';
 import { PipelineType } from 'app/api/models/pipeline-type.model';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -55,11 +53,6 @@ data: PipelineType[] = [];
             isLink: true,
             link: '/dashboard/ecommerce'
           },
-          // {
-          //   name: 'List',
-          //   isLink: true,
-          //   link: '/module/security/users/list'
-          // },
           {
             name: 'PipelineType',
             isLink: false
@@ -73,8 +66,6 @@ data: PipelineType[] = [];
       .subscribe({
         next: (response) => {
           this.data = response.data;
-          // this.isActive = this.data.;
-          console.log(this.data);
           this.blockUI.stop();
         },
         error: (error) => {
@@ -86,7 +77,6 @@ data: PipelineType[] = [];
           this.blockUI.stop();
         },
       })
-
   }
 
   addItem() {
@@ -183,18 +173,15 @@ data: PipelineType[] = [];
     const formData: PipelineType = {
       name: this.pipelineTypeFormControls['name'].value,
     };
-
-    // console.log('Data: ', this.formRequestData.image_file);
     this.formRequestData = formData;
 
     if (this.operation === 'Update') {
-      console.log(this.formRequestData);
       this.pipelineTypeEndpoint.update(this.id, this.formRequestData)
         .subscribe({
           next: (response) => {
-            // this.router.navigate(['/module/probate/draft/detail', response.data.reg_no]);
             Swal.hideLoading();
             this.data[this.id - 1] = response.data;
+
             Swal.fire({
               icon: 'success',
               title: 'Success!',
@@ -205,8 +192,6 @@ data: PipelineType[] = [];
             });;
           },
           error: (error) => {
-            console.log("An error occurred while attempting to submit probate application...");
-            console.log(error);
             Swal.hideLoading();
             Swal.fire(
               'Error',
@@ -222,7 +207,6 @@ data: PipelineType[] = [];
       this.pipelineTypeEndpoint.create(this.formRequestData)
         .subscribe({
           next: (response) => {
-            // this.router.navigate(['/module/probate/draft/detail', response.data.reg_no]);
             Swal.hideLoading();
             Swal.fire({
               icon: 'success',
@@ -251,7 +235,5 @@ data: PipelineType[] = [];
     this.reset();
     this.cancel();
     this.operation = 'Add'
-
   }
-
 }

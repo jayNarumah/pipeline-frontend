@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { PipelineEndpoint } from 'app/api/endpoints/pipeline.endpoint';
+import { Pipeline } from 'app/api/models/pipeline.model';
 
 import * as snippet from 'app/main/pipeline/map/google-map/google-maps.snippetcode';
 
@@ -10,6 +12,7 @@ import * as snippet from 'app/main/pipeline/map/google-map/google-maps.snippetco
 export class GoogleMapComponent implements OnInit {
   // public
   public contentHeader: object;
+  pipelines: Pipeline[] = [];
 
   public _snippetCodeBasic = snippet.snippetCodeBasic;
   public _snippetCodeMarkerCirclePolygon = snippet.snippetCodeMarkerCirclePolygon;
@@ -22,37 +25,48 @@ export class GoogleMapComponent implements OnInit {
   /**
    * Marker Circle Polygon Component
    */
-  public mapCenter = { lat: 24.0, lng: 12.21 };
-  public mapOptions = {
-    strokeColor: 'red',
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: '#FF0000',
-    fillOpacity: 0.35,
-    draggable: true,
-    center: { lat: 24, lng: 12 }
-  };
+  public mapCenter = { lat: 25.0, lng: 12.0 };
+
   private mapCoords = [
     { lat: 13, lng: 13 },
-    { lat: -13, lng: 0 },
-    { lat: 13, lng: -13 }
+    { lat: -13, lng: 2 },
+    { lat: 13, lng: -13 },
+    { lat: 13, lng: -19 }
    ];
   public mapPaths = [this.mapCoords];
+
+  polylineOptions = {
+path: this.mapCoords,
+strokeColor: '#32a1d0',
+strokeOpacity: 1.0,
+strokeWeight: 2,
+  };
+  
+  selectPipeline(e: any) {
+    console.log(e)
+    this.mapCoords.splice(0, this.mapCoords.length);
+    e.value.forEach((currentValue: any  ) => {
+      this.mapCoords.push({lat: currentValue.lat, lng: currentValue.long})
+    });
+
+    this.polylineOptions.path = this.mapCoords;
+    console.log(this.polylineOptions)
+  }
 
   public markerCirclePolygonCenter = { lat: 37.421995, lng: -122.084092 };
   public markerCirclePolygonZoom = 15;
   public mapCircleCenter: google.maps.LatLngLiteral = { lat: 37.421995, lng: -122.084092 };
 
-  public mapCircleOptions = {
-    strokeColor: 'red',
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    radius: 200,
-    fillColor: '#3164bf',
-    fillOpacity: 0.35,
-    draggable: true,
-    center: { lat: 37.421995, lng: -122.084092 }
-  };
+  // public mapCircleOptions = {
+  //   strokeColor: 'red',
+  //   strokeOpacity: 0.8,
+  //   strokeWeight: 2,
+  //   radius: 200,
+  //   fillColor: '#3164bf',
+  //   fillOpacity: 0.35,
+  //   draggable: true,
+  //   center: { lat: 37.421995, lng: -122.084092 }
+  // };
    
 
 
@@ -63,55 +77,55 @@ export class GoogleMapComponent implements OnInit {
     { lat: 37.419884, lng: -122.079213 }
   ];
 
-  public mapPolygonPaths = [this.polygonCoords];
+  // public mapPolygonPaths = [this.polygonCoords];
 
-  public mapPolygonOptions = {
-    strokeColor: 'red',
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    radius: 200,
-    fillColor: '#3164bf',
-    fillOpacity: 0.35,
-    draggable: true,
-    center: { lat: 37.421995, lng: -122.084092 }
-  };
+  // public mapPolygonOptions = {
+  //   strokeColor: 'red',
+  //   strokeOpacity: 0.8,
+  //   strokeWeight: 2,
+  //   radius: 200,
+  //   fillColor: '#3164bf',
+  //   fillOpacity: 0.35,
+  //   draggable: true,
+  //   center: { lat: 37.421995, lng: -122.084092 }
+  // };
 
-  /**
-   * Advance Component
-   */
-  public advanceZoom = 9;
-  public advanceCenter: google.maps.LatLngLiteral = { lat: 44.541012, lng: -78.547917 };
-  public advanceOptions: google.maps.MapOptions = {
-    maxZoom: 17,
-    minZoom: 2
-  };
-  public advanceRectangleBounds = {
-    north: 44.599,
-    south: 44.49,
-    east: -78.443,
-    west: -78.649
-  };
-  public advanceRectangleOptions = { editable: true };
+  // /**
+  //  * Advance Component
+  //  */
+  // public advanceZoom = 9;
+  // public advanceCenter: google.maps.LatLngLiteral = { lat: 44.541012, lng: -78.547917 };
+  // public advanceOptions: google.maps.MapOptions = {
+  //   maxZoom: 17,
+  //   minZoom: 2
+  // };
+  // public advanceRectangleBounds = {
+  //   north: 44.599,
+  //   south: 44.49,
+  //   east: -78.443,
+  //   west: -78.649
+  // };
+  // public advanceRectangleOptions = { editable: true };
 
-  /**
-   * User Location Component
-   */
-  public userLocationZoom = 15;
-  public userLocationCenter: google.maps.LatLngLiteral;
+  // /**
+  //  * User Location Component
+  //  */
+  // public userLocationZoom = 15;
+  // public userLocationCenter: google.maps.LatLngLiteral;
 
   /**
    * Custom Icons Component
    */
-  public customIconZoom = 13;
-  public customIconCenter: google.maps.LatLngLiteral = { lat: 37.421995, lng: -122.084092 };
-  public customIcon2Center: google.maps.LatLngLiteral = { lat: 37.431997, lng: -122.094097 };
-  private customIconPath = 'assets/images/misc/';
-  customIconOptions = {
-    icon: this.customIconPath + 'leaf-red.png'
-  };
-  customIcon2Options = {
-    icon: this.customIconPath + 'leaf-green.png'
-  };
+  // public customIconZoom = 13;
+  // public customIconCenter: google.maps.LatLngLiteral = { lat: 37.421995, lng: -122.084092 };
+  // public customIcon2Center: google.maps.LatLngLiteral = { lat: 37.431997, lng: -122.094097 };
+  // private customIconPath = 'assets/images/misc/';
+  // customIconOptions = {
+  //   icon: this.customIconPath + 'leaf-red.png'
+  // };
+  // customIcon2Options = {
+  //   icon: this.customIconPath + 'leaf-green.png'
+  // };
 
   /**
    * Marker with Tooltip Component
@@ -125,28 +139,28 @@ export class GoogleMapComponent implements OnInit {
     lng: 7.76
   };
 
-  public markers: object[] = [
-    {
-      position: {
-        lat: 47.4073,
-        lng: 7.76
-      },
-      options: {
-        draggable: true
-      },
-      label: 'A'
-    },
-    {
-      position: {
-        lat: 47.3769,
-        lng: 7.7417
-      },
-      options: {
-        draggable: true
-      },
-      label: 'B'
-    }
-  ];
+  // public markers: object[] = [
+  //   {
+  //     position: {
+  //       lat: 47.4073,
+  //       lng: 7.76
+  //     },
+  //     options: {
+  //       draggable: true
+  //     },
+  //     label: 'A'
+  //   },
+  //   {
+  //     position: {
+  //       lat: 47.3769,
+  //       lng: 7.7417
+  //     },
+  //     options: {
+  //       draggable: true
+  //     },
+  //     label: 'B'
+  //   }
+  // ];
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -154,23 +168,23 @@ export class GoogleMapComponent implements OnInit {
   /**
    * Advance Component
    */
-  zoomIn() {
-    if (this.advanceZoom < this.advanceOptions.maxZoom) this.advanceZoom++;
-  }
+  // zoomIn() {
+  //   if (this.advanceZoom < this.advanceOptions.maxZoom) this.advanceZoom++;
+  // }
 
-  zoomOut() {
-    if (this.advanceZoom > this.advanceOptions.minZoom) this.advanceZoom--;
-  }
+  // zoomOut() {
+  //   if (this.advanceZoom > this.advanceOptions.minZoom) this.advanceZoom--;
+  // }
 
-  /**
-   * Marker with Tooltip Component
-   * @param marker
-   */
-  openInfo(marker: MapMarker) {
-    this.infoWindow.open(marker);
-  }
+  // /**
+  //  * Marker with Tooltip Component
+  //  * @param marker
+  //  */
+  // openInfo(marker: MapMarker) {
+  //   this.infoWindow.open(marker);
+  // }
 
-  constructor() {
+  constructor(private pipelineEndPoint: PipelineEndpoint) {
   }
 
   // Lifecycle Hooks
@@ -204,7 +218,7 @@ export class GoogleMapComponent implements OnInit {
           {
             name: 'Dashboard',
             isLink: true,
-            link: '/'
+            link: '/dashboard/ecommerce'
           },
           {
             name: 'Google Maps',
@@ -213,5 +227,12 @@ export class GoogleMapComponent implements OnInit {
         ]
       }
     };
+    this.pipelineEndPoint.list()
+      .subscribe({
+        next: (response) => {
+          this.pipelines = response.data;
+        },
+        error: (error) => console.log('Error: ', error),
+      });
   }
 }

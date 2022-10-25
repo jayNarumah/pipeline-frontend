@@ -1,4 +1,7 @@
 <section id="google-maps-basic">
+    <h4>Pipeline-Routes <span style="color:darkgreen">|</span> 
+        <button class="btn btn-primary" (click)="allPipelines  ()" type="button">All Pipelines</button>
+    </h4>
     <div class="row">
         <div class="col-12">
             <dx-map provider="bing" type="roadmap" [autoAdjust]='true' [zoom]="12" [height]="440" width="100%" [controls]="true"
@@ -8,9 +11,6 @@
 </section>
 
 <div class="options">
-    <div class="caption">options
-        <button class="btn btn-primary" (click)="allPipelines  ()" type="button">All Pipelines</button>
-    </div>
     <div class="option">
         <span>Pipeline</span>
         <dx-select-box [dataSource]="pipelines" valueExpr="pipeline_routes" displayExpr="name" value="blue"

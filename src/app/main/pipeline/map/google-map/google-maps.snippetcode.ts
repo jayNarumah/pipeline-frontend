@@ -70,7 +70,6 @@ export const pipelineRouteAdvance: snippetCode = {
     height="400px"
     width="100%"
     [center]="advanceCenter"
-    [options]="advanceOptions"
   >
     <map-polyline [path]="advanceRectangleBounds" [options]="advanceRectangleOptions"></map-polyline>
   </google-map>
