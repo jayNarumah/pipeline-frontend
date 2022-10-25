@@ -234,14 +234,15 @@ export class PipelineComponent implements OnInit {
 
   showPipelineTypeName() {
     let i = this.pipelineFormControls['pipeline_type_id'].value;
+    console.log(i)
 
-    return this.data[i - 1].pipeline_type.name;
+    // return this.data[i - 1].pipeline_type.name;
   }
 
   showCompanyName() {
     let i = this.pipelineFormControls['company_id'].value;
 
-    return this.data[i - 1].company.name;
+    // return this.data[i - 1].company.name;
   }
 
   processForm() {
