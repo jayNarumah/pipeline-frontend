@@ -7,23 +7,23 @@
     <!-- /Brand logo-->
     <!-- Left Text-->
     <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
-      <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
+      <!-- <div class="w-100 d-lg-flex align-items-center justify-content-center px-5"> -->
         <img
-          class="img-fluid"
+          class="img-fluid" style="height: 100%; width: 100%;"
           [src]="
             coreConfig.layout.skin === 'dark'
-              ? 'assets/images/pages/login-v2-dark.svg'
-              : 'assets/images/pages/login-v2.svg'
+              ? 'assets/images/pages/nimasabg.jpg'
+              : 'assets/images/pages/nimasabg.jpeg'
           "
           alt="Login V2"
         />
-      </div>
+      <!-- </div> -->
     </div>
     <!-- /Left Text-->
     <!-- Login-->
     <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-        <h2 class="card-title font-weight-bold mb-1">Welcome to Vuexy! 👋</h2>
+        <h2 class="card-title font-weight-bold mb-1">Welcome To NIMASA Pipelines👋</h2>
         <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
         <ngb-alert [type]="'primary'" [dismissible]="false">
           <div class="alert-body font-small-2">
@@ -31,7 +31,7 @@
               <small class="mr-50"><span class="font-weight-bold">Admin:</span> admin@demo.com | admin</small>
             </p>
             <p>
-              <small class="mr-50"><span class="font-weight-bold">Client:</span> client@demo.com | client</small>
+              <!-- <small class="mr-50"><span class="font-weight-bold">Client:</span> client@demo.com | client</small> -->
             </p>
           </div>
           <span
@@ -116,14 +116,14 @@
           ><a routerLink="/pages/authentication/register-v2"><span>&nbsp;Create an account</span></a>
         </p>
         <div class="divider my-2">
-          <div class="divider-text">or</div>
+          <!-- <div class="divider-text">or</div> -->
         </div>
-        <div class="auth-footer-btn d-flex justify-content-center">
+        <!-- <div class="auth-footer-btn d-flex justify-content-center">
           <a class="btn btn-facebook" href="javascript:void(0)"><i data-feather="facebook"></i></a
           ><a class="btn btn-twitter white" href="javascript:void(0)"><i data-feather="twitter"></i></a
           ><a class="btn btn-google" href="javascript:void(0)"><i data-feather="mail"></i></a
           ><a class="btn btn-github" href="javascript:void(0)"><i data-feather="github"></i></a>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- /Login-->
