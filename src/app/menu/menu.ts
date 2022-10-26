@@ -3,16 +3,16 @@ import { CoreMenu } from '@core/types';
 export const menu: CoreMenu[] = [
   // Dashboard
   // {
-    // id: 'dashboard',
-    // title: 'Dashboard',
-    // translate: 'MENU.DASHBOARD.COLLAPSIBLE',
+  //   id: 'dashboard',
+  //   title: 'Dashboard',
+  //   translate: 'MENU.DASHBOARD.COLLAPSIBLE',
     // type: 'collapsible',
     // role: ['Admin'], //? To hide collapsible based on user role
     // icon: 'home',
     // badge: {
-      // title: '',
-      // translate: 'MENU.DASHBOARD.BADGE',
-      // classes: 'badge-light-warning badge-pill'
+    //   title: '',
+    //   translate: 'MENU.DASHBOARD.BADGE',
+    //   classes: 'badge-light-warning badge-pill'
     // },
     // children: [
       // {
@@ -24,17 +24,37 @@ export const menu: CoreMenu[] = [
       //   icon: 'circle',
       //   url: 'dashboard/analytics'
       // },
+      // {
+        // If role is not assigned will be display to all
+  //       id: 'Dashbord',
+  //       title: 'Dashboard',
+  //       translate: 'Dahboard',
+  //       type: 'item',
+  //       icon: 'circle',
+  //       url: 'dashboard/ecommerce'
+  //     },
+  //   ]
+  // },
+  // dashboard
+  {
+    id: 'dashboard-section',
+    type: 'section',
+    title: 'Dashboard',
+    // translate: 'MENU.CM.SECTION',
+    icon: 'home',
+    children: [
+      
       {
         // If role is not assigned will be display to all
-        id: 'Dashbord',
+        id: 'Dashboard',
         title: 'Dashboard',
         translate: 'Dahboard',
         type: 'item',
         icon: 'circle',
         url: 'dashboard/ecommerce'
       },
-    // ]
-  // },
+    ]
+  },
   //Company
   {
     id: 'company-section',

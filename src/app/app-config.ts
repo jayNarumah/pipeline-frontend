@@ -16,8 +16,8 @@ import { CoreConfig } from '@core/types';
 // prettier-ignore
 export const coreConfig: CoreConfig = {
   app: {
-    appName     : 'NIMASA PIPELINE REGISTER',                                        // App Name
-    appTitle    : 'NIMASA PIPELINE REGISTER', // App Title
+    appName     : 'NIMASA PIPELINES',                                        // App Name
+    appTitle    : 'NIMASA PIPELINES', // App Title
     appLogoImage: 'assets/images/logo/bg.png',                  // App Logo
     appLanguage : 'en',                                           // App Default Language (en, fr, de, pt etc..)
   },
