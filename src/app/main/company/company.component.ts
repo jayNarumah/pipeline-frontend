@@ -110,7 +110,14 @@ export class CompanyComponent implements OnInit {
         // this.router.navigate(['/module/probate/draft/detail', response.data.reg_no]);
         if (this.operation === 'Update') {
           this.operation = 'Add';
-          this.data[this.id - 1] = this.formRequestData;
+          this.data = this.data.map(item => {
+            if (item.id == this.id) {
+              return response.data;
+            }
+            else {
+              return item;
+            }
+          })
 
         }
         else {

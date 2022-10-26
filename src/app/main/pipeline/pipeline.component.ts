@@ -12,6 +12,7 @@ import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
 import { MapService, Marker, Route } from 'app/api/services/map.service';
 import { RouteLoc } from 'app/api/models/pipeline-loc.model';
 import { PipelineService } from 'app/api/services/pipeline.service';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-pipeline',
@@ -28,6 +29,8 @@ export class PipelineComponent implements OnInit {
   operation = 'Add';
   id?: number;
   index: number = 0;
+  company_name: string;
+  pipeline_type: string;
 
   routes: Route[];
   markers: Marker[];
@@ -118,6 +121,7 @@ export class PipelineComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.pipelineType = response.data;
+          console.log('Pipelines:', response.data)
           this.blockUI.stop();
         },
         error: (error) => this.blockUI.stop(),
@@ -233,16 +237,21 @@ export class PipelineComponent implements OnInit {
   }
 
   showPipelineTypeName() {
-    let i = this.pipelineFormControls['pipeline_type_id'].value;
-    console.log(i)
-
-    // return this.data[i - 1].pipeline_type.name;
+    let id: number = <number>this.pipelineFormControls['pipeline_type_id'].value;
+    console.log('Id', id)
+    
+    this.pipelineType.find(
+      item => {
+        console.log("Pipeline Type ID: ", item.id);
+        if (item.id === id) {
+          return item.name;
+        }
+      }
+    );
   }
 
   showCompanyName() {
-    let i = this.pipelineFormControls['company_id'].value;
-
-    // return this.data[i - 1].company.name;
+    let id = this.pipelineFormControls['company_id'].value;
   }
 
   processForm() {
@@ -283,7 +292,12 @@ export class PipelineComponent implements OnInit {
       next: (response) => {
         if (this.operation === 'Update') {
           this.operation = 'Add';
-          this.data[this.id - 1] = this.formRequestData;
+          this.data = this.data.map(entry => {
+            if (entry.id == this.id) {
+              return response.data;
+            }
+            return entry;
+          });
         }
         else {
           this.data.push(response.data);

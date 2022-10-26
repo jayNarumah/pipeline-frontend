@@ -180,7 +180,14 @@ data: PipelineType[] = [];
         .subscribe({
           next: (response) => {
             Swal.hideLoading();
-            this.data[this.id - 1] = response.data;
+            this.data = this.data.map(item => {
+              if (item.id == this.id) {
+                return response.data;
+              }
+              else {
+                return item;
+              }
+            })
 
             Swal.fire({
               icon: 'success',
