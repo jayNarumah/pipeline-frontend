@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PipelineTypeComponent } from './pipeline-type.component';
+import { GoogleMapComponent } from './google-map.component';
 
-describe('PipelineTypeComponent', () => {
-  let component: PipelineTypeComponent;
-  let fixture: ComponentFixture<PipelineTypeComponent>;
+describe('GoogleMapComponent', () => {
+  let component: GoogleMapComponent;
+  let fixture: ComponentFixture<GoogleMapComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PipelineTypeComponent ]
+      declarations: [ GoogleMapComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PipelineTypeComponent);
+    fixture = TestBed.createComponent(GoogleMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

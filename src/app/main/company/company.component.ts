@@ -18,18 +18,18 @@ export class CompanyComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
 
   companyForm: FormGroup;
-  displaySectionForm = false;
-  formRequestData: Company;
+  operation = 'Add';
   id?: number;
-
-  canShowCompanyForm = true;
+  
   canShowConfirmationForm = false;
   canSubmitcompanyForm = false;
-  // hallTypes;
+  displaySectionForm = false;
+  canShowCompanyForm = true;
+ 
   companies: Company[] = [];
-
+  formRequestData: Company;
   data: Company[] = [];
-  operation = 'Add';
+  
   constructor(
     private fb: FormBuilder,
     private readonly companyEndpoint: CompanyEndpoint,
@@ -84,7 +84,6 @@ export class CompanyComponent implements OnInit {
   }
 
   processForm() {
-    console.log("Log")
     const formData: Company = {
       name: this.companyFormControls['name'].value,
       address: this.companyFormControls['address'].value,
@@ -94,9 +93,6 @@ export class CompanyComponent implements OnInit {
 
     this.formRequestData = formData;
 
-    console.warn(formData);
-
-
     setTimeout(() => this.showConfirmationForm(), 250);
   }
 
@@ -104,13 +100,11 @@ export class CompanyComponent implements OnInit {
     Swal.close();
     Swal.showLoading();
     // Make Request to API
-    // this.logger.log("Payload to be Sent");
     let httpCall =
       this.operation === 'Update'
         ? this.companyEndpoint.update(this.id, this.formRequestData)
         : this.companyEndpoint.create(this.formRequestData);
-    // this.operation === "Update" ?
-    // this.halltypeService.update(this.id, this.formRequestData) : this.halltypeService.create(this.formRequestData)
+    
     httpCall.subscribe({
       next: (response) => {
         // this.router.navigate(['/module/probate/draft/detail', response.data.reg_no]);
@@ -134,8 +128,6 @@ export class CompanyComponent implements OnInit {
         });
       },
       error: (error) => {
-        console.log("An error occurred while attempting to submit data...");
-        console.log(error);
         Swal.hideLoading();
         Swal.fire(
           'Error',
@@ -156,7 +148,6 @@ export class CompanyComponent implements OnInit {
     this.canShowConfirmationForm = false;
     this.displaySectionForm = true;
   }
-
 
   newRecord() {
     this.displaySectionForm = true;

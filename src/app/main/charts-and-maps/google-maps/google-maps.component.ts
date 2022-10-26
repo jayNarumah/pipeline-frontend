@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
 
-import * as snippet from 'app/main/charts-and-maps/google-maps/google-maps.snippetcode';
+import * as snippet from 'app/main/pipeline/map/google-map/google-maps.snippetcode';
 
 @Component({
   selector: 'app-google-maps',

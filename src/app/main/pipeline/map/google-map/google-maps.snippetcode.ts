@@ -62,6 +62,38 @@ export const snippetCodeMarkerCirclePolygon: snippetCode = {
   `
 };
 
+export const pipelineRouteAdvance: snippetCode = {
+  html: `
+  <!-- Google Maps Advance Component -->
+  <google-map
+    [zoom]="advanceZoom"
+    height="400px"
+    width="100%"
+    [center]="advanceCenter"
+  >
+    <map-polyline [path]="advanceRectangleBounds" [options]="advanceRectangleOptions"></map-polyline>
+  </google-map>
+  `,
+  ts: `
+  /**
+   * Advance Component
+   */
+  public advanceZoom = 9;
+  public advanceCenter: google.maps.LatLngLiteral = { lat: 44.541012, lng: -78.547917 };
+  public mapPolygonPaths = [this.polygonCoords];
+
+  public mapPolygonOptions = {
+    strokeColor: '#3164bf',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#3164bf',
+    fillOpacity: 0.35,
+    draggable: true,
+    center: { lat: 37.421995, lng: -122.084092 }
+  };
+  `
+};
+
 export const snippetCodeAdvance: snippetCode = {
   html: `
   <!-- Google Maps Advance Component -->

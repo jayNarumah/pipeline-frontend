@@ -37,9 +37,6 @@
                                                                 <div class="form-group">
                                                                     <label for="membership_id">Company</label><i
                                                                         class="text-danger">*</i>
-                                                                        <!-- <ng-select [(ngModel)]="selectedCar">
-                                                                            <ng-option *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>
-                                                                            </ng-select> -->
                                                                     <ng-select [items]="companies" [ngClass]="{
                                                                         'border-danger rounded':
                                                                             pipelineFormControls['company_id']
@@ -90,11 +87,11 @@
                                                                         </ng-template>
                                                                     </ng-select>
                                                                     <div *ngIf="
-                                                                                                  pipelineFormControls['pipeline_type_id']
-                                                                                                    .invalid &&
-                                                                                                  pipelineFormControls['pipeline_type_id']
-                                                                                                    .touched
-                                                                                                " class="text-danger">
+                                                                        pipelineFormControls['pipeline_type_id']
+                                                                        .invalid &&
+                                                                        pipelineFormControls['pipeline_type_id']
+                                                                        .touched
+                                                                        " class="text-danger">
                                                                         <small *ngIf="pipelineFormControls['pipeline_type_id'].errors?.['required']">Pipeline Type is required!</small>
                                                                     </div>
                                                                 </div>
@@ -117,16 +114,16 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="col-md-6">
                                                                 <label for="size">Pipeline Size</label>
                                                                 <input type="number" class="form-control"
                                                                     formControlName="size" placeholder="Pipeline Size"
                                                                     name="size" id="size" />
 
                                                                 <div *ngIf="
-                                    pipelineFormControls['size'].invalid &&
-                                    pipelineFormControls['size'].touched
-                                  " class="text-danger">
+                                                                    pipelineFormControls['size'].invalid &&
+                                                                    pipelineFormControls['size'].touched
+                                                                    " class="text-danger">
                                                                     <small
                                                                         *ngIf="pipelineFormControls['size'].errors?.['required']">
                                                                         Pipeline Size is required
@@ -210,9 +207,9 @@
                                                                 <div style="margin-bottom: 7px;" *ngFor="let route of pipelineFormControls['lat'].controls; let i = index">
                                                                     <input type="text" class="form-control" [formControlName]="i" placeholder="Latitude" />
                                                                     <div *ngIf="
-                                                                                                                                        pipelineFormControls['lat'].invalid &&
-                                                                                                                                        pipelineFormControls['lat'].touched
-                                                                                                                                        " class="text-danger">
+                                                                        pipelineFormControls['lat'].invalid &&
+                                                                        pipelineFormControls['lat'].touched
+                                                                        " class="text-danger">
                                                                         <small *ngIf="pipelineFormControls['lat'].errors?.['required']">
                                                                             End Logitude is required
                                                                         </small>
@@ -225,9 +222,9 @@
                                                                 <div style="margin-bottom: 7px;" *ngFor="let route of pipelineFormControls['long'].controls; let i = index">
                                                                     <input type="text" class="form-control" [formControlName]="i" placeholder="Longitude" name="name" id="name" />
                                                                     <div *ngIf="
-                                                                                                                                        pipelineFormControls['long'].invalid &&
-                                                                                                                                        pipelineFormControls['long'].touched
-                                                                                                                                        " class="text-danger">
+                                                                        pipelineFormControls['long'].invalid &&
+                                                                        pipelineFormControls['long'].touched
+                                                                        " class="text-danger">
                                                                         <small *ngIf="pipelineFormControls['long'].errors?.['required']">
                                                                             End Logitude is required
                                                                         </small>
@@ -245,10 +242,10 @@
                                                             <button type="button" (click)="deleteRoute()" [disabled]="num < 1" class="btn btn-outline-warning btn-sm mr-1"
                                                                 rippleEffect *ngIf="index > 0">
                                                                 <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
-                                                                <span class="align-middle d-sm-inline-block d-none">Remove Pipeline-Route</span>
+                                                                <span class="align-middle d-sm-inline-block d-none">Remove Route</span>
                                                             </button>
-                                                        <button type="button" class="btn btn-primary btn-sm" rippleEffect (click)="addCoordinate()" [disabled]="pipelineFormControls['lat'].invalid && pipelineFormControls['long'].invalid">
-                                                            <span class="align-middle d-sm-inline-block d-none">Add Pipeline-Route</span>
+                                                        <button type="button" class="btn btn-primary btn-sm" rippleEffect (click)="addCoordinate()" [disabled]="pipelineFormControls['lat'].invalid || pipelineFormControls['long'].invalid">
+                                                            <span class="align-middle d-sm-inline-block d-none">Add Route</span>
                                                             <i data-feather="save" class="align-middle ml-sm-25 ml-0"></i>
                                                         </button>
                                                     

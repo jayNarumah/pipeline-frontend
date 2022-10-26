@@ -38,7 +38,7 @@ export class PipelineComponent implements OnInit {
   pipelineRoute: PipelineRoute[] = [];
   formRequestData: Pipeline;
   data: Pipeline[] = [];
-  routesData: RouteLoc[] = [];
+  // routesData: RouteLoc[] = [];
 
   canShowConfirmationForm = false;
   canSubmitPipelineForm = false;
@@ -46,28 +46,6 @@ export class PipelineComponent implements OnInit {
   displaySectionForm = false;
   displayMap = false;
   errorMsg = false;
-  
-
-  latRange(control: FormControl): { [s: string]: boolean } {
-    if (control.value < -90 || control.value > 90) {
-      return { 'invLat': true};
-    }
-    return null;
-  }
-  
-  longRange(control: FormControl): { [s: string]: boolean } {
-    if (control.value < -180 || control.value > 180) {
-      return { 'invLong': true};
-    }
-    return null;
-  }
-
-  uniqueRoute(control: FormControl): { [s: string]: boolean } {
-    // if (control.value < -180 || control.value > 180) {
-    //   return { 'DuplicateRoute': true};
-    // }
-    return null;
-  }
 
   constructor(
     private pipelineEndpoint: PipelineEndpoint,
@@ -87,10 +65,9 @@ export class PipelineComponent implements OnInit {
       end_lat: this.fb.control(null, [Validators.required, this.latRange.bind(this)]),
       start_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
       end_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
-      lat: this.fb.array([], this.latRange.bind(this)),
-      long: this.fb.array([], this.longRange.bind(this)),
+      lat: this.fb.array([], [this.latRange.bind(this)]),
+      long: this.fb.array([], [this.longRange.bind(this)]),
     });
-
     this.markers = service.getMarkers();
     this.routes = service.getRoutes();
 
@@ -130,6 +107,7 @@ export class PipelineComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.data = response.data;
+          console.log(this.data)
           this.pipelineService.allRoutes(this.data);
           this.blockUI.stop();
         },
@@ -154,66 +132,127 @@ export class PipelineComponent implements OnInit {
         error: (error) => this.blockUI.stop(),
       });
   }
-
-  deleteRoute() {
-    this.index -= 1;
-    let length:number = <number>(<FormArray>this.pipelineFormControls['lat']).length;
+  //custome validator accept only latitude values(-90 to 90)
+  latRange(control: FormControl): { [s: string]: boolean } {
+    if (control.value < -90 || control.value > 90 ) {
+      return { 'invLat': true};
+    }
+    return null;
+  }
+  
+  //custome validator accept only longitude values(-180 to 180)
+  longRange(control: FormControl): { [s: string]: boolean } {
+    if (control.value < -180 || control.value > 180) {
+      return { 'invLong': true};
+    }
+    return null;
+  }
+//remove the input from the FormArray
+  removeRoute() {
     (<FormArray>this.pipelineFormControls['lat']).removeAt(this.index);
     (<FormArray>this.pipelineFormControls['long']).removeAt(this.index);
-    console.log(length)
   }
+//remove all inputs from the FormArray 
+  removeFormArray()
+  {
+    (<FormArray>this.pipelineFormControls['lat']).clear();
+    (<FormArray>this.pipelineFormControls['long']).clear();
+  }
+//delete last inputed route from the array of routes
+  deleteRoute() {
+    this.index -- ;
+    this.errorMsg = false;
+    this.removeRoute();
 
+    let lat = (<FormArray>this.pipelineFormControls['lat']).value[this.index];
+    let long = (<FormArray>this.pipelineFormControls['long']).value[this.index];
+
+    let length = (<FormArray>this.pipelineFormControls['long']).length;
+    //check if the element is the last element of the form Array
+    if (this.index <= 0) {
+      console.log('index', this.index)
+      return;
+    }
+    //check if the element is the last element of the FormArray
+    if ((lat || long) && length <= -1) {
+      console.log('length -1 ::', length)
+      this.pipelineService.removeRoute();
+      return;
+    }
+    
+    //check if the index-2 exist within formArrayElements
+    if ((lat || long) && length >= 1) {
+      this.pipelineService.removeRoute();
+      return;
+    }
+
+    if (lat || long) {
+      console.log("last not empty", length)
+      this.pipelineService.removeRoute();
+      return;
+      
+    }
+  
+    if ((!lat || !long) && length > 0) {
+      console.log('last empty lenth', length)
+      this.pipelineService.removeRoute();
+      return;
+    } 
+  }
+//add the route in the FormArray
   addRouteForm() {
     const latControl = new FormControl(null, [Validators.required, this.latRange.bind(this)]);
-      const longControl = new FormControl(null, [Validators.required, this.longRange.bind(this), this.uniqueRoute.bind(this)]);
+      const longControl = new FormControl(null, [Validators.required, this.longRange.bind(this)]);
 
       (<FormArray>this.pipelineFormControls['lat']).push(latControl);
       (<FormArray>this.pipelineFormControls['long']).push(longControl);
       this.index += 1;
   }
-  
+  //add the inputed route from to FormArray to the array of routes after checks
   addCoordinate() {
     this.errorMsg = false;
     if (this.index === 0) {
       this.addRouteForm();
       return;
     }
-    // let length: number = (<FormArray>this.pipelineFormControls['lat']).length;
 
     let lat = (<FormArray>this.pipelineFormControls['lat']).value[this.index-1];
     let lng = (<FormArray>this.pipelineFormControls['long']).value[this.index-1];
 
     //check whether inputed co-ordinate was not occupied using isUnique(data)
     //isUnique(data)
-    console.log('Event Data: ', (<FormArray>this.pipelineFormControls['lat']).value[this.index-1]);
     if (this.pipelineService.isUnique({ lat: lat, lng: lng })) {
-      console.log("Good");
+
       this.pipelineService.addRoute({ lat: lat, lng: lng });
-      
       this.addRouteForm();
-      // this.errorMsg = true;
     }
     else {
       this.errorMsg = true;
-      console.log("Bad");
     }
     
   }
 
   showPipelineTypeName() {
     let i = this.pipelineFormControls['pipeline_type_id'].value;
+    console.log(i)
 
-    return this.data[i - 1].pipeline_type.name;
+    // return this.data[i - 1].pipeline_type.name;
   }
 
   showCompanyName() {
     let i = this.pipelineFormControls['company_id'].value;
 
-    return this.data[i - 1].company.name;
+    // return this.data[i - 1].company.name;
   }
 
   processForm() {
-    console.log("Log")
+    let latLenght = (<FormArray>this.pipelineFormControls['lat']).length;
+    let longLenght = (<FormArray>this.pipelineFormControls['long']).length;
+    let lat = (<FormArray>this.pipelineFormControls['lat']).value[latLenght - 1];
+    let long = (<FormArray>this.pipelineFormControls['long']).value[longLenght - 1];
+
+    this.pipelineService.addRoute({ lat: lat, lng: long });
+
     const formData: Pipeline = {
       pipeline_type_id: this.pipelineFormControls['pipeline_type_id'].value,
       company_id: this.pipelineFormControls['company_id'].value,
@@ -235,19 +274,16 @@ export class PipelineComponent implements OnInit {
     Swal.close();
     Swal.showLoading();
     // Make Request to API
-    // this.logger.log("Payload to be Sent");
     let httpCall =
       this.operation === 'Update'
         ? this.pipelineEndpoint.update(this.id, this.formRequestData)
         : this.pipelineEndpoint.create(this.formRequestData);
-    // this.operation === "Update" ?
-    // this.halltypeService.update(this.id, this.formRequestData) : this.halltypeService.create(this.formRequestData)
+    
     httpCall.subscribe({
       next: (response) => {
         if (this.operation === 'Update') {
           this.operation = 'Add';
           this.data[this.id - 1] = this.formRequestData;
-
         }
         else {
           this.data.push(response.data);
@@ -262,10 +298,9 @@ export class PipelineComponent implements OnInit {
             confirmButton: 'btn btn-success'
           }
         });
+        this.removeFormArray();
       },
       error: (error) => {
-        console.log("An error occurred while attempting to submit data...");
-        console.log(error);
         Swal.hideLoading();
         Swal.fire(
           'Error',
@@ -287,6 +322,7 @@ export class PipelineComponent implements OnInit {
     this.canShowConfirmationForm = false;
     this.displaySectionForm = true;
     this.displayMap = false;
+    // this.pipelineService.removeRoute();
   }
 
   closeMap() {
@@ -296,12 +332,15 @@ export class PipelineComponent implements OnInit {
   newRecord() {
     this.displayMap = false;
     this.displaySectionForm = true;
+    this.index = 0;
   }
 
   hideForm() {
     this.displaySectionForm = false;
     this.canShowConfirmationForm = false;
     this.pipelineForm?.reset();
+    this.removeFormArray();
+    this.index = 0;
   }
 
   get pipelineFormControls() {

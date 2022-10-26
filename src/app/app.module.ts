@@ -30,14 +30,10 @@ import { ContextMenuComponent } from 'app/main/extensions/context-menu/context-m
 import { AnimatedCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/animated-custom-context-menu/animated-custom-context-menu.component';
 import { BasicCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/basic-custom-context-menu/basic-custom-context-menu.component';
 import { SubMenuCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/sub-menu-custom-context-menu/sub-menu-custom-context-menu.component';
-import { CompanyComponent } from './main/company/company.component';
-import { PipelineComponent } from './main/pipeline/pipeline.component';
-import { PipelineRouteComponent } from './main/pipeline/pipeline-route/pipeline-route.component';
-import { PipelineTypeComponent } from './main/pipeline/pipeline-type/pipeline-type.component';
 
 const appRoutes: Routes = [
    {
-    path: 'pipelines',
+    path: 'dashboards',
     loadChildren: () => import('./main/pipeline/pipeline.module').then(m => m.PipelineModule)
   },
   {
@@ -101,10 +97,6 @@ const appRoutes: Routes = [
     BasicCustomContextMenuComponent,
     AnimatedCustomContextMenuComponent,
     SubMenuCustomContextMenuComponent,
-    // CompanyComponent,
-    // PipelineComponent,
-    // PipelineRouteComponent,
-    // PipelineTypeComponent,
   ],
   imports: [
     BrowserModule,
