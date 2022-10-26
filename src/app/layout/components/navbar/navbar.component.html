@@ -4,9 +4,9 @@
     <li class="nav-item">
       <a class="navbar-brand" [routerLink]="['/']">
         <span class="brand-logo">
-          <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="36" />
+          <img src="assets/images/logo/bg.png" alt="brand-logo" width="36" />
         </span>
-        <h2 class="brand-text mb-0">{{ coreConfig.app.appName }}</h2>
+        <!-- <h2 class="brand-text mb-0">NIMASA</h2> -->
       </a>
     </li>
   </ul>
@@ -15,6 +15,8 @@
 
 <div class="navbar-container d-flex content">
   <div class="bookmark-wrapper d-flex align-items-center">
+    
+    <H1></H1>
     <!-- Menu Toggler | Menu icon will be hidden in case of layout without menu -->
     <ul class="nav navbar-nav d-xl-none" *ngIf="!coreConfig.layout.menu.hidden">
       <li class="nav-item">
@@ -26,12 +28,12 @@
     <!--/ Menu Toggler -->
 
     <!-- Bookmark -->
-    <app-navbar-bookmark></app-navbar-bookmark>
+    <!-- <app-navbar-bookmark></app-navbar-bookmark> -->
     <!--/ Bookmark -->
   </div>
   <ul class="nav navbar-nav align-items-center ml-auto">
     <!-- Language selection -->
-    <li ngbDropdown class="nav-item dropdown dropdown-language">
+    <!-- <li ngbDropdown class="nav-item dropdown dropdown-language">
       <a class="nav-link dropdown-toggle" id="dropdown-flag" ngbDropdownToggle>
         <i class="flag-icon flag-icon-{{ languageOptions[_translateService.currentLang].flag }}"></i
         ><span class="selected-language">{{ languageOptions[_translateService.currentLang].title }}</span></a
@@ -41,7 +43,7 @@
           <i class="flag-icon flag-icon-{{ languageOptions[lang].flag }}"></i> {{ languageOptions[lang].title }}
         </a>
       </div>
-    </li>
+    </li> -->
     <!--/ Language selection -->
 
     <!-- Toggle skin -->
@@ -61,7 +63,7 @@
     <!--/ Cart -->
 
     <!-- Notification -->
-    <app-navbar-notification></app-navbar-notification>
+    <!-- <app-navbar-notification></app-navbar-notification> -->
     <!--/ Notification -->
 
     <!-- User Dropdown -->
@@ -92,13 +94,12 @@
       </a>
       <div ngbDropdownMenu aria-labelledby="navbarUserDropdown" class="dropdown-menu dropdown-menu-right">
         <a ngbDropdownItem [routerLink]="['/pages/profile']"
-          ><span [data-feather]="'user'" [class]="'mr-50'"></span> Profile</a
-        ><a ngbDropdownItem [routerLink]="['/apps/email']"
-          ><span [data-feather]="'mail'" [class]="'mr-50'"></span> Inbox</a
-        ><a ngbDropdownItem [routerLink]="['/apps/todo']"
-          ><span [data-feather]="'check-square'" [class]="'mr-50'"></span> Task</a
-        ><a ngbDropdownItem [routerLink]="['/apps/chat']"
-          ><span [data-feather]="'message-square'" [class]="'mr-50'"></span> Chats</a
+          ><span [data-feather]="'user'" [class]="'mr-50'"></span> Profile</a ><a ngbDropdownItem [routerLink]="['/apps/email']"
+          ><span [data-feather]="'mail'" [class]="'mr-50'"></span> Inbox</a >
+        <a ngbDropdownItem [routerLink]="['/apps/todo']">
+          <span [data-feather]="'check-square'" [class]="'mr-50'"></span> Task</a
+        ><a ngbDropdownItem [routerLink]="['/apps/chat']">
+          <span [data-feather]="'message-square'" [class]="'mr-50'"></span> Chats</a
         >
         <div class="dropdown-divider"></div>
         <a ngbDropdownItem [routerLink]="['/pages/account-settings']"

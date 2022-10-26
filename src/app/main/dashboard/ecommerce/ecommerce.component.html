@@ -1,10 +1,13 @@
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body">
     <div class="row match-height" *ngIf="isAdmin || isClient">
+      <!-- <div class=" card card-chart"> -->
+        <!-- <div class=" card-header" style="border: 1px solid #625aca !important">  -->
+          <div class="content-wrapper container-xxl p-10 " style="border: 1px solid #625aca !important" >
       <!-- Medal Card -->
-      <div class="col-xl-4 col-md-6 col-12">
-        <div class="card card-congratulation-medal">
-          <div class="card-body">
+     <!--- <div class="col-xl-4 col-md-6 col-12">
+         <div class="card card-congratulation-medal">
+           <div class="card-body">
             <h5>{{ 'SAMPLE.CONGRATULATIONS' | translate }} 🎉 {{ currentUser?.firstName }}!</h5>
             <p class="card-text font-small-3">{{ 'SAMPLE.BADGE' | translate }}</p>
             <h3 class="mb-75 mt-2 pt-50">
@@ -12,13 +15,13 @@
             </h3>
             <button type="button" class="btn btn-primary" rippleEffect>View Sales</button>
             <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" />
-          </div>
-        </div>
-      </div>
+          </div> 
+        </div> 
+      </div>-->
       <!--/ Medal Card -->
 
       <!-- Statistics Card -->
-      <div class="col-xl-8 col-md-6 col-12">
+      <!-- <div class="col-xl-8 col-md-6 col-12">
         <div class="card card-statistics">
           <div class="card-header">
             <h4 class="card-title">Statistics</h4>
@@ -83,22 +86,79 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!--/ Statistics Card -->
+      <div class="row">
+        <div class="col-lg-4 col-sm-12 col-12 pt-50" >
+          <div style="border-left: 0.25rem solid #625aca !important" class="card">
+            <div class="card-header" style="background-image: linear-gradient(90deg,#1e1e2f, #625aca);color:alice#625aca">
+              <div>
+                <h2 class="font-weight-bolder mb-0 text-center">54</h2>
+                <h6 class="card-text text-center">Pipelines</h6>
+              </div>
+              <!-- <div class="avatar bg-light-primary p-50 m-0"> -->
+                <!-- <div class="avatar-content"> -->
+                  <i class="fa fa-map-signs fa-2x" ></i>
+                <!-- </div> -->
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-12 col-12 pt-50">
+          <div style="border-left: 0.25rem solid #625aca !important" class="card">
+            <div class="card-header" style="background-image: linear-gradient(90deg,#1e1e2f, #625aca);color:alice#625aca">
+              <div>
+                <h2 class="font-weight-bolder mb-0 text-center">43</h2>
+                <h6 class="card-text text-center">Companies</h6>
+              </div>
+              <i class="fa fa-building fa-2x" heigh="900px" width="100px"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-12 col-12 pt-50">
+          <div style="border-left: 0.25rem solid #625aca !important" class="card">
+            <div class="card-header" style="background-image: linear-gradient(90deg,#1e1e2f, #625aca);color:alice#625aca">
+              <div>
+                <h2 class="font-weight-bolder mb-0 text-center">123</h2>
+                <h6 class="card-text text-center">Routes</h6>
+              </div>
+              <i class="fa fa-street-view fa-2x" heigh="900px" width="100px"></i>
+            </div>
+          </div>
+        </div>
+         
+         <!-- <div class="col-lg-4 col-sm-12 col-12 pt-50">
+          <div style="border-left: 0.25rem solid #625aca !important" class="card">
+            <div class="card-header" style="background-image: linear-gradient(90deg,#1e1e2f, #625aca);color:alice#625aca">
+              <div>
+                <h2 class="font-weight-bolder mb-0 text-center">12</h2>
+                <h6 class="card-text text-center">Locations</h6>
+              </div>
+              <div class="avatar bg-light-danger p-50 m-0">
+                <div class="avatar-content">
+                  <i _ngcontent-tix-c35="" class="icon-time-alarm tim-icons" style="color:#625aca"></i> 
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div> 
+      </div>
     </div>
+  <!-- </div> -->
+  <!-- </div> -->
 
-    <div class="row match-height" *ngIf="isAdmin">
+    <!-- <div class="row match-height" *ngIf="isAdmin">
       <div class="col-lg-4 col-12">
-        <div class="row match-height">
+        <div class="row match-height"> -->
           <!-- Bar Chart Orders -->
-          <div class="col-lg-6 col-md-3 col-6">
+          <!-- <div class="col-lg-4 col-md-3 col-6">
             <div class="card">
               <div class="card-body pb-50">
                 <h6>Orders</h6>
                 <h2 class="font-weight-bolder mb-1">{{ data.ordersChart.analyticsData.orders }}</h2>
-                <div id="statistics-bar-chart" #statisticsBarChartRef>
+                <div id="statistics-bar-chart" #statisticsBarChartRef> -->
                   <!-- Apexchart component-->
-                  <apx-chart
+                  <!-- <apx-chart
                     [series]="data.ordersChart.series"
                     [chart]="{
                       height: 70,
@@ -122,10 +182,10 @@
               </div>
             </div>
           </div>
-          <!--/ Bar Chart Orders -->
+          / Bar Chart Orders -->
 
           <!-- Line Chart Profit -->
-          <div class="col-lg-6 col-md-3 col-6">
+          <!-- <div class="col-lg-4 col-md-3 col-6">
             <div class="card card-tiny-line-stats">
               <div class="card-body pb-50">
                 <h6>Profit</h6>
@@ -155,11 +215,11 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <!--/ Line Chart Profit -->
 
           <!-- Earnings Chart -->
-          <div class="col-lg-12 col-md-6 col-12">
+          <!-- <div class="col-lg-12 col-md-6 col-12">
             <div class="card earnings-card">
               <div class="card-body">
                 <div class="row">
@@ -172,9 +232,9 @@
                     </p>
                   </div>
                   <div class="col-6">
-                    <div id="earnings-donut-chart" #earningChartRef>
+                    <div id="earnings-donut-chart" #earningChartRef> -->
                       <!-- Apexchart component-->
-                      <apx-chart
+                      <!-- <apx-chart
                         [chart]="{
                           type: 'donut',
                           width:
@@ -192,20 +252,20 @@
                         [colors]="earningChartoptions.colors"
                         [grid]="earningChartoptions.grid"
                         [plotOptions]="earningChartoptions.plotOptions"
-                      ></apx-chart>
+                      ></apx-chart> -->
                       <!-- / Apexchart component-->
-                    </div>
+                    <!-- </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <!--/ Earnings Chart -->
-        </div>
+        <!-- </div>
       </div>
-      <div class="col-lg-8 col-12">
+      <div class="col-lg-8 col-12"> -->
         <!-- Revenue Report Card -->
-        <div class="card card-revenue-budget">
+        <!-- <div class="card card-revenue-budget">
           <div class="row mx-0">
             <div class="col-md-8 col-12 revenue-report-wrapper">
               <div class="d-sm-flex justify-content-between align-items-center mb-3">
@@ -289,14 +349,14 @@
               <button type="button" class="btn btn-primary" rippleEffect>Increase Budget</button>
             </div>
           </div>
-        </div>
+        </div> -->
         <!--/ Revenue Report Card -->
-      </div>
-    </div>
+      <!-- </div>
+    </div> -->
 
-    <div class="row match-height" *ngIf="isAdmin">
-      <!-- Company Table -->
-      <div class="col-lg-8 col-12">
+    <!-- <div class="row match-height" *ngIf="isAdmin">
+       Company Table -->
+      <!-- <div class="col-lg-8 col-12">
         <div class="card card-company-table">
           <div class="card-body p-0">
             <div class="table-responsive">
@@ -582,11 +642,11 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!--/ Company Table -->
 
       <!-- Developer Meetup Card -->
-      <div class="col-lg-4 col-md-6 col-12">
+      <!-- <div class="col-lg-4 col-md-6 col-12">
         <div class="card card-developer-meetup">
           <div class="bg-light-primary rounded-top text-center">
             <img src="assets/images/illustration/email.svg" alt="Meeting Pic" height="170" />
@@ -644,11 +704,11 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --> 
       <!--/ Developer Meetup Card -->
 
       <!-- Browser States Card -->
-      <div class="col-lg-4 col-md-6 col-12">
+      <!-- <div class="col-lg-4 col-md-6 col-12">
         <div class="card card-browser-states">
           <div class="card-header">
             <div class="broweser-states-header">
@@ -785,20 +845,20 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- Browser States Card -->
 
       <!-- Goal Overview Card -->
-      <div class="col-lg-4 col-md-6 col-12">
+      <!-- <div class="col-lg-4 col-md-6 col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="card-title">Goal Overview</h4>
             <i data-feather="help-circle" class="font-medium-3 text-muted cursor-pointer"></i>
           </div>
           <div class="card-body p-0">
-            <div id="goalChartoptions" class="mb-1 mt-1 pt-1" #goalChartRef>
+            <div id="goalChartoptions" class="mb-1 mt-1 pt-1" #goalChartRef> -->
               <!-- Apexchart component-->
-              <apx-chart
+              <!-- <apx-chart
                 [chart]="{
                   height: 245,
                   width: isMenuToggled === false ? goalChartRef.offsetWidth : goalChartoptions.chart.width,
@@ -820,9 +880,9 @@
                 [series]="data.goalOverview.series"
                 [stroke]="goalChartoptions.stroke"
                 [grid]="goalChartoptions.grid"
-              ></apx-chart>
+              ></apx-chart> -->
               <!-- / Apexchart component-->
-            </div>
+            <!-- </div>
             <div class="row border-top text-center mx-0">
               <div class="col-6 border-right py-1">
                 <p class="card-text text-muted mb-0">Completed</p>
@@ -835,17 +895,17 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!--/ Goal Overview Card -->
 
-      <!-- Transactions Card -->
+      <!-- Transactions Card
       <div class="col-lg-4 col-md-6 col-12">
         <div class="card card-transaction">
           <div class="card-header">
-            <h4 class="card-title">Transactions</h4>
+            <h4 class="card-title">Transactions</h4> -->
             <!-- <i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i> -->
-            <div ngbDropdown>
-              <a
+            <!-- <div ngbDropdown> -->
+             <!-- <a
                 ngbDropdownToggle
                 href="javascript:void(0);"
                 class="hide-arrow"
@@ -910,12 +970,12 @@
               <div class="media">
                 <div class="avatar bg-light-warning rounded">
                   <div class="avatar-content">
-                    <i data-feather="credit-card" class="avatar-icon font-medium-3"></i>
+                    <i data-feather="c#625acait-card" class="avatar-icon font-medium-3"></i>
                   </div>
                 </div>
                 <div class="media-body">
                   <h6 class="transaction-title">Mastercard</h6>
-                  <small>Ordered Food</small>
+                  <small>Orde#625aca Food</small>
                 </div>
               </div>
               <div class="font-weight-bolder text-danger">- $23</div>
@@ -936,8 +996,8 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- Transactions Card -->
-    </div>
+    <!-- </div>  -->
   </div>
 </div>

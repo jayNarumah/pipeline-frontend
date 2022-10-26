@@ -1,18 +1,18 @@
 <!-- Menu header -->
 <div class="navbar-header">
   <ul class="nav navbar-nav flex-row">
-    <li class="nav-item mr-auto">
+    <li class="nav-item mr-auto mb-5 pb-5">
       <!-- App Branding -->
-      <a class="navbar-brand" [routerLink]="['/']">
-        <span class="brand-logo">
-          <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" />
+      <a class=""[routerLink]="['/']">
+        <span class="">
+          <img src="assets/images/logo/bg.png" width="100" height="120" alt="brand-logo"  class="pb-5 mb-5"/>
         </span>
-        <h2 class="brand-text mb-0">{{ coreConfig.app.appName }}</h2>
+        <h2 class="brand-text mb-5 pb-5">NIMASA</h2>
       </a>
     </li>
 
     <!-- Menu Toggler -->
-    <li class="nav-item nav-toggle">
+    <li class="nav-item nav-toggle mt-5 pt-5">
       <a class="nav-link modern-nav-toggle d-none d-xl-block pr-0" (click)="toggleSidebarCollapsible()">
         <i
           [ngClass]="isCollapsed === true ? 'icon-circle' : 'icon-disc'"
