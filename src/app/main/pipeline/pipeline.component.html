@@ -299,13 +299,13 @@
                                                         <div class="form-group">
                                                             <label for="first-name-icon"
                                                                 class="form-label font-weight-bold text-primary">Pipeline Type</label>
-                                                            <p>{{ showPipelineTypeName() }}</p>
+                                                            <p>{{ displayPipelineTypeName }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="first-name-icon" class="form-label font-weight-bold text-primary">Company Name</label>
-                                                            <p>{{ showCompanyName() }}</p>
+                                                            <p>{{ showCompanyName }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -349,6 +349,25 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="form-actions right" *ngIf="pipelineFormControls['lat'].value">
+                                                    <div class="row">
+                                                    
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="first-name-icon" class="form-label font-weight-bold text-primary">Latitude</label>
+                                                                <p *ngFor="let lat of pipelineFormControls['lat'].value">{{ lat }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="first-name-icon" class="form-label font-weight-bold text-primary">Longitude</label>
+                                                                <p *ngFor="let long of pipelineFormControls['long'].value">{{ long }}</p>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                    </div>
+                                                </div>
+                                                
                                                 <div class="form-actions right">
                                                     <button type="button" (click)="editForm()" class="btn btn-outline-warning btn-sm mr-1" rippleEffect>
                                                         <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>

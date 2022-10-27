@@ -66,7 +66,7 @@ export class AuthenticationService {
               this._toastrService.success(
                 'You have successfully logged in as an ' +
                   user.role +
-                  ' user to Vuexy. Now you can start to explore. Enjoy! 🎉',
+                  ' user to NIMASA Pipeline. Now you can start to explore. Enjoy! 🎉',
                 '👋 Welcome, ' + user.firstName + '!',
                 { toastClass: 'toast ngx-toastr', closeButton: true }
               );

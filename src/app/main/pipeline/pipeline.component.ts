@@ -12,8 +12,6 @@ import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
 import { MapService, Marker, Route } from 'app/api/services/map.service';
 import { RouteLoc } from 'app/api/models/pipeline-loc.model';
 import { PipelineService } from 'app/api/services/pipeline.service';
-import { ThisReceiver } from '@angular/compiler';
-
 @Component({
   selector: 'app-pipeline',
   providers: [MapService, PipelineService],
@@ -110,7 +108,6 @@ export class PipelineComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.data = response.data;
-          console.log(this.data)
           this.pipelineService.allRoutes(this.data);
           this.blockUI.stop();
         },
@@ -121,7 +118,6 @@ export class PipelineComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.pipelineType = response.data;
-          console.log('Pipelines:', response.data)
           this.blockUI.stop();
         },
         error: (error) => this.blockUI.stop(),
@@ -236,22 +232,16 @@ export class PipelineComponent implements OnInit {
     
   }
 
-  showPipelineTypeName() {
-    let id: number = <number>this.pipelineFormControls['pipeline_type_id'].value;
-    console.log('Id', id)
-    
-    this.pipelineType.find(
-      item => {
-        console.log("Pipeline Type ID: ", item.id);
-        if (item.id === id) {
-          return item.name;
-        }
-      }
-    );
+  get displayPipelineTypeName() { 
+    const pipelineType = this.pipelineType.find(item => item.id == this.pipelineFormControls['pipeline_type_id'].value);
+
+    return pipelineType.name;
   }
 
-  showCompanyName() {
+  get showCompanyName() {
     let id = this.pipelineFormControls['company_id'].value;
+    const company = this.companies.find(item => item.id == id);
+    return company.name;
   }
 
   processForm() {

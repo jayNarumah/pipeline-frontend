@@ -34,12 +34,13 @@ strokeWeight: 2,
   };
   
   selectPipeline(e: any) {
-    this.mapCoords.splice(0, this.mapCoords.length);
+    // this.mapCoords.splice(0, this.mapCoords.length);
     e.value.forEach((currentValue: any  ) => {
       this.mapCoords.push({lat: currentValue.lat, lng: currentValue.long})
     });
 
-    this.polylineOptions.path = this.mapCoords;
+    // this.polylineOptions.path = this.mapCoords;
+    this.polylineOptions
 
   }
 
