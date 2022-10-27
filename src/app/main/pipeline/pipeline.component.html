@@ -350,7 +350,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-actions right" *ngIf="pipelineFormControls['lat'].value">
-                                                    <div class="row">
+                                                    <!-- <div class="row">
                                                     
                                                         <div class="col-md-4">
                                                             <div class="form-group">
@@ -364,8 +364,15 @@
                                                                 <p *ngFor="let long of pipelineFormControls['long'].value">{{ long }}</p>
                                                             </div>
                                                         </div>
-                                                    
-                                                    </div>
+                                                    </div> -->
+                                                </div>
+                                                <div class="card-body">
+                                                    <!-- Google Maps Basic Component -->
+                                                    <google-map height="350px" width="'60%'" [center]="mapCenter" [zoom]="6">
+                                                        <!-- <map-circle [options]="mapCircleOptions" [center]="mapCircleCenter"></map-circle> -->
+                                                        <map-polyline [options]="polylineOptions"></map-polyline>
+                                                    </google-map>
+                                                
                                                 </div>
                                                 
                                                 <div class="form-actions right">
