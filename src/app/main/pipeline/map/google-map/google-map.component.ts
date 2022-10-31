@@ -27,10 +27,10 @@ export class GoogleMapComponent implements OnInit {
   public mapPaths = [this.mapCoords];
 
   polylineOptions = {
-path: this.mapCoords,
-strokeColor: '#32a1d0',
-strokeOpacity: 1.0,
-strokeWeight: 2,
+    path: this.mapCoords,
+    strokeColor: '#32a1d0',
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
   };
   
   selectPipeline(e: any) {

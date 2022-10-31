@@ -11,7 +11,7 @@ export class SearchService {
   public search = '';
   public apiData = [];
   public onApiDataChange: BehaviorSubject<any>;
-  public onIsBookmarkOpenChange: BehaviorSubject<any>;
+  // public onIsBookmarkOpenChange: BehaviorSubject<any>;
 
   /**
    *
@@ -19,7 +19,7 @@ export class SearchService {
    */
   constructor(private _httpClient: HttpClient) {
     this.onApiDataChange = new BehaviorSubject('');
-    this.onIsBookmarkOpenChange = new BehaviorSubject(false);
+    // this.onIsBookmarkOpenChange = new BehaviorSubject(false);
     this.getSearchData();
   }
 

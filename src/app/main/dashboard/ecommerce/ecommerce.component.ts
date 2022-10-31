@@ -12,6 +12,7 @@ import { locale as english } from 'app/main/dashboard/i18n/en';
 import { locale as french } from 'app/main/dashboard/i18n/fr';
 import { locale as german } from 'app/main/dashboard/i18n/de';
 import { locale as portuguese } from 'app/main/dashboard/i18n/pt';
+import { CountEndpoint } from 'app/api/endpoints/count.endpoint';
 
 @Component({
   selector: 'app-ecommerce',
@@ -50,6 +51,9 @@ export class EcommerceComponent implements OnInit {
   public stateDangerChartoptions;
   public earningChartoptions;
   public isMenuToggled = false;
+  pipeline: number;
+  pipelineType: number;
+  company: number;
 
   // Private
   private $barColor = '#f3f3f3';
@@ -73,7 +77,8 @@ export class EcommerceComponent implements OnInit {
     private _authenticationService: AuthenticationService,
     private _dashboardService: DashboardService,
     private _coreConfigService: CoreConfigService,
-    private _coreTranslationService: CoreTranslationService
+    private _coreTranslationService: CoreTranslationService,
+    private countEndpoint: CountEndpoint
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
     this.isAdmin = this._authenticationService.isAdmin;
@@ -678,8 +683,32 @@ export class EcommerceComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+
+    this.countEndpoint.companyCount().subscribe({
+      next: (response) => {
+        this.company = response;
+        console.log(response);
+       },
+      error: (error) => console.log(error)
+    });
+
+    this.countEndpoint.pipelineCount().subscribe({
+      next: (response) => {
+        this.pipeline = response;
+        console.log(response);
+       },
+      error: (error) => console.log(error)
+    });
+
+    this.countEndpoint.pipelineTypeCount().subscribe({
+      next: (response) => {
+        this.pipelineType = response;
+        console.log(response);
+       },
+      error: (error) => console.log(error)
+    });
     // get the currentUser details from localStorage
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     // Get the dashboard service data
     this._dashboardService.onApiDataChanged.subscribe(response => {

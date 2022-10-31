@@ -97,7 +97,7 @@ export class NavbarSearchComponent implements OnInit {
    * Toggle Search
    */
   toggleSearch() {
-    this._searchService.onIsBookmarkOpenChange.next(false);
+    // this._searchService.onIsBookmarkOpenChange.next(false);
     this.removeOverlay();
     this.openSearchRef = !this.openSearchRef;
     this.activeIndex = 0;

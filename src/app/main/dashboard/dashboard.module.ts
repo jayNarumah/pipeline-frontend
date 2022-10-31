@@ -9,7 +9,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { AuthGuard } from 'app/auth/helpers';
-import { Role } from 'app/auth/models';
 
 import { CoreCommonModule } from '@core/common.module';
 

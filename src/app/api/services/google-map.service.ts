@@ -1,29 +1,56 @@
 import { Injectable } from '@angular/core';
 import { RouteLoc } from '../models/pipeline-loc.model';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class GoogleMapService{
-    public mapCenter = { lat: 9.072264, lng: 7.491302 };
+export class polylineOption{
+  path: any; 
+  strokeColor: string = '#32a1d0';
+  strokeOpacity: number = 1.0;
+  strokeWeight: number = 2;
+}
 
-  private mapCoords = [
-    { lat: 12.9855310000, lng: 7.6171440000 },
-    { lat: 12.9855310000, lng: 7.6171480000 },
-    { lat: 12.9855310000, lng: 7.6171480000 },
-    { lat: 10.9855310000, lng: 10.9971480000 }
-   ];
-  public mapPaths = [this.mapCoords];
+const mapCenter = { lat: 9.072264, lng: 7.491302 };
 
-  polylineOptions = {
-    path: this.mapCoords,
+const mapCoords = new google.maps.MVCArray();
+// const mapCoords = [
+//   { lat: 12.9855310000, lng: 7.6171440000 },
+//   { lat: 12.9855310000, lng: 7.6171480000 },
+//   { lat: 12.9855310000, lng: 7.6171480000 },
+//   { lat: 10.9855310000, lng: 10.9971480000 }
+// ]
+    
+const polylineOptions: polylineOption= {
+    path: mapCoords,
     strokeColor: '#32a1d0',
     strokeOpacity: 1.0,
     strokeWeight: 2,
   };
 
-    getPolylineOption(data: any) {
-        this.polylineOptions.path = data;
-        
-    }
+@Injectable({
+  providedIn: 'root'
+})
+export class GoogleMapService {
+
+  constructor() {
+    mapCoords.push({ lat: 12.9855310000, lng: 7.6171440000 });
+    mapCoords.push({ lat: 12.9855310000, lng: 7.6171480000 });
+    mapCoords.push({ lat: 12.9855310000, lng: 7.6171480000 });
+    mapCoords.push({ lat: 10.9855310000, lng: 10.9971480000 });
+  }
+
+  getPolylineOptions(): polylineOption {
+    return polylineOptions;
+  }
+
+  selectPolylineOptions(data: {lat: number, lng: number}[]) {
+    mapCoords.clear();
+    mapCoords.forEach((currentValue) => { 
+      mapCoords.push(currentValue);
+      console.log(currentValue)
+    });
+    return polylineOptions;
+  }
+
+  getMapCenter() {
+    return mapCenter;
+  }
 }

@@ -13,7 +13,6 @@ import { CoreMediaService } from '@core/services/media.service';
 
 import { User } from 'app/auth/models';
 
-import { coreConfig } from 'app/app-config';
 import { Router } from '@angular/router';
 
 @Component({
@@ -85,25 +84,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
-    this.languageOptions = {
-      en: {
-        title: 'English',
-        flag: 'us'
-      },
-      fr: {
-        title: 'French',
-        flag: 'fr'
-      },
-      de: {
-        title: 'German',
-        flag: 'de'
-      },
-      pt: {
-        title: 'Portuguese',
-        flag: 'pt'
-      }
-    };
-
     // Set the private defaults
     this._unsubscribeAll = new Subject();
   }
@@ -118,21 +98,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
    */
   toggleSidebar(key): void {
     this._coreSidebarService.getSidebarRegistry(key).toggleOpen();
-  }
-
-  /**
-   * Set the language
-   *
-   * @param language
-   */
-  setLanguage(language): void {
-    // Set the selected language for the navbar on change
-    this.selectedLanguage = language;
-
-    // Use the selected language id for translations
-    this._translateService.use(language);
-
-    this._coreConfigService.setConfig({ app: { appLanguage: language } }, { emitEvent: true });
   }
 
   /**
@@ -160,7 +125,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this._coreConfigService.setConfig({ layout: { skin: 'dark' } }, { emitEvent: true });
     }
   }
-
   /**
    * Logout method
    */
@@ -208,11 +172,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         }
       });
     }
-
-    // Set the selected language from default languageOptions
-    this.selectedLanguage = _.find(this.languageOptions, {
-      id: this._translateService.currentLang
-    });
   }
 
   /**

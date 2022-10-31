@@ -82,7 +82,6 @@ const routes: Routes = [
     DxDateBoxModule,
     DxTemplateModule,
     ReactiveFormsModule,
-    // GoogleMapModule,
     CardSnippetModule,
     CoreCommonModule,
     GoogleMapsModule

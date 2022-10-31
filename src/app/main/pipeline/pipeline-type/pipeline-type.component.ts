@@ -54,7 +54,7 @@ data: PipelineType[] = [];
             link: '/dashboard/ecommerce'
           },
           {
-            name: 'PipelineType',
+            name: 'Pipeline-Type',
             isLink: false
           }
         ]
