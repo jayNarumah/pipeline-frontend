@@ -1,6 +1,3 @@
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5rZ9bV3ocG0iVhQu19dYhK9WiYF0COvQ&libraries=places&language=en&v=weekly">
-</script>
-<script src="https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyC5rZ9bV3ocG0iVhQu19dYhK9WiYF0COvQ"></script> -->
 <div class="content-wrapper container-xxl p-0">
     <div class="content-body">
         <!-- content-header component -->
@@ -9,19 +6,40 @@
         <section id="google-maps-basic">
             <div class="row">
                 <div class="col-12">
-                        <h4 class="card-title">Select Pipeline 
-                            <dx-select-box [dataSource]="pipelines" valueExpr="pipeline_routes" displayExpr="name" value="blue"
-                            (onValueChanged)="selectPipeline($event)">
-                        </dx-select-box></h4>
-                        
-                        <div class="card-body">
+                    <div class="col-3">
+                        <span>Map-Type</span>
+                        <dx-select-box [dataSource]="['satellite', 'hybrid', 'roadmap', 'terrain']" (onValueChanged)="changeMapType($event)"
+                            placeholder="Select Map-Type">
+                        </dx-select-box>
+                    </div>
+                        <!-- <div class="row">
+                            <div class="col-6">
+                                <h4 class="card-title">Select Pipeline
+                                    <dx-select-box [dataSource]="pipelines" valueExpr="pipeline_routes" displayExpr="name" value="blue"
+                                        (onValueChanged)="selectPipeline($event)">
+                                    </dx-select-box>
+                                    
+                                </h4>
+                            </div>
+                            <div class="col-6">
+                                <h3></h3>
+                                <button class="btn btn-primary" (click)="allPipelines  ()" type="button">All Pipelines</button>
+                            </div>
+                        </div> -->
+                        <!-- <div class="card-body" *ngIf=""> -->
                             <!-- Google Maps Basic Component -->
-                            <google-map height="500px" width="'100%'"  [center]="mapCenter" [zoom]="6.15">
-                                <!-- <map-circle [options]="mapCircleOptions" [center]="mapCircleCenter"></map-circle> -->
-                                <map-polyline [options]="polylineOptions"    ></map-polyline>
+                            <!-- <google-map height="500px" width="'100%'"  [center]="mapCenter" [zoom]="6.15">
+                                <map-polyline [options]="polylineOptions"></map-polyline>
+                            </google-map> -->
+                        <!-- </div> -->
+                        <div class="card-body">
+                            <google-map height="600px" width="'100%'" [center]="mapCenter" [zoom]="6.5" [mapTypeId]="mapType">
+                                <div *ngFor="let polylineOption of polylineOptions; let i = index">
+                                    <map-polyline [options]="polylineOption"></map-polyline>
+                                </div>
                             </google-map>
-                            
                         </div>
+                        
                 </div>
             </div>
         </section>

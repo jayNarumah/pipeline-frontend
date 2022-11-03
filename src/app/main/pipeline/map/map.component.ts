@@ -25,6 +25,7 @@ export class MapComponent implements OnInit {
   constructor(service: MapService, private pipelineEndPoint: PipelineEndpoint) {
     this.markers = service.getMarkers();
     this.routes = service.getRoutes();
+    console.log(this.routes);
   }
 
 

@@ -445,7 +445,10 @@
                     </dx-data-grid>
                 </div>
                 <div class="table-responsive" *ngIf="displayMap">
-                    <app-map></app-map>
+                    <!-- <app-map></app-map> -->
+                    <google-map height="500px" width="'100%'" [center]="mapCenter" [zoom]="6.15">
+                        <map-polyline [options]="polylineOptions"></map-polyline>
+                    </google-map>
                     <div class="form-actions right">
                         <button type="button" (click)="closeMap()" class="btn btn-outline-warning btn-sm mr-1" rippleEffect>
                             <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>

@@ -7,11 +7,9 @@ import { User } from 'app/auth/models';
 import { colors } from 'app/colors.const';
 import { AuthenticationService } from 'app/auth/service';
 import { DashboardService } from 'app/main/dashboard/dashboard.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 import { locale as english } from 'app/main/dashboard/i18n/en';
-import { locale as french } from 'app/main/dashboard/i18n/fr';
-import { locale as german } from 'app/main/dashboard/i18n/de';
-import { locale as portuguese } from 'app/main/dashboard/i18n/pt';
 import { CountEndpoint } from 'app/api/endpoints/count.endpoint';
 
 @Component({
@@ -55,6 +53,8 @@ export class EcommerceComponent implements OnInit {
   pipelineType: number;
   company: number;
 
+  @BlockUI() blockUI: NgBlockUI;
+
   // Private
   private $barColor = '#f3f3f3';
   private $trackBgColor = '#EBEBEB';
@@ -84,7 +84,7 @@ export class EcommerceComponent implements OnInit {
     this.isAdmin = this._authenticationService.isAdmin;
     this.isClient = this._authenticationService.isClient;
 
-    this._coreTranslationService.translate(english, french, german, portuguese);
+    this._coreTranslationService.translate(english);
     // Statistics Bar Chart
     this.statisticsBar = {
       chart: {
@@ -683,30 +683,29 @@ export class EcommerceComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-
+    
+    this.blockUI.start('Loading...');
     this.countEndpoint.companyCount().subscribe({
       next: (response) => {
         this.company = response;
-        console.log(response);
        },
-      error: (error) => console.log(error)
+      error: (error) => this.blockUI.stop
     });
 
     this.countEndpoint.pipelineCount().subscribe({
       next: (response) => {
         this.pipeline = response;
-        console.log(response);
        },
-      error: (error) => console.log(error)
+      error: (error) => this.blockUI.stop()
     });
 
     this.countEndpoint.pipelineTypeCount().subscribe({
       next: (response) => {
         this.pipelineType = response;
-        console.log(response);
        },
-      error: (error) => console.log(error)
+      error: (error) => this.blockUI.stop()
     });
+    this.blockUI.stop()
     // get the currentUser details from localStorage
     // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 

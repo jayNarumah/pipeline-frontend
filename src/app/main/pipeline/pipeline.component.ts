@@ -12,6 +12,7 @@ import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
 import { MapService, Marker, Route } from 'app/api/services/map.service';
 import { RouteLoc } from 'app/api/models/pipeline-loc.model';
 import { PipelineService } from 'app/api/services/pipeline.service';
+import { GoogleMapService, polylineOption } from 'app/api/services/google-map.service';
 @Component({
   selector: 'app-pipeline',
   providers: [MapService, PipelineService],
@@ -30,8 +31,8 @@ export class PipelineComponent implements OnInit {
   company_name: string;
   pipeline_type: string;
 
-  routes: Route[];
-  markers: Marker[];
+  // routes: Route[];
+  // markers: Marker[];
   pipelineData: RouteLoc[] = [];
   pipelines: Pipeline[] = [];
   companies: Company[] = [];
@@ -39,20 +40,9 @@ export class PipelineComponent implements OnInit {
   pipelineRoute: PipelineRoute[] = [];
   formRequestData: Pipeline;
   data: Pipeline[] = [];
-  public mapCenter = { lat: 9.072264, lng: 7.491302 };
-  private mapCoords = [
-    { lat: 12.9855310000, lng: 7.6171440000 },
-    { lat: 12.9855310000, lng: 7.6171480000 },
-    { lat: 12.9855310000, lng: 7.6171480000 },
-    { lat: 10.9855310000, lng: 10.9971480000 }
-   ];
+  public mapCenter;
 
-polylineOptions = {
-  path: this.mapCoords,
-  strokeColor: '#32a1d0',
-  strokeOpacity: 1.0,
-  strokeWeight: 2,
-};
+  polylineOptions: polylineOption;
   // routesData: RouteLoc[] = [];
 
   canShowConfirmationForm = false;
@@ -66,9 +56,10 @@ polylineOptions = {
     private pipelineEndpoint: PipelineEndpoint,
     private fb: FormBuilder,
     private readonly companyEndPoint: CompanyEndpoint,
-    service: MapService,
+    // service: MapService,
     private pipelineService: PipelineService,
     private readonly pipelineTypeEndpoint: PipelineTypeEndpoint,
+    private googleMapService: GoogleMapService,
 
   ) {
     this.pipelineForm = this.fb.group({
@@ -83,8 +74,9 @@ polylineOptions = {
       lat: this.fb.array([], [this.latRange.bind(this)]),
       long: this.fb.array([], [this.longRange.bind(this)]),
     });
-    this.markers = service.getMarkers();
-    this.routes = service.getRoutes();
+    // this.markers = service.getMarkers();
+    // this.routes = service.getRoutes();
+    this.mapCenter = this.googleMapService.getMapCenter();
 
     this.loadItem = this.loadItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -395,15 +387,25 @@ polylineOptions = {
 
     this.id = event.row.data.id;
 
-    this.pipelineData.splice(0, this.pipelineData.length);
-    pData.pipeline_routes.forEach((currentValue: any  ) => {
-      this.pipelineData.push({lat: currentValue.lat, lng: currentValue.long})
+    let data = [];
+    pData.pipeline_routes.forEach((currentValue: any) => {
+      let lat = parseFloat(currentValue.lat);
+      let lng = parseFloat(currentValue.long);
+
+      data.push({lat: lat, lng: lng})
 
     });
-    this.routes = this.routes.map((item) => {
-      item.locations = this.pipelineData;
-      return item;
-    });
+    // this.routes = this.routes.map((item) => {
+    //   item.locations = data;
+    //   return item;
+    // });
+
+    this.polylineOptions = {
+      path: data,
+      strokeColor: '#32a1d0',
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+    }
   }
 
   deleteItem(event) {
