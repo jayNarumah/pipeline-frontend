@@ -38,8 +38,8 @@ export class CompanyComponent implements OnInit {
     this.companyForm = this.fb.group({
       name: this.fb.control(null, [Validators.required]),
       address: this.fb.control(null, Validators.required),
-      phone_number: this.fb.control(null, [Validators.required, Validators.min(11), Validators.max(13)]),
-      email: this.fb.control(null, [Validators.required, Validators.email]),
+      phone_number: this.fb.control(null, [Validators.required]),
+      email: this.fb.control(null, [Validators.required]),
     });
     
     this.loadItem = this.loadItem.bind(this);

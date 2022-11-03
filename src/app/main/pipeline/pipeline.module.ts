@@ -8,21 +8,14 @@ import { DxMapModule, DxSelectBoxModule, DxButtonModule, DxChartModule, DxCheckB
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 
 import { PipelineComponent } from './pipeline.component';
-import { PipelineRouteComponent } from './pipeline-route/pipeline-route.component';
 import { PipelineTypeComponent } from './pipeline-type/pipeline-type.component';
 import { CompanyComponent } from '../company/company.component';
 import { MapComponent } from './map/map.component';
-// import { GoogleMapsComponent } from '../charts-and-maps/google-maps/google-maps.component';
-import { GoogleMapModule } from '../charts-and-maps/google-maps/google-maps.module';
 import { GoogleMapComponent } from './map/google-map/google-map.component';
 import { CardSnippetModule } from '@core/components/card-snippet/card-snippet.module';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 
 const routes: Routes = [
-    {
-      path: 'pipeline-route',
-    component: PipelineRouteComponent,
-  },
   {
     path: 'pipeline-type',
     component: PipelineTypeComponent
@@ -48,7 +41,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PipelineComponent,
-    PipelineRouteComponent,
     PipelineTypeComponent,
     CompanyComponent,
     MapComponent,

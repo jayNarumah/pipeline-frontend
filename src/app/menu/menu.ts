@@ -90,7 +90,7 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'google-maps',
-        title: 'Google Maps',
+        title: 'Google Map',
         // translate: 'MENU.CM.MAPS',
         icon: 'globe',
         type: 'item',

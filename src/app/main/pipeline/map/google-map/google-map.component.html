@@ -12,26 +12,6 @@
                             placeholder="Select Map-Type">
                         </dx-select-box>
                     </div>
-                        <!-- <div class="row">
-                            <div class="col-6">
-                                <h4 class="card-title">Select Pipeline
-                                    <dx-select-box [dataSource]="pipelines" valueExpr="pipeline_routes" displayExpr="name" value="blue"
-                                        (onValueChanged)="selectPipeline($event)">
-                                    </dx-select-box>
-                                    
-                                </h4>
-                            </div>
-                            <div class="col-6">
-                                <h3></h3>
-                                <button class="btn btn-primary" (click)="allPipelines  ()" type="button">All Pipelines</button>
-                            </div>
-                        </div> -->
-                        <!-- <div class="card-body" *ngIf=""> -->
-                            <!-- Google Maps Basic Component -->
-                            <!-- <google-map height="500px" width="'100%'"  [center]="mapCenter" [zoom]="6.15">
-                                <map-polyline [options]="polylineOptions"></map-polyline>
-                            </google-map> -->
-                        <!-- </div> -->
                         <div class="card-body">
                             <google-map height="600px" width="'100%'" [center]="mapCenter" [zoom]="6.5" [mapTypeId]="mapType">
                                 <div *ngFor="let polylineOption of polylineOptions; let i = index">
