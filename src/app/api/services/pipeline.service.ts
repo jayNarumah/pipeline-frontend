@@ -18,6 +18,10 @@ export class PipelineService{
     pushPolyline(data: polylineOption) {
         this.polylineOptions.push(data);
     }
+
+    removePolyline() {
+        this.polylineOptions.pop()
+    }
     
     allRoutes(data: any[]) {
         data.forEach((currentValue: any) => {
@@ -30,7 +34,7 @@ export class PipelineService{
                 path: mapCords,
                 strokeColor: '#32a1d0',
                 strokeOpacity: 1.0,
-                strokeWeight: 2,
+                strokeWeight: 4,
             })
         });
     }

@@ -9,7 +9,6 @@ import { Company } from 'app/api/models/company.model';
 import { Pipeline } from 'app/api/models/pipeline.model';
 import { PipelineRoute } from 'app/api/models/pipeline-route.model';
 import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
-// import { MapService, Marker, Route } from 'app/api/services/map.service';
 import { RouteLoc } from 'app/api/models/pipeline-loc.model';
 import { PipelineService } from 'app/api/services/pipeline.service';
 import { GoogleMapService, polylineOption } from 'app/api/services/google-map.service';
@@ -31,8 +30,6 @@ export class PipelineComponent implements OnInit {
   company_name: string;
   pipeline_type: string;
 
-  // routes: Route[];
-  // markers: Marker[];
   pipelineData: RouteLoc[] = [];
   pipelines: Pipeline[] = [];
   companies: Company[] = [];
@@ -40,7 +37,6 @@ export class PipelineComponent implements OnInit {
   pipelineRoute: PipelineRoute[] = [];
   formRequestData: Pipeline;
   data: Pipeline[] = [];
-  mapCoords = [];
   public mapCenter;
 
   polylineOptions: polylineOption[] = [];
@@ -171,6 +167,7 @@ export class PipelineComponent implements OnInit {
     this.errorMsg = false;
     this.removeRoute();
 
+
     let lat = (<FormArray>this.pipelineFormControls['lat']).value[this.index];
     let long = (<FormArray>this.pipelineFormControls['long']).value[this.index];
 
@@ -186,18 +183,15 @@ export class PipelineComponent implements OnInit {
       this.pipelineService.removeRoute();
       return;
     }
-    
     //check if the index-2 exist within formArrayElements
     if ((lat || long) && length >= 1) {
       this.pipelineService.removeRoute();
       return;
     }
-
     if (lat || long) {
       console.log("last not empty", length)
       this.pipelineService.removeRoute();
       return;
-      
     }
   
     if ((!lat || !long) && length > 0) {
@@ -230,7 +224,7 @@ export class PipelineComponent implements OnInit {
     //isUnique(data)
     if (this.pipelineService.isUnique({ lat: lat, lng: lng })) {
       
-      this.mapCoords.push({ lat: parseFloat(lat), lng: parseFloat(lng) });
+      // this.mapCoords.push({ lat: parseFloat(lat), lng: parseFloat(lng) });
 
       this.pipelineService.addRoute({ lat: lat, lng: lng });
       this.addRouteForm();
@@ -260,17 +254,26 @@ export class PipelineComponent implements OnInit {
     let long = (<FormArray>this.pipelineFormControls['long']).value[longLenght - 1];
 
     this.pipelineService.addRoute({ lat: lat, lng: long });
-    this.mapCoords.push({ lat: parseFloat(lat), lng: parseFloat(long) });
+    let mapCoords = [];
     
+    this.pipelineFormControls['lat'].value.forEach((currentValue, i) => {
+      let lat = this.pipelineFormControls['lat'].value[i];
+      let lng = this.pipelineFormControls['long'].value[i]
+
+      mapCoords.push({lat: parseFloat(lat), lng: parseFloat(lng)})
+      console.log(mapCoords)
+    })
+
+    console.log(mapCoords)
     this.pipelineService.pushPolyline({
-      path: this.pipelineService.mapCoords,
+      path: mapCoords,
       strokeColor: '#ffffff',
       strokeOpacity: 1.0,
-      strokeWeight: 3,
+      strokeWeight: 4.5,
     });
 
     this.polylineOptions = this.pipelineService.polylineOptions;
-    console.log('Me here:', this.polylineOptions)
+    console.log(this.polylineOptions)
 
     const formData: Pipeline = {
       pipeline_type_id: this.pipelineFormControls['pipeline_type_id'].value,
@@ -346,7 +349,7 @@ export class PipelineComponent implements OnInit {
     this.canShowConfirmationForm = false;
     this.displaySectionForm = true;
     this.displayMap = false;
-    // this.pipelineService.removeRoute();
+    this.pipelineService.removePolyline();
   }
 
   closeMap() {
@@ -415,7 +418,7 @@ export class PipelineComponent implements OnInit {
       path: data,
       strokeColor: '#32a1d0',
       strokeOpacity: 1.0,
-      strokeWeight: 2,
+      strokeWeight: 3,
     })
     console.log(this.polylineOptions)
   }
