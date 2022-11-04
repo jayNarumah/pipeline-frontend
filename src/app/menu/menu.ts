@@ -16,7 +16,7 @@ export const menu: CoreMenu[] = [
     children: [
       {
         // If role is not assigned will be display to all
-        id: 'ecommerce',
+        id: 'dashboard',
         title: 'Dashboard',
         translate: 'MENU.DASHBOARD.ECOMMERCE',
         type: 'item',

@@ -9,13 +9,13 @@ import { Company } from 'app/api/models/company.model';
 import { Pipeline } from 'app/api/models/pipeline.model';
 import { PipelineRoute } from 'app/api/models/pipeline-route.model';
 import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
-import { MapService, Marker, Route } from 'app/api/services/map.service';
+// import { MapService, Marker, Route } from 'app/api/services/map.service';
 import { RouteLoc } from 'app/api/models/pipeline-loc.model';
 import { PipelineService } from 'app/api/services/pipeline.service';
 import { GoogleMapService, polylineOption } from 'app/api/services/google-map.service';
 @Component({
   selector: 'app-pipeline',
-  providers: [MapService, PipelineService],
+  providers: [PipelineService],
   templateUrl: './pipeline.component.html',
   styleUrls: ['./pipeline.component.scss']
 })
@@ -40,9 +40,10 @@ export class PipelineComponent implements OnInit {
   pipelineRoute: PipelineRoute[] = [];
   formRequestData: Pipeline;
   data: Pipeline[] = [];
+  mapCoords = [];
   public mapCenter;
 
-  polylineOptions: polylineOption;
+  polylineOptions: polylineOption[] = [];
   // routesData: RouteLoc[] = [];
 
   canShowConfirmationForm = false;
@@ -228,6 +229,8 @@ export class PipelineComponent implements OnInit {
     //check whether inputed co-ordinate was not occupied using isUnique(data)
     //isUnique(data)
     if (this.pipelineService.isUnique({ lat: lat, lng: lng })) {
+      
+      this.mapCoords.push({ lat: parseFloat(lat), lng: parseFloat(lng) });
 
       this.pipelineService.addRoute({ lat: lat, lng: lng });
       this.addRouteForm();
@@ -257,6 +260,17 @@ export class PipelineComponent implements OnInit {
     let long = (<FormArray>this.pipelineFormControls['long']).value[longLenght - 1];
 
     this.pipelineService.addRoute({ lat: lat, lng: long });
+    this.mapCoords.push({ lat: parseFloat(lat), lng: parseFloat(long) });
+    
+    this.pipelineService.pushPolyline({
+      path: this.pipelineService.mapCoords,
+      strokeColor: '#ffffff',
+      strokeOpacity: 1.0,
+      strokeWeight: 3,
+    });
+
+    this.polylineOptions = this.pipelineService.polylineOptions;
+    console.log('Me here:', this.polylineOptions)
 
     const formData: Pipeline = {
       pipeline_type_id: this.pipelineFormControls['pipeline_type_id'].value,
@@ -395,17 +409,15 @@ export class PipelineComponent implements OnInit {
       data.push({lat: lat, lng: lng})
 
     });
-    // this.routes = this.routes.map((item) => {
-    //   item.locations = data;
-    //   return item;
-    // });
-
-    this.polylineOptions = {
+    console.log(data)
+    this.polylineOptions = [];
+    this.polylineOptions.push({
       path: data,
       strokeColor: '#32a1d0',
       strokeOpacity: 1.0,
       strokeWeight: 2,
-    }
+    })
+    console.log(this.polylineOptions)
   }
 
   deleteItem(event) {

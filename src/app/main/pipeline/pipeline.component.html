@@ -368,9 +368,11 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <!-- Google Maps Basic Component -->
-                                                    <google-map height="350px" width="'60%'" [center]="mapCenter" [zoom]="6">
+                                                    <google-map height="450px" width="'60%'" mapTypeId="hybrid" [center]="mapCenter" [zoom]="6">
                                                         <!-- <map-circle [options]="mapCircleOptions" [center]="mapCircleCenter"></map-circle> -->
-                                                        <map-polyline [options]="polylineOptions"></map-polyline>
+                                                        <div *ngFor="let polylineOption of polylineOptions">
+                                                            <map-polyline [options]="polylineOption"></map-polyline>
+                                                        </div>
                                                     </google-map>
                                                 
                                                 </div>
