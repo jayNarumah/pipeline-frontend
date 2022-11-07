@@ -6,21 +6,45 @@
         <section id="google-maps-basic">
             <div class="row">
                 <div class="col-12">
-                    <div class="col-3">
+                <div class="row">
+                    <div class="col-4">
+                        <span>Filter-By-Type</span>
+                        <ng-select [items]="pipelineType" (change)="filterByType($event)" [addTag]="true" bindValue="id" bindLabel="name" 
+                        placeholder="Select Pipeline-Type">
+                            <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                <span class="ng-value-label">
+                                    {{ item.name }}</span>
+                                <span class="ng-value-icon right"    (click)="clear(item)" aria-hidden="true">×</span>
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                    <div class="col-4">
+                        <span>Filter-By-Company</span>
+                        <ng-select [items]="companies"  [addTag]="true" bindValue="id"
+                            bindLabel="name" (change)="filterByCompany($event)" placeholder="Select Company" >
+                            <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                <span class="ng-value-label">
+                                    {{ item.name }}</span>
+                                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                    <div class="col-4">
                         <span>Map-Type</span>
                         <dx-select-box [dataSource]="['satellite', 'hybrid', 'roadmap', 'terrain']" (onValueChanged)="changeMapType($event)"
                             placeholder="Select Map-Type">
                         </dx-select-box>
                     </div>
+                </div>
                         <div class="card-body">
                             <google-map height="600px" width="'100%'" [center]="mapCenter" [zoom]="6.5" [mapTypeId]="mapType">
                                 <div *ngFor="let polylineOption of polylineOptions; let i = index">
                                     <map-polyline [options]="polylineOption"></map-polyline>
                                 </div>
                             </google-map>
-                        </div>
+                        </div>  
                         
-                </div>
+                    </div>
             </div>
         </section>
 

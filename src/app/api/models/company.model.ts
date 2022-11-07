@@ -4,4 +4,5 @@ export interface Company{
     address: string,
     phone_number: string,
     email: string,
+    color?: string,
 }

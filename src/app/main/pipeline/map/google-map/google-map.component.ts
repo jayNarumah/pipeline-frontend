@@ -2,102 +2,82 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapInfoWindow } from '@angular/google-maps';
 import { PipelineEndpoint } from 'app/api/endpoints/pipeline.endpoint';
 import { Pipeline } from 'app/api/models/pipeline.model';
-import { GoogleMapService, polylineOption } from 'app/api/services/google-map.service';
-
+import { GoogleMapService, PolylineOption } from 'app/api/services/google-map.service';
 
 @Component({
   selector: 'app-google-map',
   templateUrl: './google-map.component.html'
 })
+  
 export class GoogleMapComponent implements OnInit {
   // public
   public contentHeader: object;
   pipelines: Pipeline[] = [];
-  polylineOptions: polylineOption[] = [];
+  polylineOptions: PolylineOption[] = [];
   mapType = 'hybrid';
-  // mapCoords;
-  // public mapCenter = { lat: 9.072264, lng: 7.491302 };
+
+  companies = [];
+  pipelineType = [];
+  
   mapCenter: {lat: number, lng: number};
 
   constructor(
     private pipelineEndPoint: PipelineEndpoint,
     private googleMapService: GoogleMapService) {
     this.mapCenter = this.googleMapService.getMapCenter();
-    // this.polylineOptions = this.googleMapService.getPolylineOptions();
-    // console.log(this.polylineOptions)
   }
-
-  // private mapCoords = [
-  //   { lat: 14.9855310000, lng: 7.6171440000 },
-  //   { lat: 14.9855310000, lng: 7.6171480000 },
-  //   { lat: 14.9855310000, lng: 7.6171480000 },
-  //   { lat: 10.9855310000, lng: 10.9971480000 }
-  //  ];  
-
-  // polylineOptions = {
-  //   path: this.mapCoords,
-  //   strokeColor: '#32a1d0',
-  //   strokeOpacity: 1.0,
-  //   strokeWeight: 2,
-  // };
-  
-  allPipelines() {
-
-    // this.pipelineData.splice(0, this.pipelineData.length);
-    // this.routes.splice(0, this.routes.length);
-    // this.pipelines.forEach((currentValue: any  ) => {
-    //   currentValue.pipeline_routes.forEach((pipelineRoute: any  ) => {
-    //     // console.log(pipelineRoute)
-    //     this.pipelineData.push({lat: pipelineRoute.lat, lng: pipelineRoute.long})
-
-    // });
-    // });
-
-    // this.routes.push(
-    //   {
-    //     weight: 6,
-    //     color: 'blue',
-    //     opacity: 0.5,
-    //     mode: '',
-    //     locations: this.pipelineData,
-    //   }
-    // );
-
-    // this.routes = this.routes.map((item) => {
-    //   item.locations = this.pipelineData
-    //   console.log('Data',this.pipelineData)
-    //   return item;
-    // });
-    // console.log(this.pipelineData)
-  }
-
 
   changeMapType(e: any)
   {
-    console.log(e)
     this.mapType = e.value;
   }
 
-  selectPipeline(e: any) {
-    let mapCoords = [];
+  filterByType(event: any) {
+    this.polylineOptions = [];
+    const _companies = this.pipelines.filter((item) => item.pipeline_type_id == event.id);
 
-    e.value.forEach((currentValue: any) => {
-      
-      let lat = parseFloat(currentValue.lat);
-      let lng = parseFloat(currentValue.long)
+    _companies.forEach((currentValue) => {
+      let mapCoords = [];
+      let color = currentValue.company.color;
 
-      mapCoords.push({ lat: lat, lng: lng })
-    });
-    //to update the polyline path in the display
-  //   this.polylineOptions = {
-  //   path: mapCoords,
-  //   strokeColor: '#32a1d0',
-  //   strokeOpacity: 1.0,
-  //   strokeWeight: 2,
-  // };
+      currentValue.pipeline_routes.forEach((crrntValue) => {
+        let lat = parseFloat(crrntValue.lat.toString());
+        let lng = parseFloat(crrntValue.long.toString());
+        
+        mapCoords.push({ lat: lat, lng: lng });
+      })
+      this.polylineOptions.push({
+        path: mapCoords,
+          strokeColor: color,
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+      })
+    })
+  }
 
-    // this.polylineOptions.path = mapCoords;
-    // console.log(this.polylineOptions);
+  filterByCompany(event: any) {
+    this.polylineOptions = [];
+
+    const _pipelines = this.pipelines.filter((item) => item.company_id == event.id);
+
+    _pipelines.forEach((currentValue) => {
+      let mapCoords = [];
+      let polyline = [];
+      let color = currentValue.company.color;
+
+      currentValue.pipeline_routes.forEach((crrntValue) => {
+        let lat = parseFloat(crrntValue.lat.toString());
+        let lng = parseFloat(crrntValue.long.toString());
+        
+        mapCoords.push({ lat: lat, lng: lng });
+      })
+      this.polylineOptions.push({
+        path: mapCoords,
+          strokeColor: color,
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+      })
+    })
   }
 
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
@@ -133,26 +113,41 @@ export class GoogleMapComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.pipelines = response.data;
-          this.polylineOptions
+          // this.polylineOptions
+          const pipelineTypes: any[] = [];
+          const companies: any = [];
           this.pipelines.forEach((currentValue: any) => {
             let mapCoords = [];
-        currentValue.pipeline_routes.forEach((pipelineRoute: any  ) => {
-        // console.log(pipelineRoute)
-        let lat = parseFloat(pipelineRoute.lat);
-        let lng = parseFloat(pipelineRoute.long);
-          
-          mapCoords.push({ lat: lat, lng: lng });
-        // this.mapCoords.push({lat: pipelineRoute.lat, lng: pipelineRoute.long})
+            let color = currentValue.company.color;
+            let companyData = { id: currentValue.company.id, name: currentValue.company.name };
+            let typeData = { id: currentValue.pipeline_type.id, name: currentValue.pipeline_type.name }
 
-        });
+            let check = companies.find((item) => item.id == companyData.id || item.name == companyData.name);
+            if (!check) {
+              companies.push(companyData);
+            }
+
+            let check1 = pipelineTypes.find((item) => item.id == typeData.id || item.name == typeData.name);
+            if (!check1) {
+              pipelineTypes.push(typeData);
+            }
+            
+            currentValue.pipeline_routes.forEach((pipelineRoute: any  ) => {
+              let lat = parseFloat(pipelineRoute.lat);
+              let lng = parseFloat(pipelineRoute.long);
+                
+              mapCoords.push({ lat: lat, lng: lng });
+            });
+
         this.polylineOptions.push({
           path: mapCoords,
-          strokeColor: '#32a1d0',
+          strokeColor: color,
           strokeOpacity: 1.0,
           strokeWeight: 2,
         })
           });
-          console.log(this.polylineOptions)
+          this.pipelineType = pipelineTypes;
+          this.companies = companies;
         },
         error: (error) => console.log('Error: ', error),
       });

@@ -14,6 +14,7 @@ import { MapComponent } from './map/map.component';
 import { GoogleMapComponent } from './map/google-map/google-map.component';
 import { CardSnippetModule } from '@core/components/card-snippet/card-snippet.module';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
+import { GenColorService } from 'app/api/services/generate-color.service';
 
 const routes: Routes = [
   {
@@ -78,6 +79,6 @@ const routes: Routes = [
     CoreCommonModule,
     GoogleMapsModule
   ],
-  providers: [GoogleMap]
+  providers: [GoogleMap, GenColorService]
 })
 export class PipelineModule {}

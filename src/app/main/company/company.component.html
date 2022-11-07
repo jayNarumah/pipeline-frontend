@@ -4,8 +4,6 @@
     <!-- content header end -->
 
     <section id="card-demo-example">
-        <!-- / Probate Draft section start -->
-        <!-- Probate Draft section end -->
 
         <!-- / Confirm draft Form section start -->
         <div class="card" *ngIf="displaySectionForm">
@@ -131,9 +129,7 @@
                                             <div
                                                 class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
                                                 <h4 class="text-primary">Add Company Form.</h4>
-                                                <!-- <span class="timeline-event-time">Step - 2.</span> -->
                                                 <p class="text-secondary">Company – Confirmation</p>
-                                                <!-- <span class="badge badge-pill badge-light-primary">Step - 2.</span> -->
                                             </div>
                                             <div class="border rounded shadow-sm pb-2 pt-2 px-2">
                                                 <div class="row">
@@ -163,6 +159,12 @@
                                                             <label for="first-name-icon"
                                                                 class="form-label font-weight-bold text-primary">Address</label>
                                                             <p>{{ formRequestData?.address }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="first-name-icon" class="form-label font-weight-bold text-primary">Pipelines Color</label>
+                                                            <div [style.background-color]="color" style="width: 90px; height: 35px;"></div>
                                                         </div>
                                                     </div>
                             

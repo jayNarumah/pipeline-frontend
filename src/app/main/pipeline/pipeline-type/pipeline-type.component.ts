@@ -208,8 +208,6 @@ data: PipelineType[] = [];
           },
         });
     } else {
-
-
       // console.log(this.formRequestData);
       this.pipelineTypeEndpoint.create(this.formRequestData)
         .subscribe({

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
 import { Company } from 'app/api/models/company.model';
+import { GenColorService } from 'app/api/services/generate-color.service';
 
 @Component({
   selector: 'app-company',
@@ -29,10 +30,12 @@ export class CompanyComponent implements OnInit {
   companies: Company[] = [];
   formRequestData: Company;
   data: Company[] = [];
+  color;
   
   constructor(
     private fb: FormBuilder,
     private readonly companyEndpoint: CompanyEndpoint,
+    private genColorService: GenColorService
 
   ) {
     this.companyForm = this.fb.group({
@@ -84,11 +87,19 @@ export class CompanyComponent implements OnInit {
   }
 
   processForm() {
+    if (this.operation != 'Update') {
+      this.genColorService.changeBase(this.data.length * 2000, 16);
+      let color = this.genColorService.displayColorCode();
+      this.color = color;
+    }
+    
+
     const formData: Company = {
       name: this.companyFormControls['name'].value,
       address: this.companyFormControls['address'].value,
       phone_number: this.companyFormControls['phone_number'].value,
       email: this.companyFormControls['email'].value,
+      color: this.color,
     };
 
     this.formRequestData = formData;
@@ -178,6 +189,7 @@ export class CompanyComponent implements OnInit {
     );
 
     this.id = event.row.data.id;
+    this.color = companyData.color;
 
     this.companyForm.patchValue({
       name: companyData.name,

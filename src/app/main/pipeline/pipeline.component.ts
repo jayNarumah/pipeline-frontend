@@ -11,7 +11,7 @@ import { PipelineRoute } from 'app/api/models/pipeline-route.model';
 import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
 import { RouteLoc } from 'app/api/models/pipeline-loc.model';
 import { PipelineService } from 'app/api/services/pipeline.service';
-import { GoogleMapService, polylineOption } from 'app/api/services/google-map.service';
+import { GoogleMapService, PolylineOption } from 'app/api/services/google-map.service';
 @Component({
   selector: 'app-pipeline',
   providers: [PipelineService],
@@ -39,7 +39,8 @@ export class PipelineComponent implements OnInit {
   data: Pipeline[] = [];
   public mapCenter;
 
-  polylineOptions: polylineOption[] = [];
+  polylineOptions: PolylineOption[] = [];
+  polyline: PolylineOption;
   // routesData: RouteLoc[] = [];
 
   canShowConfirmationForm = false;
@@ -178,16 +179,16 @@ export class PipelineComponent implements OnInit {
       return;
     }
     //check if the element is the last element of the FormArray
-    if ((lat || long) && length <= -1) {
-      console.log('length -1 ::', length)
-      this.pipelineService.removeRoute();
-      return;
-    }
-    //check if the index-2 exist within formArrayElements
-    if ((lat || long) && length >= 1) {
-      this.pipelineService.removeRoute();
-      return;
-    }
+    // if ((lat || long) && length <= -1) {
+    //   console.log('length -1 ::', length)
+    //   this.pipelineService.removeRoute();
+    //   return;
+    // }
+    // //check if the index-2 exist within formArrayElements
+    // if ((lat || long) && length >= 1) {
+    //   this.pipelineService.removeRoute();
+    //   return;
+    // }
     if (lat || long) {
       console.log("last not empty", length)
       this.pipelineService.removeRoute();
@@ -261,10 +262,8 @@ export class PipelineComponent implements OnInit {
       let lng = this.pipelineFormControls['long'].value[i]
 
       mapCoords.push({lat: parseFloat(lat), lng: parseFloat(lng)})
-      console.log(mapCoords)
     })
 
-    console.log(mapCoords)
     this.pipelineService.pushPolyline({
       path: mapCoords,
       strokeColor: '#ffffff',
@@ -273,7 +272,6 @@ export class PipelineComponent implements OnInit {
     });
 
     this.polylineOptions = this.pipelineService.polylineOptions;
-    console.log(this.polylineOptions)
 
     const formData: Pipeline = {
       pipeline_type_id: this.pipelineFormControls['pipeline_type_id'].value,
@@ -401,6 +399,7 @@ export class PipelineComponent implements OnInit {
     const pData = this.data.find(
       item => item.id === event.row.data.id
     );
+    console.log(pData);
 
     this.id = event.row.data.id;
 
@@ -412,15 +411,12 @@ export class PipelineComponent implements OnInit {
       data.push({lat: lat, lng: lng})
 
     });
-    console.log(data)
-    this.polylineOptions = [];
-    this.polylineOptions.push({
+    this.polyline ={
       path: data,
-      strokeColor: '#32a1d0',
+      strokeColor: pData.company.color,
       strokeOpacity: 1.0,
       strokeWeight: 3,
-    })
-    console.log(this.polylineOptions)
+    }
   }
 
   deleteItem(event) {

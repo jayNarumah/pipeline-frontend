@@ -4,8 +4,6 @@
     <!-- content header end -->
 
     <section id="card-demo-example">
-        <!-- / Probate Draft section start -->
-        <!-- Probate Draft section end -->
 
         <!-- / Confirm draft Form section start -->
         <div class="card" *ngIf="displaySectionForm">
@@ -288,13 +286,6 @@
                                             </div>
                                             <div class="border rounded shadow-sm pb-2 pt-2 px-2">
                                                 <div class="row">
-                                                    <!-- <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="first-name-icon"
-                                                                class="form-label font-weight-bold text-primary">Company </label>
-                                                            <p>{{ formRequestData?.name }}</p>
-                                                        </div>
-                                                    </div> -->
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="first-name-icon"
@@ -350,26 +341,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-actions right" *ngIf="pipelineFormControls['lat'].value">
-                                                    <!-- <div class="row">
-                                                    
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="first-name-icon" class="form-label font-weight-bold text-primary">Latitude</label>
-                                                                <p *ngFor="let lat of pipelineFormControls['lat'].value">{{ lat }}</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="first-name-icon" class="form-label font-weight-bold text-primary">Longitude</label>
-                                                                <p *ngFor="let long of pipelineFormControls['long'].value">{{ long }}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
+                                                
                                                 </div>
                                                 <div class="card-body">
                                                     <!-- Google Maps Basic Component -->
                                                     <google-map height="450px" width="'60%'" mapTypeId="hybrid" [center]="mapCenter" [zoom]="6">
-                                                        <!-- <map-circle [options]="mapCircleOptions" [center]="mapCircleCenter"></map-circle> -->
                                                         <div *ngFor="let polylineOption of polylineOptions">
                                                             <map-polyline [options]="polylineOption"></map-polyline>
                                                         </div>
@@ -449,7 +425,7 @@
                 <div class="table-responsive" *ngIf="displayMap">
                     <!-- <app-map></app-map> -->
                     <google-map height="500px" width="'100%'" [center]="mapCenter" [zoom]="6.15">
-                        <map-polyline [options]="polylineOptions"></map-polyline>
+                        <map-polyline [options]="polyline"></map-polyline>
                     </google-map>
                     <div class="form-actions right">
                         <button type="button" (click)="closeMap()" class="btn btn-outline-warning btn-sm mr-1" rippleEffect>

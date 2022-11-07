@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RouteLoc } from '../models/pipeline-loc.model';
 
-export class polylineOption{
+export class PolylineOption{
   path: any; 
   strokeColor: string = '#32a1d0';
   strokeOpacity: number = 1.0;
@@ -19,7 +19,7 @@ const mapCoords = [
   // ['12°10.2144′ N', '6°39.8472′ E']
 ]
     
-const polylineOptions: polylineOption = {
+const polylineOptions: PolylineOption = {
     path: mapCoords,
     strokeColor: '#32a1d0',
     strokeOpacity: 1.0,
@@ -32,13 +32,9 @@ const polylineOptions: polylineOption = {
 export class GoogleMapService {
 
   constructor() {
-    // mapCoords.push({ lat: 12.9855310000, lng: 7.6171440000 });
-    // mapCoords.push({ lat: 12.9855310000, lng: 7.6171480000 });
-    // mapCoords.push({ lat: 12.9855310000, lng: 7.6171480000 });
-    // mapCoords.push({ lat: 10.9855310000, lng: 10.9971480000 });
   }
 
-  getPolylineOptions(): polylineOption {
+  getPolylineOptions(): PolylineOption {
     return polylineOptions;
   }
 
@@ -48,7 +44,7 @@ export class GoogleMapService {
 
       mapCoords.push(currentValue);
     });
-    console.log(polylineOptions)
+    
     return polylineOptions;
   }
 
