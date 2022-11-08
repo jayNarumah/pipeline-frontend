@@ -46,11 +46,23 @@ export class GoogleMapComponent implements OnInit {
         
         mapCoords.push({ lat: lat, lng: lng });
       })
+    const lineSymbol = {
+      path: 'M -.5,-.5 .5,-.5, .5,.5 -.5,.5',
+      scale: 3,
+      offset : '50%'
+  };
       this.polylineOptions.push({
         path: mapCoords,
           strokeColor: color,
           strokeOpacity: 1.0,
-          strokeWeight: 2,
+        strokeWeight: 2,
+          icons: [
+      {
+        icon: lineSymbol,
+        offset: "50%",
+              repeat: "50%",
+      },
+    ], 
       })
     })
   }
@@ -62,8 +74,8 @@ export class GoogleMapComponent implements OnInit {
 
     _pipelines.forEach((currentValue) => {
       let mapCoords = [];
-      let polyline = [];
       let color = currentValue.company.color;
+      const typeId = currentValue.pipeline_type_id;
 
       currentValue.pipeline_routes.forEach((crrntValue) => {
         let lat = parseFloat(crrntValue.lat.toString());
@@ -75,7 +87,15 @@ export class GoogleMapComponent implements OnInit {
         path: mapCoords,
           strokeColor: color,
           strokeOpacity: 1.0,
-          strokeWeight: 2,
+        strokeWeight: 2,
+          icons: [
+            {
+              icon: this.googleMapService.getIcon(typeId),
+              offset: "50%",
+              repeat: "50%",
+              strokeColor: color,
+            },
+          ], 
       })
     })
   }
@@ -118,6 +138,7 @@ export class GoogleMapComponent implements OnInit {
           const companies: any = [];
           this.pipelines.forEach((currentValue: any) => {
             let mapCoords = [];
+            let typeId = currentValue.pipeline_type_id;
             let color = currentValue.company.color;
             let companyData = { id: currentValue.company.id, name: currentValue.company.name };
             let typeData = { id: currentValue.pipeline_type.id, name: currentValue.pipeline_type.name }
@@ -144,6 +165,14 @@ export class GoogleMapComponent implements OnInit {
           strokeColor: color,
           strokeOpacity: 1.0,
           strokeWeight: 2,
+          icons: [
+            {
+              icon: this.googleMapService.getIcon(typeId),
+              offset: "50%",
+              repeat: "50%",
+              strokeColor: color,
+            },
+          ], 
         })
           });
           this.pipelineType = pipelineTypes;

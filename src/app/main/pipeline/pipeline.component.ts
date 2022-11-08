@@ -11,7 +11,8 @@ import { PipelineRoute } from 'app/api/models/pipeline-route.model';
 import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
 import { RouteLoc } from 'app/api/models/pipeline-loc.model';
 import { PipelineService } from 'app/api/services/pipeline.service';
-import { GoogleMapService, PolylineOption } from 'app/api/services/google-map.service';
+import { GoogleMapService, PolylineOption } from 'app/api/services/google-map.service'; 
+
 @Component({
   selector: 'app-pipeline',
   providers: [PipelineService],
@@ -69,7 +70,7 @@ export class PipelineComponent implements OnInit {
       end_lat: this.fb.control(null, [Validators.required, this.latRange.bind(this)]),
       start_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
       end_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
-      lat: this.fb.array([], [this.latRange.bind(this)]),
+      lat: this.fb.array([], [this.latRange.bind(this), this.isValidNumber.bind(this)]),
       long: this.fb.array([], [this.longRange.bind(this)]),
     });
     // this.markers = service.getMarkers();
@@ -136,6 +137,18 @@ export class PipelineComponent implements OnInit {
         error: (error) => this.blockUI.stop(),
       });
   }
+
+  isValidNumber(control: FormControl): { [s: string]: boolean }{
+    const num = new Number(control.value).valueOf();
+    let numbr = typeof num;
+    console.log(num === NaN)
+    // new Node(num === NaN)
+    if (num === NaN && control.value != '') {
+      return { 'invNumber': true };
+    }
+    return null;
+  }
+
   //custome validator accept only latitude values(-90 to 90)
   latRange(control: FormControl): { [s: string]: boolean } {
     if (control.value < -90 || control.value > 90 ) {

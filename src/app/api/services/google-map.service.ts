@@ -6,6 +6,7 @@ export class PolylineOption{
   strokeColor: string = '#32a1d0';
   strokeOpacity: number = 1.0;
   strokeWeight: number = 2;
+  icons?: any;
 }
 
 const mapCenter = { lat: 9.072264, lng: 7.491302 };
@@ -31,11 +32,54 @@ const polylineOptions: PolylineOption = {
 })
 export class GoogleMapService {
 
+  icons = [
+    {
+      path: "M -.5,-.5 .5,-.5, .5,.5 -.5,.5",
+      scale: 3,
+      strokeColor: "#ffffff",
+      offset : '50%'
+    },
+    {
+      path: "M -2,0 0,-2 2,0 0,2 z",
+      scale: 3,
+      strokeColor: "#ffffff",
+      offset : '50%'
+    },
+    {
+      path: "M -1,0 A 1,1 0 0 0 -3,0 1,1 0 0 0 -1,0M 1,0 A 1,1 0 0 0 3,0 1,1 0 0 0 1,0M -3,3 Q 0,5 3,3",
+      scale: 3,
+      strokeColor: "#ffffff",
+      offset : '50%'
+    },
+    {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 3,
+      strokeColor: "#ffffff",
+      offset : '50%'
+    },
+    {
+      path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+      scale: 3,
+      strokeColor: "#ffffff",
+      offset : '50%'
+    },
+    {
+      path: 'M -.5,-.5 .5,-.5, .5,.5 -.5,.5',
+      scale: 3,
+      strokeColor: "#ffffff",
+      offset : '50%'
+    },
+   ];
+
   constructor() {
   }
 
   getPolylineOptions(): PolylineOption {
     return polylineOptions;
+  }
+  getIcon(index) {
+    console.log(this.icons[index-1])
+    return (this.icons[index - 1]);
   }
 
   selectPolylineOptions() {

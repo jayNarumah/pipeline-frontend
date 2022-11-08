@@ -1,51 +1,158 @@
+<script src="https://kit.fontawesome.com/d16d7ab5d4.js" crossorigin="anonymous"></script>
 <div class="content-wrapper container-xxl p-0">
     <div class="content-body">
         <!-- content-header component -->
         <app-content-header [contentHeader]="contentHeader"></app-content-header>
 
         <section id="google-maps-basic">
-            <div class="row">
-                <div class="col-12">
-                <div class="row">
-                    <div class="col-4">
-                        <span>Filter-By-Type</span>
-                        <ng-select [items]="pipelineType" (change)="filterByType($event)" [addTag]="true" bindValue="id" bindLabel="name" 
-                        placeholder="Select Pipeline-Type">
-                            <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                                <span class="ng-value-label">
-                                    {{ item.name }}</span>
-                                <span class="ng-value-icon right"    (click)="clear(item)" aria-hidden="true">×</span>
-                            </ng-template>
-                        </ng-select>
-                    </div>
-                    <div class="col-4">
-                        <span>Filter-By-Company</span>
-                        <ng-select [items]="companies"  [addTag]="true" bindValue="id"
-                            bindLabel="name" (change)="filterByCompany($event)" placeholder="Select Company" >
-                            <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                                <span class="ng-value-label">
-                                    {{ item.name }}</span>
-                                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                            </ng-template>
-                        </ng-select>
-                    </div>
-                    <div class="col-4">
-                        <span>Map-Type</span>
-                        <dx-select-box [dataSource]="['satellite', 'hybrid', 'roadmap', 'terrain']" (onValueChanged)="changeMapType($event)"
-                            placeholder="Select Map-Type">
-                        </dx-select-box>
-                    </div>
-                </div>
+                
                         <div class="card-body">
-                            <google-map height="600px" width="'100%'" [center]="mapCenter" [zoom]="6.5" [mapTypeId]="mapType">
+                            <div class="row">
+                                <div class="col-9">
+                                   <google-map height="650px" width="'100%'" [center]="mapCenter" [zoom]="6.5" [mapTypeId]="mapType">
                                 <div *ngFor="let polylineOption of polylineOptions; let i = index">
                                     <map-polyline [options]="polylineOption"></map-polyline>
                                 </div>
-                            </google-map>
-                        </div>  
-                        
-                    </div>
-            </div>
+                            </google-map> 
+                                </div>
+                                <div class="col-3">
+                                    <div class="card card-transaction">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Map-Filters</h4>
+                                    
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="transaction-item">
+                                                <div class="media">
+                                                    <div class="avatar bg-light-primary rounded">
+                                                        <div class="avatar-content">
+                                                            <i data-feather="globe" class="avatar-icon font-medium-3"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <dx-select-box [dataSource]="['satellite', 'hybrid', 'roadmap', 'terrain']"
+                                                            (onValueChanged)="changeMapType($event)" placeholder="Filter-By Map-Type">
+                                                        </dx-select-box>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-item">
+                                                <div class="media">
+                                                    <div class="avatar bg-light-success rounded">
+                                                        <div class="avatar-content">
+                                                            <i data-feather="framer" class="avatar-icon font-medium-3"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <ng-select [items]="pipelineType" (change)="filterByType($event)" [addTag]="true" bindValue="id"
+                                                            bindLabel="name" placeholder="Filter-By Pipeline-Type" style="width: 208px;">
+                                                            <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                                                <span class="ng-value-label">
+                                                                    {{ item.name }}</span>
+                                                                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                                            </ng-template>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-item">
+                                                <div class="media">
+                                                    <div class="avatar bg-light-primary rounded">
+                                                        <div class="avatar-content">
+                                                            <i data-feather="home" class="avatar-icon font-medium-3"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <ng-select [items]="companies" [addTag]="true" bindValue="id" bindLabel="name"
+                                                            (change)="filterByCompany($event)" placeholder="Filter-By Company" style="width: 208px;">
+                                                            <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                                                <span class="ng-value-label">
+                                                                    {{ item.name }}</span>
+                                                                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                                            </ng-template>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-transaction">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Map-Keys</h4>
+                                    
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="transaction-item">
+                                                <div class="media">
+                                                    <div class="avatar bg-light-primary rounded">
+                                                        <div class="avatar-content">
+                                                            <i data-feather="pocket" class="avatar-icon font-medium-3"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h6 class="transaction-title">Gas</h6>
+                                                        <small>Pipeline</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-item">
+                                                <div class="media">
+                                                    <div class="avatar bg-light-success rounded">
+                                                        <div class="avatar-content">
+                                                            <i data-feather="check" class="avatar-icon font-medium-3"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h6 class="transaction-title">Petrol</h6>
+                                                        <small>Pipeline</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-item">
+                                                <div class="media">
+                                                    <div class="avatar bg-light-danger rounded">
+                                                        <div class="avatar-content">
+                                                            <i data-feather="dollar-sign" class="avatar-icon font-medium-3"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h6 class="transaction-title">Fiber Optic</h6>
+                                                        <small>Cable</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-item">
+                                                <div class="media">
+                                                    <div class="avatar bg-light-warning rounded">
+                                                        <div class="avatar-content">
+                                                            <i data-feather="credit-card" class="avatar-icon font-medium-3"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h6 class="transaction-title">Water</h6>
+                                                        <small>Pipe</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-item">
+                                                <div class="media">
+                                                    <div class="avatar bg-light-info rounded">
+                                                        <div class="avatar-content">
+                                                            <i data-feather="trending-up" class="avatar-icon font-medium-3"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h6 class="transaction-title">Kerosine</h6>
+                                                        <small>Pipeline</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div> 
         </section>
 
         
