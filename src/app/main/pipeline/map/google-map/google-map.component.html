@@ -45,7 +45,7 @@
                                                     </div>
                                                     <div class="media-body">
                                                         <ng-select [items]="pipelineType" (change)="filterByType($event)" [addTag]="true" bindValue="id"
-                                                            bindLabel="name" placeholder="Filter-By Pipeline-Type" style="width: 208px;">
+                                                            bindLabel="name" placeholder="Filter-By Pipeline-Type" [(ngModel)]="filterType" style="width: 208px;">
                                                             <ng-template ng-label-tmp let-item="item" let-clear="clear">
                                                                 <span class="ng-value-label">
                                                                     {{ item.name }}</span>
@@ -64,7 +64,7 @@
                                                     </div>
                                                     <div class="media-body">
                                                         <ng-select [items]="companies" [addTag]="true" bindValue="id" bindLabel="name"
-                                                            (change)="filterByCompany($event)" placeholder="Filter-By Company" style="width: 208px;">
+                                                            (change)="filterByCompany($event)" placeholder="Filter-By Company" [(ngModel)]="filterComp" style="width: 208px;">
                                                             <ng-template ng-label-tmp let-item="item" let-clear="clear">
                                                                 <span class="ng-value-label">
                                                                     {{ item.name }}</span>
@@ -86,7 +86,7 @@
                                                 <div class="media">
                                                     <div class="avatar bg-light-primary rounded">
                                                         <div class="avatar-content">
-                                                            <i data-feather="pocket" class="avatar-icon font-medium-3"></i>
+                                                            <i data-feather="circle" class="avatar-icon font-medium-3"></i>
                                                         </div>
                                                     </div>
                                                     <div class="media-body">
@@ -112,7 +112,7 @@
                                                 <div class="media">
                                                     <div class="avatar bg-light-danger rounded">
                                                         <div class="avatar-content">
-                                                            <i data-feather="dollar-sign" class="avatar-icon font-medium-3"></i>
+                                                            <i data-feather="box" class="avatar-icon font-medium-3"></i>
                                                         </div>
                                                     </div>
                                                     <div class="media-body">
@@ -151,7 +151,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                         </div> 
         </section>
 

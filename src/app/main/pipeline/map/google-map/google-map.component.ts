@@ -15,6 +15,8 @@ export class GoogleMapComponent implements OnInit {
   pipelines: Pipeline[] = [];
   polylineOptions: PolylineOption[] = [];
   mapType = 'hybrid';
+  filterComp;
+  filterType;
 
   companies = [];
   pipelineType = [];
@@ -33,12 +35,14 @@ export class GoogleMapComponent implements OnInit {
   }
 
   filterByType(event: any) {
+    this.filterComp = null;
     this.polylineOptions = [];
     const _companies = this.pipelines.filter((item) => item.pipeline_type_id == event.id);
 
     _companies.forEach((currentValue) => {
       let mapCoords = [];
       let color = currentValue.company.color;
+      const typeId = currentValue.pipeline_type_id;
 
       currentValue.pipeline_routes.forEach((crrntValue) => {
         let lat = parseFloat(crrntValue.lat.toString());
@@ -46,28 +50,26 @@ export class GoogleMapComponent implements OnInit {
         
         mapCoords.push({ lat: lat, lng: lng });
       })
-    const lineSymbol = {
-      path: 'M -.5,-.5 .5,-.5, .5,.5 -.5,.5',
-      scale: 3,
-      offset : '50%'
-  };
+      
       this.polylineOptions.push({
         path: mapCoords,
           strokeColor: color,
           strokeOpacity: 1.0,
         strokeWeight: 2,
-          icons: [
-      {
-        icon: lineSymbol,
-        offset: "50%",
+         icons: [
+            {
+              icon: this.googleMapService.getIcon(typeId),
+              offset: "50%",
               repeat: "50%",
-      },
-    ], 
+              strokeColor: color,
+            },
+          ], 
       })
     })
   }
 
   filterByCompany(event: any) {
+    this.filterType = null;
     this.polylineOptions = [];
 
     const _pipelines = this.pipelines.filter((item) => item.company_id == event.id);
