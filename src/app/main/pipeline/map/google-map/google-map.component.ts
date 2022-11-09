@@ -15,8 +15,9 @@ export class GoogleMapComponent implements OnInit {
   pipelines: Pipeline[] = [];
   polylineOptions: PolylineOption[] = [];
   mapType = 'hybrid';
-  filterComp;
-  filterType;
+  tempPolylines: PolylineOption[] = [];
+  filterComp = null;;
+  filterType = null;
 
   companies = [];
   pipelineType = [];
@@ -35,11 +36,17 @@ export class GoogleMapComponent implements OnInit {
   }
 
   filterByType(event: any) {
-    this.filterComp = null;
     this.polylineOptions = [];
-    const _companies = this.pipelines.filter((item) => item.pipeline_type_id == event.id);
+    let _pipelines = null;
 
-    _companies.forEach((currentValue) => {
+    if (this.filterComp) {
+      _pipelines = this.pipelines.filter((item) => item.company_id == this.filterComp && item.pipeline_type_id == this.filterType);
+    }
+    else {
+      _pipelines = this.pipelines.filter((item) => item.pipeline_type_id == event.id);
+    }
+
+    _pipelines.forEach((currentValue) => {
       let mapCoords = [];
       let color = currentValue.company.color;
       const typeId = currentValue.pipeline_type_id;
@@ -69,11 +76,16 @@ export class GoogleMapComponent implements OnInit {
   }
 
   filterByCompany(event: any) {
-    this.filterType = null;
     this.polylineOptions = [];
+    let _pipelines = null;
 
-    const _pipelines = this.pipelines.filter((item) => item.company_id == event.id);
-
+    if (this.filterType) {
+      _pipelines = this.pipelines.filter((item) => item.company_id == this.filterComp && item.pipeline_type_id == this.filterType);
+    }
+    else {
+     _pipelines = this.pipelines.filter((item) => item.company_id == event.id);
+    }
+    console.log(_pipelines)
     _pipelines.forEach((currentValue) => {
       let mapCoords = [];
       let color = currentValue.company.color;
@@ -177,6 +189,7 @@ export class GoogleMapComponent implements OnInit {
           ], 
         })
           });
+          this.tempPolylines = this.polylineOptions;
           this.pipelineType = pipelineTypes;
           this.companies = companies;
         },
