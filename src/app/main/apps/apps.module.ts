@@ -10,10 +10,6 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 
 // routing
 const routes: Routes = [
-  {
-    path: 'e-commerce',
-    loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule)
-  },
 ];
 
 FullCalendarModule.registerPlugins([dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]);

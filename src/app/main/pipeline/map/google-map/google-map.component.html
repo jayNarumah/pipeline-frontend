@@ -44,7 +44,7 @@
                                                     </div>
                                                     <div class="media-body" style="width: 210px;">
                                                         <ng-select [items]="pipelineType" (change)="filterByType($event)" [addTag]="true" bindValue="id"
-                                                            bindLabel="name" placeholder="Filter-By Pipeline-Type" [(ngModel)]="filterType" style="width: 100%;">
+                                                            bindLabel="name" placeholder="Filter-By Pipeline-Type" (clear)="clearFilter()" [(ngModel)]="filterType" style="width: 100%;">
                                                             <ng-template ng-label-tmp let-item="item" let-clear="clear">
                                                                 <span class="ng-value-label">
                                                                     {{ item.name }}</span>

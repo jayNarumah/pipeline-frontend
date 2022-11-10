@@ -9,7 +9,9 @@ export class PipelineService{
     isUnique(route: RouteLoc): boolean {
         const existingRoute = this.routesData.find(e => e.lat == route.lat && e.lng == route.lng);
         if (existingRoute) {
-            return false;
+            //to be interchanged
+            return true;
+            //return false;
         } else {
             return true;
         }

@@ -39,12 +39,16 @@ export class GoogleMapComponent implements OnInit {
     this.polylineOptions = [];
     let _pipelines = null;
 
-    if (this.filterComp) {
+    if (this.filterComp && this.filterType) {
       _pipelines = this.pipelines.filter((item) => item.company_id == this.filterComp && item.pipeline_type_id == this.filterType);
     }
-    else {
+    else if (this.filterType) {
+      console.log('go',this.tempPolylines)
       _pipelines = this.pipelines.filter((item) => item.pipeline_type_id == event.id);
     }
+    // else {
+    //   _pipelines = this.tempPolylines;
+    // }
 
     _pipelines.forEach((currentValue) => {
       let mapCoords = [];
@@ -82,7 +86,7 @@ export class GoogleMapComponent implements OnInit {
     if (this.filterType) {
       _pipelines = this.pipelines.filter((item) => item.company_id == this.filterComp && item.pipeline_type_id == this.filterType);
     }
-    else {
+    else if(this.filterComp) {
      _pipelines = this.pipelines.filter((item) => item.company_id == event.id);
     }
     console.log(_pipelines)
@@ -112,6 +116,11 @@ export class GoogleMapComponent implements OnInit {
           ], 
       })
     })
+  }
+
+  clearFilter(){
+    console.log(this.tempPolylines)
+    // return;
   }
 
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;

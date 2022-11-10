@@ -8,7 +8,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CoreCommonModule } from '@core/common.module';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 
-import { KbModule } from './kb/kb.module';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
@@ -25,7 +24,6 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
     AuthenticationModule,
     MiscellaneousModule,
     Ng2FlatpickrModule,
-    KbModule,
   ],
 
   providers: []
