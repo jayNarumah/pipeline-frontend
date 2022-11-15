@@ -28,8 +28,7 @@ export class PipelineComponent implements OnInit {
   operation = 'Add';
   id?: number;
   index: number = 0;
-  company_name: string;
-  pipeline_type: string;
+  pipelineName: string;
 
   pipelineData: RouteLoc[] = [];
   pipelines: Pipeline[] = [];
@@ -415,6 +414,7 @@ export class PipelineComponent implements OnInit {
     console.log(pData);
 
     this.id = event.row.data.id;
+    this.pipelineName = event.row.data.name;
 
     let data = [];
     pData.pipeline_routes.forEach((currentValue: any) => {

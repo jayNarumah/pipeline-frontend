@@ -43,7 +43,6 @@ export class GoogleMapComponent implements OnInit {
       _pipelines = this.pipelines.filter((item) => item.company_id == this.filterComp && item.pipeline_type_id == this.filterType);
     }
     else if (this.filterType) {
-      console.log('go',this.tempPolylines)
       _pipelines = this.pipelines.filter((item) => item.pipeline_type_id == event.id);
     }
     // else {

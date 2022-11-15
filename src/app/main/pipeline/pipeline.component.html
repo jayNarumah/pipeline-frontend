@@ -384,7 +384,8 @@
     <div class="card">
         <!-- /.box-header -->
         <div class="card-header">
-            <h4 class="text-uppercase font-weight-bold">Section: Pipeline</h4>
+            <h4 class="text-uppercase font-weight-bold" *ngIf="displayMap">{{pipelineName}}</h4>
+            <h4 class="text-uppercase font-weight-bold" *ngIf="!displayMap">Section: Pipeline</h4>
             <hr />
             <div class="float-right rounded border-radius-lg">
                 <button class="btn btn-gradient-primary btn-sm ml-1" rippleEffect (click)="newRecord()">
