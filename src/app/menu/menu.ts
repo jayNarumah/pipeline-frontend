@@ -10,7 +10,7 @@ export const menu: CoreMenu[] = [
     icon: 'home',
     badge: {
       title: '2',
-      translate: 'MENU.DASHBOARD.BADGE',
+      // translate: 'MENU.DASHBOARD.BADGE',
       // classes: 'badge-light-warning badge-pill'
     },
     children: [
@@ -18,7 +18,7 @@ export const menu: CoreMenu[] = [
         // If role is not assigned will be display to all
         id: 'dashboard',
         title: 'Dashboard',
-        translate: 'MENU.DASHBOARD.ECOMMERCE',
+        // translate: 'MENU.DASHBOARD.ECOMMERCE',
         type: 'item',
         icon: 'box',
         url: 'dashboard/ecommerce'
