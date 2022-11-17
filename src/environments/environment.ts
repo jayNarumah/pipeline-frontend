@@ -7,6 +7,7 @@ export const environment = {
   showConsoleLog: true,
   hmr: false,
   apiUrl: 'https://pipeline202.herokuapp.com/api',
+  // apiUrl: 'http://127.0.0.1:8000/api',
 };
 
 /*
