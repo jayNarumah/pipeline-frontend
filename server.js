@@ -14,10 +14,10 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/dist/vuexy'));
 
 app.get('/*', function(req, resp) {
-    resp.sendFile(path.join(__dirname + '/dist/index.html'));
+    resp.sendFile(path.join(__dirname + '/dist/vuexy/index.html'));
 });
 
 app.listen(process.env.PORT || 8085);

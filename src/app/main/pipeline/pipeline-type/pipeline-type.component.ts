@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./pipeline-type.component.scss']
 })
 export class PipelineTypeComponent implements OnInit {
-data: PipelineType[] = [];
+  data: PipelineType[] = [];
   pipelineTypeForm: FormGroup;
   formRequestData?: PipelineType;
 
@@ -30,7 +30,7 @@ data: PipelineType[] = [];
     private readonly fb: FormBuilder,
   ) {
     this.pipelineTypeForm = this.fb.group({
-      name: this.fb.control(null, [Validators.required]),  
+      name: this.fb.control(null, [Validators.required]),
     });
     this.loadItem = this.loadItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -114,7 +114,6 @@ data: PipelineType[] = [];
             this.data = this.data.filter(
               e => e.id !== event.row.data.id
             );
-            // this.alert.success('Record deleted');
             Swal.fire({
               icon: 'success',
               title: 'Deleted!',
@@ -157,7 +156,6 @@ data: PipelineType[] = [];
 
   processForm() {
     // Validate before Preview
-
     if (!this.pipelineTypeForm.valid) {
       Swal.fire({
         icon: 'info',
@@ -208,7 +206,6 @@ data: PipelineType[] = [];
           },
         });
     } else {
-      // console.log(this.formRequestData);
       this.pipelineTypeEndpoint.create(this.formRequestData)
         .subscribe({
           next: (response) => {
@@ -225,7 +222,7 @@ data: PipelineType[] = [];
 
           },
           error: (error) => {
-            console.log("An error occurred while attempting to submit probate application...");
+            console.log("An error occurred while attempting to create pipeline type...");
             console.log(error);
             Swal.hideLoading();
             Swal.fire(

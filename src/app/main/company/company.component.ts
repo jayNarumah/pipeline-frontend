@@ -118,7 +118,6 @@ export class CompanyComponent implements OnInit {
     
     httpCall.subscribe({
       next: (response) => {
-        // this.router.navigate(['/module/probate/draft/detail', response.data.reg_no]);
         if (this.operation === 'Update') {
           this.operation = 'Add';
           this.data = this.data.map(item => {

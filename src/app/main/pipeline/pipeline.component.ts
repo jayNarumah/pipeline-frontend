@@ -11,7 +11,7 @@ import { PipelineRoute } from 'app/api/models/pipeline-route.model';
 import { CompanyEndpoint } from 'app/api/endpoints/company.endpoint';
 import { RouteLoc } from 'app/api/models/pipeline-loc.model';
 import { PipelineService } from 'app/api/services/pipeline.service';
-import { GoogleMapService, PolylineOption } from 'app/api/services/google-map.service'; 
+import { GoogleMapService, PolylineOption } from 'app/api/services/google-map.service';
 
 @Component({
   selector: 'app-pipeline',
@@ -54,7 +54,6 @@ export class PipelineComponent implements OnInit {
     private pipelineEndpoint: PipelineEndpoint,
     private fb: FormBuilder,
     private readonly companyEndPoint: CompanyEndpoint,
-    // service: MapService,
     private pipelineService: PipelineService,
     private readonly pipelineTypeEndpoint: PipelineTypeEndpoint,
     private googleMapService: GoogleMapService,
@@ -72,8 +71,6 @@ export class PipelineComponent implements OnInit {
       lat: this.fb.array([], [this.latRange.bind(this), this.isValidNumber.bind(this)]),
       long: this.fb.array([], [this.longRange.bind(this)]),
     });
-    // this.markers = service.getMarkers();
-    // this.routes = service.getRoutes();
     this.mapCenter = this.googleMapService.getMapCenter();
 
     this.loadItem = this.loadItem.bind(this);
@@ -126,8 +123,8 @@ export class PipelineComponent implements OnInit {
         },
         error: (error) => this.blockUI.stop(),
       });
-    
-     this.companyEndPoint.list()
+
+    this.companyEndPoint.list()
       .subscribe({
         next: (response) => {
           this.companies = response.data;
@@ -137,7 +134,7 @@ export class PipelineComponent implements OnInit {
       });
   }
 
-  isValidNumber(control: FormControl): { [s: string]: boolean }{
+  isValidNumber(control: FormControl): { [s: string]: boolean } {
     const num = new Number(control.value).valueOf();
     let numbr = typeof num;
     console.log(num === NaN)
@@ -150,33 +147,32 @@ export class PipelineComponent implements OnInit {
 
   //custome validator accept only latitude values(-90 to 90)
   latRange(control: FormControl): { [s: string]: boolean } {
-    if (control.value < -90 || control.value > 90 ) {
-      return { 'invLat': true};
+    if (control.value < -90 || control.value > 90) {
+      return { 'invLat': true };
     }
     return null;
   }
-  
+
   //custome validator accept only longitude values(-180 to 180)
   longRange(control: FormControl): { [s: string]: boolean } {
     if (control.value < -180 || control.value > 180) {
-      return { 'invLong': true};
+      return { 'invLong': true };
     }
     return null;
   }
-//remove the input from the FormArray
+  //remove the input from the FormArray
   removeRoute() {
     (<FormArray>this.pipelineFormControls['lat']).removeAt(this.index);
     (<FormArray>this.pipelineFormControls['long']).removeAt(this.index);
   }
-//remove all inputs from the FormArray 
-  removeFormArray()
-  {
+  //remove all inputs from the FormArray 
+  removeFormArray() {
     (<FormArray>this.pipelineFormControls['lat']).clear();
     (<FormArray>this.pipelineFormControls['long']).clear();
   }
-//delete last inputed route from the array of routes
+  //delete last inputed route from the array of routes
   deleteRoute() {
-    this.index -- ;
+    this.index--;
     this.errorMsg = false;
     this.removeRoute();
 
@@ -192,7 +188,6 @@ export class PipelineComponent implements OnInit {
     }
     //check if the element is the last element of the FormArray
     // if ((lat || long) && length <= -1) {
-    //   console.log('length -1 ::', length)
     //   this.pipelineService.removeRoute();
     //   return;
     // }
@@ -206,21 +201,21 @@ export class PipelineComponent implements OnInit {
       this.pipelineService.removeRoute();
       return;
     }
-  
+
     if ((!lat || !long) && length > 0) {
       console.log('last empty lenth', length)
       this.pipelineService.removeRoute();
       return;
-    } 
+    }
   }
-//add the route in the FormArray
+  //add the route in the FormArray
   addRouteForm() {
     const latControl = new FormControl(null, [Validators.required, this.latRange.bind(this)]);
-      const longControl = new FormControl(null, [Validators.required, this.longRange.bind(this)]);
+    const longControl = new FormControl(null, [Validators.required, this.longRange.bind(this)]);
 
-      (<FormArray>this.pipelineFormControls['lat']).push(latControl);
-      (<FormArray>this.pipelineFormControls['long']).push(longControl);
-      this.index += 1;
+    (<FormArray>this.pipelineFormControls['lat']).push(latControl);
+    (<FormArray>this.pipelineFormControls['long']).push(longControl);
+    this.index += 1;
   }
   //add the inputed route from to FormArray to the array of routes after checks
   addCoordinate() {
@@ -230,13 +225,13 @@ export class PipelineComponent implements OnInit {
       return;
     }
 
-    let lat = (<FormArray>this.pipelineFormControls['lat']).value[this.index-1];
-    let lng = (<FormArray>this.pipelineFormControls['long']).value[this.index-1];
+    let lat = (<FormArray>this.pipelineFormControls['lat']).value[this.index - 1];
+    let lng = (<FormArray>this.pipelineFormControls['long']).value[this.index - 1];
 
     //check whether inputed co-ordinate was not occupied using isUnique(data)
     //isUnique(data)
     if (this.pipelineService.isUnique({ lat: lat, lng: lng })) {
-      
+
       // this.mapCoords.push({ lat: parseFloat(lat), lng: parseFloat(lng) });
 
       this.pipelineService.addRoute({ lat: lat, lng: lng });
@@ -245,10 +240,10 @@ export class PipelineComponent implements OnInit {
     else {
       this.errorMsg = true;
     }
-    
+
   }
 
-  get displayPipelineTypeName() { 
+  get displayPipelineTypeName() {
     const pipelineType = this.pipelineType.find(item => item.id == this.pipelineFormControls['pipeline_type_id'].value);
 
     return pipelineType.name;
@@ -268,12 +263,12 @@ export class PipelineComponent implements OnInit {
 
     this.pipelineService.addRoute({ lat: lat, lng: long });
     let mapCoords = [];
-    
+
     this.pipelineFormControls['lat'].value.forEach((currentValue, i) => {
       let lat = this.pipelineFormControls['lat'].value[i];
       let lng = this.pipelineFormControls['long'].value[i]
 
-      mapCoords.push({lat: parseFloat(lat), lng: parseFloat(lng)})
+      mapCoords.push({ lat: parseFloat(lat), lng: parseFloat(lng) })
     })
 
     this.pipelineService.pushPolyline({
@@ -310,7 +305,7 @@ export class PipelineComponent implements OnInit {
       this.operation === 'Update'
         ? this.pipelineEndpoint.update(this.id, this.formRequestData)
         : this.pipelineEndpoint.create(this.formRequestData);
-    
+
     httpCall.subscribe({
       next: (response) => {
         if (this.operation === 'Update') {
@@ -405,13 +400,11 @@ export class PipelineComponent implements OnInit {
     });
   }
 
-  loadMap(event)
-  {
+  loadMap(event) {
     this.displayMap = true;
     const pData = this.data.find(
       item => item.id === event.row.data.id
     );
-    console.log(pData);
 
     this.id = event.row.data.id;
     this.pipelineName = event.row.data.name;
@@ -421,15 +414,15 @@ export class PipelineComponent implements OnInit {
       let lat = parseFloat(currentValue.lat);
       let lng = parseFloat(currentValue.long);
 
-      data.push({lat: lat, lng: lng})
+      data.push({ lat: lat, lng: lng })
 
     });
-    this.polyline ={
+    this.polyline = {
       path: data,
       strokeColor: pData.company.color,
       strokeOpacity: 1.0,
       strokeWeight: 3,
-    }
+    };
   }
 
   deleteItem(event) {
@@ -450,7 +443,6 @@ export class PipelineComponent implements OnInit {
             this.data = this.data.filter(
               e => e.id !== event.row.data.id
             );
-            // this.alert.success('Record deleted');
             Swal.fire({
               icon: 'success',
               title: 'Deleted!',
