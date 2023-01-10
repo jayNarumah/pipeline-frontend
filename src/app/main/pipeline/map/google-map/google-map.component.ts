@@ -8,7 +8,7 @@ import { GoogleMapService, PolylineOption } from 'app/api/services/google-map.se
   selector: 'app-google-map',
   templateUrl: './google-map.component.html'
 })
-  
+
 export class GoogleMapComponent implements OnInit {
   // public
   public contentHeader: object;
@@ -21,8 +21,8 @@ export class GoogleMapComponent implements OnInit {
 
   companies = [];
   pipelineType = [];
-  
-  mapCenter: {lat: number, lng: number};
+
+  mapCenter: { lat: number, lng: number };
 
   constructor(
     private pipelineEndPoint: PipelineEndpoint,
@@ -30,8 +30,7 @@ export class GoogleMapComponent implements OnInit {
     this.mapCenter = this.googleMapService.getMapCenter();
   }
 
-  changeMapType(e: any)
-  {
+  changeMapType(e: any) {
     this.mapType = e.value;
   }
 
@@ -40,10 +39,10 @@ export class GoogleMapComponent implements OnInit {
     let _pipelines = null;
 
     if (this.filterComp && this.filterType) {
-      _pipelines = this.pipelines.filter((item) => item.company_id == this.filterComp && item.pipeline_type_id == this.filterType);
+      _pipelines = this.pipelines.filter((item) => item.Company.uid == this.filterComp && item.PipelineType.uid == this.filterType);
     }
     else if (this.filterType) {
-      _pipelines = this.pipelines.filter((item) => item.pipeline_type_id == event.id);
+      _pipelines = this.pipelines.filter((item) => item.PipelineType.uid == event.uid);
     }
     // else {
     //   _pipelines = this.tempPolylines;
@@ -51,29 +50,29 @@ export class GoogleMapComponent implements OnInit {
 
     _pipelines.forEach((currentValue) => {
       let mapCoords = [];
-      let color = currentValue.company.color;
-      const typeId = currentValue.pipeline_type_id;
+      let color = currentValue.Company.color;
+      const typeId = currentValue.pipelineTypeId;
 
-      currentValue.pipeline_routes.forEach((crrntValue) => {
+      currentValue.pipelineRoutes.forEach((crrntValue) => {
         let lat = parseFloat(crrntValue.lat.toString());
-        let lng = parseFloat(crrntValue.long.toString());
-        
+        let lng = parseFloat(crrntValue.lng.toString());
+
         mapCoords.push({ lat: lat, lng: lng });
       })
-      
+
       this.polylineOptions.push({
         path: mapCoords,
-          strokeColor: color,
-          strokeOpacity: 1.0,
+        strokeColor: color,
+        strokeOpacity: 1.0,
         strokeWeight: 2,
-         icons: [
-            {
-              icon: this.googleMapService.getIcon(typeId),
-              offset: "50%",
-              repeat: "50%",
-              strokeColor: color,
-            },
-          ], 
+        icons: [
+          {
+            icon: this.googleMapService.getIcon(typeId),
+            offset: "50%",
+            repeat: "50%",
+            strokeColor: color,
+          },
+        ],
       })
     })
   }
@@ -81,43 +80,46 @@ export class GoogleMapComponent implements OnInit {
   filterByCompany(event: any) {
     this.polylineOptions = [];
     let _pipelines = null;
+    console.log(this.pipelines)
 
     if (this.filterType) {
-      _pipelines = this.pipelines.filter((item) => item.company_id == this.filterComp && item.pipeline_type_id == this.filterType);
+      console.log(this.filterType)
+      _pipelines = this.pipelines.filter((item) => item.Company.uid == this.filterComp && item.PipelineType.uid == this.filterType);
     }
-    else if(this.filterComp) {
-     _pipelines = this.pipelines.filter((item) => item.company_id == event.id);
+    else if (this.filterComp) {
+      console.log(event.uid)
+      _pipelines = this.pipelines.filter((item) => item.Company.uid == event.uid);
     }
     console.log(_pipelines)
     _pipelines.forEach((currentValue) => {
       let mapCoords = [];
-      let color = currentValue.company.color;
-      const typeId = currentValue.pipeline_type_id;
+      let color = currentValue.Company.color;
+      const typeId = currentValue.pipelineTypeId;
 
-      currentValue.pipeline_routes.forEach((crrntValue) => {
+      currentValue.pipelineRoutes.forEach((crrntValue) => {
         let lat = parseFloat(crrntValue.lat.toString());
-        let lng = parseFloat(crrntValue.long.toString());
-        
+        let lng = parseFloat(crrntValue.lng.toString());
+
         mapCoords.push({ lat: lat, lng: lng });
       })
       this.polylineOptions.push({
         path: mapCoords,
-          strokeColor: color,
-          strokeOpacity: 1.0,
+        strokeColor: color,
+        strokeOpacity: 1.0,
         strokeWeight: 2,
-          icons: [
-            {
-              icon: this.googleMapService.getIcon(typeId),
-              offset: "50%",
-              repeat: "50%",
-              strokeColor: color,
-            },
-          ], 
+        icons: [
+          {
+            icon: this.googleMapService.getIcon(typeId),
+            offset: "50%",
+            repeat: "50%",
+            strokeColor: color,
+          },
+        ],
       })
     })
   }
 
-  clearFilter(){
+  clearFilter() {
     console.log(this.tempPolylines)
     // return;
   }
@@ -154,48 +156,50 @@ export class GoogleMapComponent implements OnInit {
     this.pipelineEndPoint.list()
       .subscribe({
         next: (response) => {
-          this.pipelines = response.data;
+          this.pipelines = response;
+
           // this.polylineOptions
           const pipelineTypes: any[] = [];
           const companies: any = [];
-          this.pipelines.forEach((currentValue: any) => {
+          this.pipelines!.forEach((currentValue: any) => {
             let mapCoords = [];
-            let typeId = currentValue.pipeline_type_id;
-            let color = currentValue.company.color;
-            let companyData = { id: currentValue.company.id, name: currentValue.company.name };
-            let typeData = { id: currentValue.pipeline_type.id, name: currentValue.pipeline_type.name }
+            let typeId = currentValue.pipelineTypeId;
+            let color = currentValue.Company.color;
+            let companyData = { uid: currentValue.Company.uid, name: currentValue.Company.name };
+            let typeData = { uid: currentValue.PipelineType.uid, name: currentValue.PipelineType.name };
+            let check = companies.find((item) => item.uid == companyData.uid || item.name == companyData.name);
 
-            let check = companies.find((item) => item.id == companyData.id || item.name == companyData.name);
             if (!check) {
               companies.push(companyData);
             }
 
-            let check1 = pipelineTypes.find((item) => item.id == typeData.id || item.name == typeData.name);
+            let check1 = pipelineTypes.find((item) => item.uid == typeData.uid || item.name == typeData.name);
             if (!check1) {
               pipelineTypes.push(typeData);
             }
-            
-            currentValue.pipeline_routes.forEach((pipelineRoute: any  ) => {
+
+            currentValue.pipelineRoutes.forEach((pipelineRoute: any) => {
+
               let lat = parseFloat(pipelineRoute.lat);
-              let lng = parseFloat(pipelineRoute.long);
-                
+              let lng = parseFloat(pipelineRoute.lng);
+
               mapCoords.push({ lat: lat, lng: lng });
             });
 
-        this.polylineOptions.push({
-          path: mapCoords,
-          strokeColor: color,
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
-          icons: [
-            {
-              icon: this.googleMapService.getIcon(typeId),
-              offset: "50%",
-              repeat: "50%",
+            this.polylineOptions.push({
+              path: mapCoords,
               strokeColor: color,
-            },
-          ], 
-        })
+              strokeOpacity: 1.0,
+              strokeWeight: 2,
+              icons: [
+                {
+                  icon: this.googleMapService.getIcon(typeId),
+                  offset: "50%",
+                  repeat: "50%",
+                  strokeColor: 'color',
+                },
+              ],
+            })
           });
           this.tempPolylines = this.polylineOptions;
           this.pipelineType = pipelineTypes;

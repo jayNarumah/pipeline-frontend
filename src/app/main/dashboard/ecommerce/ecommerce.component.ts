@@ -102,14 +102,14 @@ export class EcommerceComponent implements OnInit {
       next: (response) => {
         this.company = response;
       },
-      error: (error) => this.blockUI.stop
+      error: () => this.blockUI.stop
     });
 
     this.countEndpoint.pipelineCount().subscribe({
       next: (response) => {
         this.pipeline = response;
       },
-      error: (error) => this.blockUI.stop()
+      error: () => this.blockUI.stop()
     });
 
     this.countEndpoint.pipelineTypeCount().subscribe({

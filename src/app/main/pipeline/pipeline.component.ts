@@ -31,12 +31,12 @@ export class PipelineComponent implements OnInit {
   pipelineName: string;
 
   pipelineData: RouteLoc[] = [];
-  pipelines: Pipeline[] = [];
-  companies: Company[] = [];
-  pipelineType = [];
-  pipelineRoute: PipelineRoute[] = [];
-  formRequestData: Pipeline;
-  data: Pipeline[] = [];
+  pipelines: any;
+  companies: any;
+  pipelineType: any;
+  pipelineRoute: any;
+  formRequestData: any;
+  data: any;
   public mapCenter;
 
   polylineOptions: PolylineOption[] = [];
@@ -64,12 +64,14 @@ export class PipelineComponent implements OnInit {
       company_id: this.fb.control(null, Validators.required),
       name: this.fb.control(null, Validators.required),
       size: this.fb.control(null, Validators.required),
-      start_lat: this.fb.control(null, [Validators.required, this.latRange.bind(this)]),
-      end_lat: this.fb.control(null, [Validators.required, this.latRange.bind(this)]),
-      start_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
-      end_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
+      // start_lat: this.fb.control(null, [Validators.required, this.latRange.bind(this)]),
+      // end_lat: this.fb.control(null, [Validators.required, this.latRange.bind(this)]),
+      // start_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
+      // end_long: this.fb.control(null, [Validators.required, this.longRange.bind(this)]),
       lat: this.fb.array([], [this.latRange.bind(this), this.isValidNumber.bind(this)]),
       long: this.fb.array([], [this.longRange.bind(this)]),
+
+      // coords: this.fb.array([], Validators.required)
     });
     this.mapCenter = this.googleMapService.getMapCenter();
 
@@ -108,7 +110,7 @@ export class PipelineComponent implements OnInit {
     this.pipelineEndpoint.list()
       .subscribe({
         next: (response) => {
-          this.data = response.data;
+          this.data = response;
           this.pipelineService.allRoutes(this.data);
           this.blockUI.stop();
         },
@@ -118,7 +120,7 @@ export class PipelineComponent implements OnInit {
     this.pipelineTypeEndpoint.list()
       .subscribe({
         next: (response) => {
-          this.pipelineType = response.data;
+          this.pipelineType = response;
           this.blockUI.stop();
         },
         error: (error) => this.blockUI.stop(),
@@ -127,21 +129,27 @@ export class PipelineComponent implements OnInit {
     this.companyEndPoint.list()
       .subscribe({
         next: (response) => {
-          this.companies = response.data;
+          this.companies = response;
           this.blockUI.stop();
         },
         error: (error) => this.blockUI.stop(),
       });
   }
 
+  get corodsFormControl() {
+    return (<FormArray>this.pipelineForm.controls['coords']);
+  }
+
+  get itemslastIndex() {
+    return this.corodsFormControl.length;
+  }
+
   isValidNumber(control: FormControl): { [s: string]: boolean } {
-    const num = new Number(control.value).valueOf();
-    let numbr = typeof num;
-    console.log(num === NaN)
+    // const num = new Number(co
     // new Node(num === NaN)
-    if (num === NaN && control.value != '') {
-      return { 'invNumber': true };
-    }
+    // if (num === NaN && control.value != '') {
+    //   return { 'invNumber': true };
+    // }
     return null;
   }
 
@@ -281,16 +289,16 @@ export class PipelineComponent implements OnInit {
     this.polylineOptions = this.pipelineService.polylineOptions;
 
     const formData: Pipeline = {
-      pipeline_type_id: this.pipelineFormControls['pipeline_type_id'].value,
-      company_id: this.pipelineFormControls['company_id'].value,
+      pipelineTypeId: this.pipelineFormControls['pipeline_type_id'].value,
+      companyId: this.pipelineFormControls['company_id'].value,
       name: this.pipelineFormControls['name'].value,
       size: this.pipelineFormControls['size'].value,
-      start_lat: this.pipelineFormControls['start_lat'].value,
-      end_lat: this.pipelineFormControls['end_lat'].value,
-      start_long: this.pipelineFormControls['start_long'].value,
-      end_long: this.pipelineFormControls['end_long'].value,
+      // start_lat: this.pipelineFormControls['start_lat'].value,
+      // end_lat: this.pipelineFormControls['end_lat'].value,
+      // start_long: this.pipelineFormControls['start_long'].value,
+      // end_long: this.pipelineFormControls['end_long'].value,
       lat: this.pipelineFormControls['lat'].value,
-      long: this.pipelineFormControls['long'].value,
+      lng: this.pipelineFormControls['long'].value,
     };
     this.formRequestData = formData;
 
@@ -312,13 +320,13 @@ export class PipelineComponent implements OnInit {
           this.operation = 'Add';
           this.data = this.data.map(entry => {
             if (entry.id == this.id) {
-              return response.data;
+              return response;
             }
             return entry;
           });
         }
         else {
-          this.data.push(response.data);
+          this.data.push(response);
         }
         Swal.hideLoading();
         this.hideForm();
@@ -336,8 +344,7 @@ export class PipelineComponent implements OnInit {
         Swal.hideLoading();
         Swal.fire(
           'Error',
-          error.message || error,
-          'error'
+          error.message
         );
       },
     });
@@ -389,14 +396,14 @@ export class PipelineComponent implements OnInit {
     this.id = event.row.data.id;
 
     this.pipelineForm.patchValue({
-      pipeline_type_id: pipelineData.pipeline_type_id,
-      company_id: pipelineData.company_id,
+      pipeline_type_id: pipelineData.pipelineTypeId,
+      company_id: pipelineData.companyId,
       name: pipelineData.name,
       size: pipelineData.size,
-      start_lat: pipelineData.start_lat,
-      end_lat: pipelineData.end_lat,
-      start_long: pipelineData.start_long,
-      end_long: pipelineData.end_long,
+      // start_lat: pipelineData.start_lat,
+      // end_lat: pipelineData.end_lat,
+      // start_long: pipelineData.start_long,
+      // end_long: pipelineData.end_long,
     });
   }
 
@@ -410,16 +417,16 @@ export class PipelineComponent implements OnInit {
     this.pipelineName = event.row.data.name;
 
     let data = [];
-    pData.pipeline_routes.forEach((currentValue: any) => {
+    pData.pipelineRoutes.forEach((currentValue: any) => {
       let lat = parseFloat(currentValue.lat);
-      let lng = parseFloat(currentValue.long);
+      let lng = parseFloat(currentValue.lng);
 
       data.push({ lat: lat, lng: lng })
 
     });
     this.polyline = {
       path: data,
-      strokeColor: pData.company.color,
+      strokeColor: pData.Company.color,
       strokeOpacity: 1.0,
       strokeWeight: 3,
     };

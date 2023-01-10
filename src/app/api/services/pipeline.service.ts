@@ -1,17 +1,16 @@
 import { RouteLoc } from "../models/pipeline-loc.model";
 import { PolylineOption } from "./google-map.service";
 
-export class PipelineService{
+export class PipelineService {
     routesData: RouteLoc[] = [];
     // mapCoords = [];
     polylineOptions: PolylineOption[] = [];
 
     isUnique(route: RouteLoc): boolean {
+        return true;
         const existingRoute = this.routesData.find(e => e.lat == route.lat && e.lng == route.lng);
         if (existingRoute) {
-            //to be interchanged
-            return true;
-            //return false;
+            return false;
         } else {
             return true;
         }
@@ -24,16 +23,17 @@ export class PipelineService{
     removePolyline() {
         this.polylineOptions.pop()
     }
-    
+
     allRoutes(data: any[]) {
         this.polylineOptions = []
         data.forEach((currentValue: any) => {
             let mapCords = [];
-            let color = currentValue.company.color;
+            let color = currentValue.Company.color;
+            console.log(currentValue)
 
-            currentValue.pipeline_routes.forEach((crrntValue: any) => {
-            mapCords.push({lat: parseFloat(crrntValue.lat), lng: parseFloat(crrntValue.long)})
-            this.routesData.push({ lat: crrntValue.lat, lng: crrntValue.long });
+            currentValue.pipelineRoutes.forEach((crrntValue: any) => {
+                mapCords.push({ lat: parseFloat(crrntValue.lat), lng: parseFloat(crrntValue.lng) })
+                this.routesData.push({ lat: crrntValue.lat, lng: crrntValue.lng });
             });
             this.polylineOptions.push({
                 path: mapCords,
@@ -43,9 +43,8 @@ export class PipelineService{
             })
         });
     }
-    
-    addRoute(data: RouteLoc)
-    {
+
+    addRoute(data: RouteLoc) {
         // this.mapCoords.push({lat: parseFloat(data.lat), lng: parseFloat(data.lng)})
         this.routesData.push(data);
     }

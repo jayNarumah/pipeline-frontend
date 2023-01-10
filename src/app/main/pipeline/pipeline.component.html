@@ -128,86 +128,19 @@
                                                                     </small>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-6">
-                                                                <label for="start_lat">Start Latitude</label>
-                                                                <input type="number" class="form-control"
-                                                                    formControlName="start_lat" placeholder="Start Latitude"
-                                                                    name="start_lat" id="start_lat" />
-
-                                                                <div *ngIf="
-                                                                    pipelineFormControls['start_lat'].invalid &&
-                                                                    pipelineFormControls['start_lat'].touched
-                                                                    " class="text-danger">
-                                                                    <small
-                                                                        *ngIf="pipelineFormControls['start_lat'].errors?.['required']">
-                                                                        start latitude is required
-                                                                    </small>
-                                                                    <small *ngIf="pipelineFormControls['start_lat'].errors?.['invLat']">Latitude value must be between -90 to 90</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <label for="end_lat">End Latitude</label>
-                                                                <input type="number" class="form-control"
-                                                                    formControlName="end_lat" placeholder="End Latitude"
-                                                                     />
-
-                                                                <div *ngIf="
-                                                                    pipelineFormControls['end_lat'].invalid &&
-                                                                    pipelineFormControls['end_lat'].touched
-                                                                    " class="text-danger">
-                                                                    <small
-                                                                        *ngIf="pipelineFormControls['end_lat'].errors?.['required']">
-                                                                        End Latitude is required
-                                                                    </small>
-                                                                    <small *ngIf="pipelineFormControls['end_lat'].errors?.['invLat']">Latitude value must be between -90 to 90</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <label for="start_long">Start Long</label>
-                                                                <input type="number" class="form-control"
-                                                                    formControlName="start_long" placeholder="Start Longitude"
-                                                                    name="start_long" id="start_long" />
-
-                                                                <div *ngIf="
-                                                                    pipelineFormControls['start_long'].invalid &&
-                                                                    pipelineFormControls['start_long'].touched
-                                                                    " class="text-danger">
-                                                                    <small
-                                                                        *ngIf="pipelineFormControls['start_long'].errors?.['required']">
-                                                                        Start Longitude is required
-                                                                    </small>
-                                                                    <small *ngIf="pipelineFormControls['start_long'].errors?.['invLong']">Longitude value must be between -180 to 180</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <label for="end">End Longitude</label>
-                                                                <input type="number" class="form-control" formControlName="end_long" placeholder="End Longitude" name="end_long"
-                                                                    id="end_long" />
-                                                            
-                                                                <div *ngIf="
-                                                                    pipelineFormControls['end_long'].invalid &&
-                                                                    pipelineFormControls['end_long'].touched
-                                                                    " class="text-danger">
-                                                                    <small *ngIf="pipelineFormControls['end_long'].errors?.['required']">
-                                                                        End Logitude is required
-                                                                    </small>
-                                                                    <small *ngIf="pipelineFormControls['end_long'].errors?.['invLong']">Longitude value must be between -180 to 180</small>
-                                                                    <small *ngIf="pipelineFormControls['end_long'].errors?.['DuplicateRoute']">Sorry, this route is already occupied</small>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-actions right" *ngIf="operation != 'Update'">
                                                         <h4 class="text-uppercase font-weight-bold">Section: Add Pipeline Routes</h4>
-                                                    
+                                                        
                                                         <div class="row">
                                                             <div class="col-6" formArrayName="lat">
                                                                 <div style="margin-bottom: 7px;" *ngFor="let route of pipelineFormControls['lat'].controls; let i = index">
                                                                     <input type="text" class="form-control" [formControlName]="i" placeholder="Latitude" />
                                                                     <div *ngIf="
-                                                                        pipelineFormControls['lat'].invalid &&
-                                                                        pipelineFormControls['lat'].touched
-                                                                        " class="text-danger">
+                                                                                                                                pipelineFormControls['lat'].invalid &&
+                                                                                                                                pipelineFormControls['lat'].touched
+                                                                                                                                " class="text-danger">
                                                                         <small *ngIf="pipelineFormControls['lat'].errors?.['required']">
                                                                             End Logitude is required
                                                                         </small>
@@ -216,24 +149,26 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-6" formArrayName="long" >
+                                                            <div class="col-6" formArrayName="long">
                                                                 <div style="margin-bottom: 7px;" *ngFor="let route of pipelineFormControls['long'].controls; let i = index">
-                                                                    <input type="text" class="form-control" [formControlName]="i" placeholder="Longitude" name="name" id="name" />
+                                                                    <input type="text" class="form-control" [formControlName]="i" placeholder="Longitude" name="name"
+                                                                        id="name" />
                                                                     <div *ngIf="
-                                                                        pipelineFormControls['long'].invalid &&
-                                                                        pipelineFormControls['long'].touched
-                                                                        " class="text-danger">
+                                                                                                                                pipelineFormControls['long'].invalid &&
+                                                                                                                                pipelineFormControls['long'].touched
+                                                                                                                                " class="text-danger">
                                                                         <small *ngIf="pipelineFormControls['long'].errors?.['required']">
                                                                             End Logitude is required
                                                                         </small>
                                                                         <small *ngIf="pipelineFormControls['long'].errors?.['invLong']">Longitude value must be between -180 to
                                                                             180</small>
                                                                         <!-- <small *ngIf="pipelineFormControls['long'].errors?.['invNumber']">Sorry, this route is already
-                                                                            occupied</small> -->
-
+                                                                                                                                    occupied</small> -->
+                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            
                                                             <small class="text-danger" *ngIf="errorMsg">
                                                                 Sorry, Provided co-ordinate was already taken
                                                             </small>
@@ -243,7 +178,8 @@
                                                                 <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
                                                                 <span class="align-middle d-sm-inline-block d-none">Remove Route</span>
                                                             </button>
-                                                        <button type="button" class="btn btn-primary btn-sm" rippleEffect (click)="addCoordinate()" [disabled]="pipelineFormControls['lat'].invalid || pipelineFormControls['long'].invalid">
+                                                        <button type="button" class="btn btn-primary btn-sm" rippleEffect (click)="addCoordinate()"
+                                                            [disabled]="pipelineFormControls['lat'].invalid || pipelineFormControls['long'].invalid">
                                                             <span class="align-middle d-sm-inline-block d-none">Add Route</span>
                                                             <i data-feather="save" class="align-middle ml-sm-25 ml-0"></i>
                                                         </button>
@@ -315,35 +251,35 @@
                                                             <p>{{ formRequestData?.size }}</p>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <!-- <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="first-name-icon"
                                                                 class="form-label font-weight-bold text-primary">Start Latitude</label>
                                                             <p>{{ formRequestData?.start_lat }}</p>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
+                                                    </div> -->
+                                                    <!-- <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="first-name-icon" class="form-label font-weight-bold text-primary">End Latitude</label>
                                                             <p>{{ formRequestData?.end_lat }}</p>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
+                                                    </div> -->
+                                                    <!-- <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="first-name-icon" class="form-label font-weight-bold text-primary">Start Longitude</label>
                                                             <p>{{ formRequestData?.start_long }}</p>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
+                                                    </div> -->
+                                                    <!-- <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="first-name-icon" class="form-label font-weight-bold text-primary">End Longitude</label>
                                                             <p>{{ formRequestData?.end_long }}</p>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
-                                                <div class="form-actions right" *ngIf="pipelineFormControls['lat'].value">
+                                                <!-- <div class="form-actions right" *ngIf="pipelineFormControls['lat'].value"> -->
                                                 
-                                                </div>
+                                                <!-- </div> -->
                                                 <div class="card-body">
                                                     <!-- Google Maps Basic Component -->
                                                     <google-map height="450px" width="'60%'" mapTypeId="hybrid" [center]="mapCenter" [zoom]="6">
@@ -408,12 +344,12 @@
                         <dxo-filter-row [visible]="true"></dxo-filter-row>
                         <dxi-column dataField="name" caption="Pipeline Name">
                         </dxi-column>
-                        <dxi-column dataField="company.name" caption=" Company"></dxi-column>
+                        <dxi-column dataField="Company.name" caption=" Company"></dxi-column>
                         <dxi-column dataField="size" caption="Pipeline Size"></dxi-column>
-                        <dxi-column dataField="start_lat" caption="Start Latitude"></dxi-column>
+                        <!-- <dxi-column dataField="start_lat" caption="Start Latitude"></dxi-column>
                         <dxi-column dataField="end_lat" caption="End Latitude"></dxi-column>
                         <dxi-column dataField="start_long" caption="Start Longitude"></dxi-column>
-                        <dxi-column dataField="end_long" caption="End Longitude"></dxi-column>
+                        <dxi-column dataField="end_long" caption="End Longitude"></dxi-column> -->
                         <dxi-column type="buttons" fixed="true" caption="Actions">
                             <dxi-button icon="edit" text="Edit" [onClick]="loadItem">
                             </dxi-button>

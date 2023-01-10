@@ -17,20 +17,20 @@ export class PipelineTypeEndpoint {
         return this.httpClient.get<{ data: PipelineType[] }>(`${this.baseUrl}`);
     }
 
-    single(id: number) {
-        return this.httpClient.get<{ data: PipelineType }>(`${this.baseUrl}/${id}`);
+    single(uid: string) {
+        return this.httpClient.get<{ data: PipelineType }>(`${this.baseUrl}/${uid}`);
     }
 
     create(data: PipelineType) {
         return this.httpClient.post<{ data: PipelineType }>(`${this.baseUrl}`, data);
     }
 
-    delete(id: number) {
-        return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+    delete(uid: string) {
+        return this.httpClient.delete<void>(`${this.baseUrl}/${uid}`);
     }
 
-    update(id: number, data: PipelineType) {
-        return this.httpClient.put<{ data: PipelineType }>(`${this.baseUrl}/${id}`, data);
+    update(uid: string, data: PipelineType) {
+        return this.httpClient.patch<{ data: PipelineType }>(`${this.baseUrl}/${uid}`, data);
     }
 
 

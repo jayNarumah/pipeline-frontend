@@ -43,12 +43,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="media-body" style="width: 210px;">
-                                                        <ng-select [items]="pipelineType" (change)="filterByType($event)" [addTag]="true" bindValue="id"
+                                                        <ng-select [items]="pipelineType" (change)="filterByType($event)" [addTag]="true" bindValue="uid"
                                                             bindLabel="name" placeholder="Filter-By Pipeline-Type" (clear)="clearFilter()" [(ngModel)]="filterType" style="width: 100%;">
                                                             <ng-template ng-label-tmp let-item="item" let-clear="clear">
                                                                 <span class="ng-value-label">
                                                                     {{ item.name }}</span>
-                                                                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                                                <!-- <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span> -->
                                                             </ng-template>
                                                         </ng-select>
                                                     </div>
@@ -62,12 +62,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="media-body" style="width: 210px;">
-                                                        <ng-select [items]="companies" [addTag]="true" bindValue="id" bindLabel="name"
+                                                        <ng-select [items]="companies" [addTag]="true" bindValue="uid" bindLabel="name"
                                                             (change)="filterByCompany($event)" placeholder="Filter-By Company" [(ngModel)]="filterComp" style="width: 100%;">
                                                             <ng-template ng-label-tmp let-item="item" let-clear="clear">
                                                                 <span class="ng-value-label">
                                                                     {{ item.name }}</span>
-                                                                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                                                <!-- <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span> -->
                                                             </ng-template>
                                                         </ng-select>
                                                     </div>

@@ -14,7 +14,7 @@ export class PipelineEndpoint {
     constructor(private readonly httpClient: HttpClient) { }
 
     list() {
-        return this.httpClient.get<{ data: Pipeline[] }>(`${this.baseUrl}`);
+        return this.httpClient.get<Pipeline[]>(`${this.baseUrl}`);
     }
 
     single(id: number) {

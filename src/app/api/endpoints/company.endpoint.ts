@@ -17,20 +17,20 @@ export class CompanyEndpoint {
         return this.httpClient.get<{ data: Company[] }>(`${this.baseUrl}`);
     }
 
-    single(id: number) {
-        return this.httpClient.get<{ data: Company }>(`${this.baseUrl}/${id}`);
+    single(uid: string) {
+        return this.httpClient.get<{ data: Company }>(`${this.baseUrl}/${uid}`);
     }
 
     create(data: Company) {
         return this.httpClient.post<{ data: Company }>(`${this.baseUrl}`, data);
     }
 
-    delete(id: number) {
-        return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+    delete(uid: string) {
+        return this.httpClient.delete<void>(`${this.baseUrl}/${uid}`);
     }
 
-    update(id: number, data: Company) {
-        return this.httpClient.put<{ data: Company }>(`${this.baseUrl}/${id}`, data);
+    update(uid: string, data: Company) {
+        return this.httpClient.patch<{ data: Company }>(`${this.baseUrl}/${uid}`, data);
     }
 
 

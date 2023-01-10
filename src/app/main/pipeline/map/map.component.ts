@@ -33,7 +33,7 @@ export class MapComponent implements OnInit {
     this.pipelineEndPoint.list()
       .subscribe({
         next: (response) => {
-          this.pipelines = response.data;
+          this.pipelines = response;
         },
         error: (error) => console.log('Error: ', error),
       });
@@ -54,8 +54,8 @@ export class MapComponent implements OnInit {
   }
   selectPipeline(e: any) {
     this.pipelineData.splice(0, this.pipelineData.length);
-    e.value.forEach((currentValue: any  ) => {
-      this.pipelineData.push({lat: currentValue.lat, lng: currentValue.long})
+    e.value.forEach((currentValue: any) => {
+      this.pipelineData.push({ lat: currentValue.lat, lng: currentValue.long })
 
     });
     this.routes = this.routes.map((item) => {
@@ -66,17 +66,17 @@ export class MapComponent implements OnInit {
 
   allRoutes() {
     this.pipelineData.splice(0, this.pipelineData.length);
-    this.pipelines.forEach((currentValue: any  ) => {
-      currentValue.pipeline_routes.forEach((pipelineRoute: any  ) => {
+    this.pipelines.forEach((currentValue: any) => {
+      currentValue.pipeline_routes.forEach((pipelineRoute: any) => {
         // console.log(pipelineRoute)
-        this.pipelineData.push({lat: pipelineRoute.lat, lng: pipelineRoute.long})
+        this.pipelineData.push({ lat: pipelineRoute.lat, lng: pipelineRoute.long })
 
-    });
+      });
     });
 
     this.routes = this.routes.map((item) => {
       item.locations = this.pipelineData
-      console.log('Data',this.pipelineData)
+      console.log('Data', this.pipelineData)
       return item;
     });
     // console.log(this.pipelineData)
@@ -86,12 +86,12 @@ export class MapComponent implements OnInit {
 
     this.pipelineData.splice(0, this.pipelineData.length);
     this.routes.splice(0, this.routes.length);
-    this.pipelines.forEach((currentValue: any  ) => {
-      currentValue.pipeline_routes.forEach((pipelineRoute: any  ) => {
+    this.pipelines.forEach((currentValue: any) => {
+      currentValue.pipeline_routes.forEach((pipelineRoute: any) => {
         // console.log(pipelineRoute)
-        this.pipelineData.push({lat: pipelineRoute.lat, lng: pipelineRoute.long})
+        this.pipelineData.push({ lat: pipelineRoute.lat, lng: pipelineRoute.long })
 
-    });
+      });
     });
 
     this.routes.push(
@@ -106,7 +106,7 @@ export class MapComponent implements OnInit {
 
     this.routes = this.routes.map((item) => {
       item.locations = this.pipelineData
-      console.log('Data',this.pipelineData)
+      console.log('Data', this.pipelineData)
       return item;
     });
     // console.log(this.pipelineData)

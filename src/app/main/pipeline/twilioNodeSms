@@ -1,0 +1,14 @@
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_TOKEN;
+    const twilioNumber = process.env.TWILIO_SENDER;
+    const myNumber = "+2347066352444";
+
+    const client = new Twilio(accountSid, authToken);
+
+    await client.messages
+      .create({
+        from: twilioNumber,
+        to: myNumber,
+        body: "You just sent an SMS from TypeScript using Twilio!",
+      })
+      .then((message) => console.log(message.sid));

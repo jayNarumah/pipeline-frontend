@@ -2,21 +2,22 @@ import { Company } from "./company.model";
 import { PipelineRoute } from "./pipeline-route.model";
 import { PipelineType } from "./pipeline-type.model";
 
-export interface Pipeline{
+export interface Pipeline {
   id?: number,
+  uid?: string,
   //company: Company
   name: string,
-  pipeline_type_id: number,
+  pipelineTypeId?: number,
   size: number,
-  start_lat: number,
-  end_lat: number,
-  start_long: number,
-  end_long: number,
-  company_id: number,
-  pipeline_routes?: PipelineRoute[],
-  pipeline_type?: PipelineType,
+  // start_lat: number,
+  // end_lat: number,
+  // start_long: number,
+  // end_long: number,
+  companyId: number,
+  pipelineRoutes?: PipelineRoute[],
+  PipelineType?: PipelineType,
   lat?: number,
-  long?: number,
-  company?: Company,
+  lng?: number,
+  Company?: Company,
 
 }

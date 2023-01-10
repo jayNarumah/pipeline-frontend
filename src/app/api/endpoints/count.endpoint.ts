@@ -7,17 +7,17 @@ import { environment } from "environments/environment";
     providedIn: 'root',
 })
 export class CountEndpoint {
-    baseUrl = `${environment.apiUrl}`;
+    baseUrl = `${environment.apiUrl}/statistic`;
 
     constructor(private readonly httpClient: HttpClient) { }
-    
+
     pipelineCount() {
-        return this.httpClient.get<number>(`${this.baseUrl}/pipeline-count`);
+        return this.httpClient.get<number>(`${this.baseUrl}/pipelines`);
     }
     pipelineTypeCount() {
-        return this.httpClient.get<number>(`${this.baseUrl}/type-count`);
+        return this.httpClient.get<number>(`${this.baseUrl}/pipeline-types`);
     }
     companyCount() {
-        return this.httpClient.get<number>(`${this.baseUrl}/company-count`);
+        return this.httpClient.get<number>(`${this.baseUrl}/companies`);
     }
 }

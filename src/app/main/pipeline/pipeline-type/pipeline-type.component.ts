@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./pipeline-type.component.scss']
 })
 export class PipelineTypeComponent implements OnInit {
-  data: PipelineType[] = [];
+  data?: any;
   pipelineTypeForm: FormGroup;
   formRequestData?: PipelineType;
 
@@ -22,7 +22,7 @@ export class PipelineTypeComponent implements OnInit {
   operation = 'Add';
 
   displaySectionForm = false;
-  id: number;
+  uid: string;
   pipelineType;
 
   constructor(
@@ -65,7 +65,7 @@ export class PipelineTypeComponent implements OnInit {
     this.pipelineTypeEndpoint.list()
       .subscribe({
         next: (response) => {
-          this.data = response.data;
+          this.data = response;
           this.blockUI.stop();
         },
         error: (error) => {
@@ -109,10 +109,10 @@ export class PipelineTypeComponent implements OnInit {
       }
     }).then(result => {
       if (result.value) {
-        this.pipelineTypeEndpoint.delete(event.row.data.id).subscribe(
+        this.pipelineTypeEndpoint.delete(event.row.data.uid).subscribe(
           success => {
             this.data = this.data.filter(
-              e => e.id !== event.row.data.id
+              e => e.uid !== event.row.data.uid
             );
             Swal.fire({
               icon: 'success',
@@ -142,10 +142,10 @@ export class PipelineTypeComponent implements OnInit {
   loadItem(event) {
     this.addItem();
     this.pipelineType = this.data.find(
-      item => item.id === event.row.data.id
+      item => item.uid === event.row.data.uid
     );
 
-    this.id = event.row.data.id;
+    this.uid = event.row.data.uid;
 
     this.pipelineTypeForm.patchValue({
       name: this.pipelineType.name,
@@ -174,13 +174,13 @@ export class PipelineTypeComponent implements OnInit {
     this.formRequestData = formData;
 
     if (this.operation === 'Update') {
-      this.pipelineTypeEndpoint.update(this.id, this.formRequestData)
+      this.pipelineTypeEndpoint.update(this.uid, this.formRequestData)
         .subscribe({
           next: (response) => {
             Swal.hideLoading();
             this.data = this.data.map(item => {
-              if (item.id == this.id) {
-                return response.data;
+              if (item.uid == this.uid) {
+                return response;
               }
               else {
                 return item;
@@ -218,7 +218,7 @@ export class PipelineTypeComponent implements OnInit {
                 confirmButton: 'btn btn-success'
               }
             });
-            this.data.push(response.data);
+            this.data.push(response);
 
           },
           error: (error) => {

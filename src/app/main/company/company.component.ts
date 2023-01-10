@@ -20,18 +20,18 @@ export class CompanyComponent implements OnInit {
 
   companyForm: FormGroup;
   operation = 'Add';
-  id?: number;
-  
+  uid?: string;
+
   canShowConfirmationForm = false;
   canSubmitcompanyForm = false;
   displaySectionForm = false;
   canShowCompanyForm = true;
- 
+
   companies: Company[] = [];
   formRequestData: Company;
-  data: Company[] = [];
+  data: any;
   color;
-  
+
   constructor(
     private fb: FormBuilder,
     private readonly companyEndpoint: CompanyEndpoint,
@@ -44,7 +44,7 @@ export class CompanyComponent implements OnInit {
       phone_number: this.fb.control(null, [Validators.required]),
       email: this.fb.control(null, [Validators.required]),
     });
-    
+
     this.loadItem = this.loadItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
   }
@@ -79,7 +79,7 @@ export class CompanyComponent implements OnInit {
     this.companyEndpoint.list()
       .subscribe({
         next: (response) => {
-          this.data = response.data;
+          this.data = response;
           this.blockUI.stop();
         },
         error: (error) => this.blockUI.stop(),
@@ -92,7 +92,7 @@ export class CompanyComponent implements OnInit {
       let color = this.genColorService.displayColorCode();
       this.color = color;
     }
-    
+
 
     const formData: Company = {
       name: this.companyFormControls['name'].value,
@@ -113,16 +113,16 @@ export class CompanyComponent implements OnInit {
     // Make Request to API
     let httpCall =
       this.operation === 'Update'
-        ? this.companyEndpoint.update(this.id, this.formRequestData)
+        ? this.companyEndpoint.update(this.uid, this.formRequestData)
         : this.companyEndpoint.create(this.formRequestData);
-    
+
     httpCall.subscribe({
       next: (response) => {
         if (this.operation === 'Update') {
           this.operation = 'Add';
           this.data = this.data.map(item => {
-            if (item.id == this.id) {
-              return response.data;
+            if (item.uid == this.uid) {
+              return response;
             }
             else {
               return item;
@@ -131,7 +131,7 @@ export class CompanyComponent implements OnInit {
 
         }
         else {
-          this.data.push(response.data);
+          this.data.push(response);
         }
         Swal.hideLoading();
         this.hideForm();
@@ -187,7 +187,7 @@ export class CompanyComponent implements OnInit {
       item => item.id === event.row.data.id
     );
 
-    this.id = event.row.data.id;
+    this.uid = event.row.data.uid;
     this.color = companyData.color;
 
     this.companyForm.patchValue({
@@ -211,10 +211,10 @@ export class CompanyComponent implements OnInit {
       }
     }).then(result => {
       if (result.value) {
-        this.companyEndpoint.delete(event.row.data.id).subscribe(
+        this.companyEndpoint.delete(event.row.data.uid).subscribe(
           success => {
             this.data = this.data.filter(
-              e => e.id !== event.row.data.id
+              e => e.uid !== event.row.data.uid
             );
             // this.alert.success('Record deleted');
             Swal.fire({
